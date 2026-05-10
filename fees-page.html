@@ -774,6 +774,38 @@ section {
     overflow: hidden;
 }
 
+.integration-cta {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.integration-cta-button {
+    display: inline-block;
+    background: var(--blue);
+    color: var(--white);
+    padding: 1.1rem 2.75rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: var(--body);
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(0,132,211,0.3);
+}
+
+.integration-cta-button:hover {
+    background: var(--blue-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,132,211,0.4);
+}
+
+.integration-cta-sub {
+    color: rgba(255,255,255,0.65);
+    font-size: 0.85rem;
+    margin-top: 1rem;
+}
+
 .integration-section::before {
     content: '';
     position: absolute;
@@ -1520,6 +1552,11 @@ section {
             <p>The pieces support each other. A protected income floor lets the investment portfolio be appropriately positioned for growth, because you're not depending on it for monthly income in a bad year. The investment side funds rebalancing, tax-loss harvesting, and ongoing planning that insurance products can't do. Each tool does what it's best at, and the plan is more durable than either side could be alone.</p>
 
             <p style="margin-top: 1.5rem;">This is what I mean by <em>"hybrid advisor"</em> — and it's why most of my clients have both.</p>
+
+            <div class="integration-cta">
+                <a href="https://www.jantzwealth.com/schedule" target="_top" class="integration-cta-button">Schedule a Conversation</a>
+                <p class="integration-cta-sub">No cost. No obligation.</p>
+            </div>
         </div>
     </div>
 </section>
