@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find Your Portfolio | Jantz Wealth Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #00446A;
+    --navy-deep: #002F4A;
+    --blue: #0084D3;
+    --blue-soft: #E8F1F8;
+    --charcoal: #353E44;
+    --charcoal-soft: #5F6770;
+    --bg: #F2F4F7;
+    --bg-accent: #F2F4F7;
+    --line: #E5E7EB;
+    --line-soft: #EFF1F4;
+    --white: #FFFFFF;
+    --green: #15803D;
+    --red: #B91C1C;
+
+    --display: 'Montserrat', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --body: 'Inter', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+
+    --shadow-sm: 0 1px 2px rgba(0, 68, 106, 0.04);
+    --shadow-md: 0 4px 24px rgba(0, 68, 106, 0.06);
+    --shadow-lg: 0 12px 48px rgba(0, 68, 106, 0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: var(--body);
+    color: var(--charcoal);
+    background: var(--bg);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body { padding: 24px 16px; }
+
+  .frame {
+    max-width: 720px;
+    margin: 0 auto;
+    background: var(--white);
+    border-radius: 4px;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .frame::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--navy);
+  }
+
+  .screen {
+    display: none;
+    padding: 56px 56px 48px;
+    animation: fadeIn 320ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .screen.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─────────── INTRO ─────────── */
+  .eyebrow {
+    font-family: var(--body);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 24px;
+    height: 1px;
+    background: var(--navy);
+  }
+
+  .display-h1 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 44px;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    color: var(--navy);
+    margin-bottom: 20px;
+  }
+  .display-h1 em {
+    font-style: normal;
+    color: var(--blue);
+  }
+
+  .lede {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--charcoal);
+    margin-bottom: 36px;
+    max-width: 540px;
+  }
+
+  .meta-row {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+    padding: 20px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .meta-num {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .meta-label {
+    font-size: 12px;
+    color: var(--charcoal-soft);
+    letter-spacing: 0.02em;
+  }
+
+  /* ─────────── BUTTONS ─────────── */
+  .btn {
+    font-family: var(--body);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: var(--navy);
+    color: var(--white);
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: var(--navy-deep);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 68, 106, 0.25);
+  }
+  .btn-primary:disabled {
+    background: var(--line);
+    color: var(--charcoal-soft);
+    cursor: not-allowed;
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--charcoal-soft);
+    padding: 14px 0;
+  }
+  .btn-ghost:hover { color: var(--navy); }
+  .btn-arrow { transition: transform 200ms; }
+  .btn-primary:hover:not(:disabled) .btn-arrow { transform: translateX(3px); }
+
+  /* ─────────── PROGRESS ─────────── */
+  .progress-bar {
+    height: 2px;
+    background: var(--line-soft);
+    margin: -3px -56px 40px;
+    position: relative;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--navy);
+    transition: width 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0%;
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--charcoal-soft);
+  }
+  .progress-section { color: var(--blue); }
+
+  /* ─────────── QUESTION ─────────── */
+  .q-number {
+    font-family: var(--body);
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--charcoal-soft);
+    margin-bottom: 12px;
+  }
+
+  .q-text {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+    margin-bottom: 32px;
+  }
+
+  /* ─────────── ANSWER CARDS ─────────── */
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: left;
+    font-family: var(--body);
+    font-size: 15px;
+    color: var(--charcoal);
+    line-height: 1.45;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+  .option:hover {
+    border-color: var(--navy);
+    background: var(--bg);
+    transform: translateX(2px);
+  }
+  .option.selected {
+    border-color: var(--navy);
+    background: var(--blue-soft);
+    color: var(--navy);
+    font-weight: 500;
+  }
+  .option.selected::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--navy);
+  }
+
+  .option-marker {
+    flex: 0 0 auto;
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid var(--line);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 180ms;
+  }
+  .option:hover .option-marker { border-color: var(--navy); }
+  .option.selected .option-marker {
+    border-color: var(--navy);
+    background: var(--navy);
+  }
+  .option.selected .option-marker::after {
+    content: "";
+    width: 7px;
+    height: 7px;
+    background: var(--white);
+    border-radius: 50%;
+  }
+
+  .option-text { flex: 1; }
+
+  /* ─────────── NAVIGATION ─────────── */
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 24px;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  /* ─────────── RESULTS ─────────── */
+  .result-eyebrow { color: var(--blue); }
+  .result-eyebrow::before { background: var(--blue); }
+
+  .result-name {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 38px;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+  .result-name em {
+    font-style: normal;
+  }
+
+  .result-tagline {
+    font-family: var(--body);
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--charcoal-soft);
+    margin-bottom: 36px;
+    max-width: 560px;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-bottom: 36px;
+  }
+  .stat {
+    background: var(--white);
+    padding: 20px 16px;
+  }
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--charcoal-soft);
+    margin-bottom: 8px;
+  }
+  .stat-value {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1;
+    color: var(--navy);
+  }
+  .stat.cagr .stat-value { color: var(--green); }
+  .stat.maxdd .stat-value { color: var(--red); }
+
+  .allocation-section { margin-bottom: 36px; }
+  .allocation-title {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--charcoal-soft);
+    margin-bottom: 14px;
+  }
+  .allocation-bar {
+    display: flex;
+    height: 14px;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .allocation-segment {
+    height: 100%;
+    transition: opacity 200ms;
+  }
+  .allocation-segment:hover { opacity: 0.85; }
+
+  .allocation-legend {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 24px;
+  }
+  .legend-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+  }
+  .legend-swatch {
+    width: 10px;
+    height: 10px;
+    border-radius: 1px;
+    flex-shrink: 0;
+  }
+  .legend-ticker {
+    font-weight: 600;
+    color: var(--navy);
+    min-width: 42px;
+  }
+  .legend-name {
+    color: var(--charcoal-soft);
+    flex: 1;
+  }
+  .legend-weight {
+    font-weight: 600;
+    color: var(--navy);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cta-section {
+    background: var(--bg-accent);
+    border-radius: 3px;
+    padding: 28px;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  .cta-headline {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--navy);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .cta-sub {
+    font-size: 14px;
+    color: var(--charcoal-soft);
+    margin-bottom: 22px;
+    line-height: 1.5;
+    max-width: 460px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta-primary-row {
+    margin-bottom: 14px;
+  }
+  .cta-secondary-link {
+    display: inline-block;
+    font-family: var(--body);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--blue);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: color 200ms;
+    padding: 4px 0;
+  }
+  .cta-secondary-link:hover {
+    color: var(--navy);
+    text-decoration: underline;
+  }
+  .cta-secondary-link .btn-arrow {
+    transition: transform 200ms;
+    display: inline-block;
+  }
+  .cta-secondary-link:hover .btn-arrow {
+    transform: translateX(2px);
+  }
+  .cta-tertiary-row {
+    margin-top: 12px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+
+  .disclaimer {
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--charcoal-soft);
+    padding-top: 24px;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .score-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: var(--bg-accent);
+    border-radius: 20px;
+    font-size: 12px;
+    color: var(--charcoal);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .score-pill-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--blue);
+  }
+
+  /* ─────────── RESPONSIVE ─────────── */
+  @media (max-width: 600px) {
+    body { padding: 16px 8px; }
+    .screen { padding: 36px 24px 32px; }
+    .progress-bar { margin: -3px -24px 32px; }
+    .display-h1 { font-size: 32px; }
+    .q-text { font-size: 20px; }
+    .lede { font-size: 15px; }
+    .result-name { font-size: 28px; }
+    .result-tagline { font-size: 16px; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat-value { font-size: 20px; }
+    .allocation-legend { grid-template-columns: 1fr; }
+    .meta-row { gap: 20px; }
+    .meta-num { font-size: 20px; }
+    .nav-row { flex-direction: row-reverse; }
+    .cta-primary-row .btn { width: 100%; justify-content: center; }
+    .cta-tertiary-row .btn { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="frame">
+
+  <!-- ═══════════ INTRO ═══════════ -->
+  <section id="intro" class="screen active">
+    <div class="eyebrow">Jantz Wealth Solutions</div>
+    <h1 class="display-h1">Find the investment strategy that <em>fits your goals.</em></h1>
+    <p class="lede">
+      A short questionnaire to help you identify which of our four core portfolios
+      most closely aligns with your goals, time horizon, and comfort with risk.
+    </p>
+
+    <div class="meta-row">
+      <div class="meta-item">
+        <div class="meta-num">12</div>
+        <div class="meta-label">Questions</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-num">3 min</div>
+        <div class="meta-label">Approximate time</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-num">4</div>
+        <div class="meta-label">Possible portfolios</div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="startQuiz()">
+      Begin <span class="btn-arrow">→</span>
+    </button>
+  </section>
+
+  <!-- ═══════════ QUESTION ═══════════ -->
+  <section id="question" class="screen">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="progress-meta">
+      <span class="progress-section" id="sectionLabel">Goals</span>
+      <span><span id="qCurrent">1</span> of 12</span>
+    </div>
+
+    <div class="q-number" id="qNumber">Question 01</div>
+    <h2 class="q-text" id="qText"></h2>
+
+    <div class="options" id="options"></div>
+
+    <div class="nav-row">
+      <button class="btn btn-ghost" id="backBtn" onclick="prevQuestion()">← Back</button>
+      <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
+        Next <span class="btn-arrow">→</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══════════ RESULTS ═══════════ -->
+  <section id="results" class="screen">
+    <div class="score-pill">
+      <span class="score-pill-dot"></span>
+      <span>Your score: <strong id="scoreDisplay"></strong> of 48</span>
+    </div>
+
+    <div class="eyebrow result-eyebrow">Recommended Portfolio</div>
+    <h1 class="result-name" id="resultName"></h1>
+    <p class="result-tagline" id="resultTagline"></p>
+
+    <div class="stat-grid">
+      <div class="stat cagr">
+        <div class="stat-label">Annual Return</div>
+        <div class="stat-value" id="statCagr"></div>
+      </div>
+      <div class="stat maxdd">
+        <div class="stat-label">Max Drawdown</div>
+        <div class="stat-value" id="statDD"></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Yield</div>
+        <div class="stat-value" id="statYield"></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Expense</div>
+        <div class="stat-value" id="statER"></div>
+      </div>
+    </div>
+
+    <div class="allocation-section">
+      <div class="allocation-title">Allocation</div>
+      <div class="allocation-bar" id="allocationBar"></div>
+      <div class="allocation-legend" id="allocationLegend"></div>
+    </div>
+
+    <div class="cta-section">
+      <h3 class="cta-headline">Discuss this with your advisor.</h3>
+      <p class="cta-sub">
+        This questionnaire is a starting point. A conversation with our team
+        will help confirm whether this allocation is right for your full financial picture.
+      </p>
+      <div class="cta-primary-row">
+        <a href="https://www.jantzwealth.com/schedule" class="btn btn-primary" target="_blank" rel="noopener">
+          Schedule a Meeting <span class="btn-arrow">→</span>
+        </a>
+      </div>
+      <a href="#" class="cta-secondary-link" id="calculatorLink" target="_top">
+        Explore the <span id="calcPortfolioName">portfolio</span> calculator first <span class="btn-arrow">→</span>
+      </a>
+      <div class="cta-tertiary-row">
+        <button class="btn btn-ghost" onclick="restart()">Take Again</button>
+      </div>
+    </div>
+
+    <p class="disclaimer">
+      This questionnaire is provided for informational and educational purposes only. The portfolio match
+      reflects a directional indication based on your responses and is not an offer or recommendation to
+      buy or sell any security. Investment advisory services offered through Brookstone Wealth Advisors, LLC
+      (BWA), a registered investment advisor. BWA and Brookstone Capital Management, LLC are affiliated
+      companies. BWA and Jantz Wealth Solutions are independent of each other. Insurance products and
+      services are not offered through BWA but are offered and sold through individually licensed and
+      appointed agents. Past performance is not indicative of future results. All investing involves risk,
+      including the possible loss of principal.
+    </p>
+  </section>
+
+</div>
+
+<script>
+  // ─────────────────────────────────────────────────────────────
+  // QUESTIONS — 12 questions across 6 categories
+  // Each option carries a score 1-4. Total range 12-48.
+  // ─────────────────────────────────────────────────────────────
+  const QUESTIONS = [
+    // ── Goals ──
+    {
+      section: 'Goals',
+      text: "What's the primary purpose of this portfolio?",
+      options: [
+        { text: "Preserving the wealth I've already accumulated", value: 1 },
+        { text: "Generating reliable income to support my lifestyle", value: 2 },
+        { text: "Building wealth steadily over the long term", value: 3 },
+        { text: "Maximizing long-term growth", value: 4 },
+      ]
+    },
+    {
+      section: 'Goals',
+      text: "Roughly what portion of your total invested assets does this portfolio represent?",
+      options: [
+        { text: "Most of my investable assets (75%+)", value: 1 },
+        { text: "A large portion (50–75%)", value: 2 },
+        { text: "About a third (25–50%)", value: 3 },
+        { text: "A smaller portion (less than 25%)", value: 4 },
+      ]
+    },
+    {
+      section: 'Goals',
+      text: "Which feels worse to you?",
+      options: [
+        { text: "Losing 10% of my portfolio in a bad year", value: 1 },
+        { text: "Watching inflation slowly erode my money's purchasing power", value: 2 },
+        { text: "Missing out on a strong market that I wasn't fully invested in", value: 3 },
+        { text: "Falling behind investors who took more risk than I did", value: 4 },
+      ]
+    },
+
+    // ── Time Horizon ──
+    {
+      section: 'Time Horizon',
+      text: "When do you expect to start using a meaningful portion of this money?",
+      options: [
+        { text: "Within 3 years", value: 1 },
+        { text: "3 to 7 years", value: 2 },
+        { text: "8 to 15 years", value: 3 },
+        { text: "More than 15 years", value: 4 },
+      ]
+    },
+    {
+      section: 'Time Horizon',
+      text: "Could you need to withdraw a significant amount from this portfolio unexpectedly in the next 1–2 years?",
+      options: [
+        { text: "Very likely", value: 1 },
+        { text: "Possibly", value: 2 },
+        { text: "Probably not", value: 3 },
+        { text: "Definitely not", value: 4 },
+      ]
+    },
+
+    // ── Risk Capacity ──
+    {
+      section: 'Risk Capacity',
+      text: "Outside of this portfolio, do you have separate liquid savings to cover at least 6 months of expenses?",
+      options: [
+        { text: "No — this portfolio is essentially my only savings", value: 1 },
+        { text: "I have less than 3 months covered elsewhere", value: 2 },
+        { text: "I have 3 to 6 months covered", value: 3 },
+        { text: "Yes — substantial separate emergency reserves", value: 4 },
+      ]
+    },
+    {
+      section: 'Risk Capacity',
+      text: "If this portfolio lost 20% in a single year, how would that affect your lifestyle?",
+      options: [
+        { text: "Severely — I'd need to make major changes", value: 1 },
+        { text: "Significantly — I'd need to reduce spending", value: 2 },
+        { text: "Manageably — I'd be uncomfortable but adjust", value: 3 },
+        { text: "Minimally — my lifestyle wouldn't materially change", value: 4 },
+      ]
+    },
+
+    // ── Risk Tolerance ──
+    {
+      section: 'Risk Tolerance',
+      text: "Which return profile would you find most appealing?",
+      options: [
+        { text: "Average return ~5%, worst year roughly −3%", value: 1 },
+        { text: "Average return ~7%, worst year roughly −7%", value: 2 },
+        { text: "Average return ~9%, worst year roughly −12%", value: 3 },
+        { text: "Average return ~11%, worst year roughly −20%", value: 4 },
+      ]
+    },
+    {
+      section: 'Risk Tolerance',
+      text: "What's the largest single-year loss you'd be willing to tolerate in pursuit of higher long-term returns?",
+      options: [
+        { text: "Less than 5% — I can't tolerate much loss", value: 1 },
+        { text: "5% to 10% — manageable, but the upper limit", value: 2 },
+        { text: "10% to 15% — acceptable for better returns", value: 3 },
+        { text: "More than 15% — I can stomach significant declines", value: 4 },
+      ]
+    },
+
+    // ── Behavior ──
+    {
+      section: 'Behavior',
+      text: "In April 2025, the S&P 500 dropped 12% in a matter of days during the tariff volatility. If your portfolio experienced a similar drop, what's your most likely response?",
+      options: [
+        { text: "Sell everything to prevent further losses", value: 1 },
+        { text: "Move some assets to safer investments", value: 2 },
+        { text: "Hold steady — I trust the long-term plan", value: 3 },
+        { text: "Add more — these are buying opportunities", value: 4 },
+      ]
+    },
+    {
+      section: 'Behavior',
+      text: "Imagine you invested $100,000 and after one year it's worth $85,000. How do you feel?",
+      options: [
+        { text: "Very anxious — I'd struggle to stay invested", value: 1 },
+        { text: "Concerned — I'd want to discuss with my advisor", value: 2 },
+        { text: "Disappointed but patient — markets fluctuate", value: 3 },
+        { text: "Opportunistic — I might add more at lower prices", value: 4 },
+      ]
+    },
+
+    // ── Self-Assessment ──
+    {
+      section: 'Self-Assessment',
+      text: "Which statement best describes you as an investor?",
+      options: [
+        { text: '"Protecting my wealth is more important than growing it."', value: 1 },
+        { text: '"I prefer steady growth with minimal turbulence."', value: 2 },
+        { text: '"I accept market ups and downs for long-term growth."', value: 3 },
+        { text: '"I prioritize maximum long-term growth, even with significant volatility."', value: 4 },
+      ]
+    },
+  ];
+
+  // ─────────────────────────────────────────────────────────────
+  // PORTFOLIOS — must mirror your build outputs
+  // ─────────────────────────────────────────────────────────────
+  const PORTFOLIOS = {
+    consLV: {
+      name: 'Global Core Conservative <em>– Low Volatility</em>',
+      shortName: 'Conservative – Low Volatility',
+      calculatorUrl: 'https://www.jantzwealth.com/conservative-lowvol-calculator',
+      tagline: 'Designed for risk-averse investors prioritizing capital preservation with reduced volatility and minimal drawdowns.',
+      cagr: '7.61%',  maxdd: '−2.95%',  yield: '2.63%',  er: '0.16%',
+      allocation: [
+        { ticker: 'SPLV', name: 'U.S. Low Volatility',    weight: 20, color: '#00446A' },
+        { ticker: 'SCHF', name: 'International Equity',   weight: 10, color: '#0084D3' },
+        { ticker: 'SCUS', name: 'Ultra-Short Income',     weight: 30, color: '#4A86A8' },
+        { ticker: 'SCHD', name: 'U.S. Dividend Equity',   weight: 20, color: '#7FB3D9' },
+        { ticker: 'IAU',  name: 'Gold / Hard Asset',      weight: 20, color: '#C8A560' },
+      ],
+    },
+    cons: {
+      name: 'Global Core Conservative',
+      shortName: 'Conservative',
+      calculatorUrl: 'https://www.jantzwealth.com/conservative-calculator',
+      tagline: 'Designed for investors prioritizing capital preservation with steady growth and limited drawdowns.',
+      cagr: '8.52%',  maxdd: '−5.86%',  yield: '2.41%',  er: '0.11%',
+      allocation: [
+        { ticker: 'SCHB', name: 'U.S. Equity',            weight: 20, color: '#00446A' },
+        { ticker: 'SCHF', name: 'International Equity',   weight: 10, color: '#0084D3' },
+        { ticker: 'SCUS', name: 'Ultra-Short Income',     weight: 30, color: '#4A86A8' },
+        { ticker: 'SCHD', name: 'U.S. Dividend Equity',   weight: 20, color: '#7FB3D9' },
+        { ticker: 'IAU',  name: 'Gold / Hard Asset',      weight: 20, color: '#C8A560' },
+      ],
+    },
+    mod: {
+      name: 'Global Core Moderate',
+      shortName: 'Moderate',
+      calculatorUrl: 'https://www.jantzwealth.com/moderate-calculator',
+      tagline: 'Designed for investors seeking growth with built-in guardrails to limit drawdowns.',
+      cagr: '9.93%',  maxdd: '−9.42%',  yield: '2.15%',  er: '0.09%',
+      allocation: [
+        { ticker: 'SCHB', name: 'U.S. Equity',            weight: 35, color: '#00446A' },
+        { ticker: 'SCHF', name: 'International Equity',   weight: 15, color: '#0084D3' },
+        { ticker: 'SCUS', name: 'Ultra-Short Income',     weight: 20, color: '#4A86A8' },
+        { ticker: 'SCHD', name: 'U.S. Dividend Equity',   weight: 15, color: '#7FB3D9' },
+        { ticker: 'IAU',  name: 'Gold / Hard Asset',      weight: 15, color: '#C8A560' },
+      ],
+    },
+    agg: {
+      name: 'Global Core Aggressive',
+      shortName: 'Aggressive',
+      calculatorUrl: 'https://www.jantzwealth.com/aggressive-calculator',
+      tagline: 'Designed for investors seeking maximum growth while being comfortable with volatility in exchange for higher long-term returns.',
+      cagr: '12.64%', maxdd: '−13.62%', yield: '1.73%',  er: '0.06%',
+      allocation: [
+        { ticker: 'SCHB', name: 'U.S. Equity',            weight: 55, color: '#00446A' },
+        { ticker: 'SCHF', name: 'International Equity',   weight: 15, color: '#0084D3' },
+        { ticker: 'SCHD', name: 'U.S. Dividend Equity',   weight: 20, color: '#7FB3D9' },
+        { ticker: 'IAU',  name: 'Gold / Hard Asset',      weight: 10, color: '#C8A560' },
+      ],
+    },
+  };
+
+  // Score brackets — equal quartiles across the 12-48 score range
+  function pickPortfolio(score) {
+    if (score <= 21) return PORTFOLIOS.consLV;
+    if (score <= 30) return PORTFOLIOS.cons;
+    if (score <= 39) return PORTFOLIOS.mod;
+    return PORTFOLIOS.agg;
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // STATE
+  // ─────────────────────────────────────────────────────────────
+  let currentIdx = 0;
+  let answers = new Array(QUESTIONS.length).fill(null);
+
+  // Tell parent window how tall this iframe needs to be.
+  // Measures the .frame element directly (not document/body) to avoid
+  // a feedback loop where iframe resize → fills viewport → grows scrollHeight.
+  function postHeight() {
+    if (window.parent === window) return;  // not in iframe, skip
+    const frame = document.querySelector('.frame');
+    if (!frame) return;
+    // Frame card height + body's vertical padding (24px top + 24px bottom)
+    const height = Math.ceil(frame.getBoundingClientRect().height + 48);
+    window.parent.postMessage({ type: 'jantz-quiz-resize', height: height }, '*');
+  }
+
+  function show(screenId) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(screenId).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Wait for fade-in animation to settle before measuring
+    setTimeout(postHeight, 380);
+  }
+
+  function startQuiz() {
+    currentIdx = 0;
+    answers = new Array(QUESTIONS.length).fill(null);
+    show('question');
+    renderQuestion();
+  }
+
+  function pad2(n) { return String(n).padStart(2, '0'); }
+
+  function renderQuestion() {
+    const q = QUESTIONS[currentIdx];
+    const total = QUESTIONS.length;
+
+    document.getElementById('progressFill').style.width =
+      `${((currentIdx + 1) / total) * 100}%`;
+    document.getElementById('sectionLabel').textContent = q.section;
+    document.getElementById('qCurrent').textContent = currentIdx + 1;
+    document.getElementById('qNumber').textContent = `Question ${pad2(currentIdx + 1)}`;
+    document.getElementById('qText').textContent = q.text;
+
+    const optionsEl = document.getElementById('options');
+    optionsEl.innerHTML = '';
+    q.options.forEach((opt) => {
+      const btn = document.createElement('button');
+      btn.className = 'option' + (answers[currentIdx] === opt.value ? ' selected' : '');
+      btn.innerHTML = `
+        <span class="option-marker"></span>
+        <span class="option-text">${opt.text}</span>
+      `;
+      btn.onclick = () => selectOption(opt.value);
+      optionsEl.appendChild(btn);
+    });
+
+    document.getElementById('backBtn').style.visibility =
+      currentIdx === 0 ? 'hidden' : 'visible';
+    document.getElementById('nextBtn').disabled = answers[currentIdx] === null;
+    document.getElementById('nextBtn').innerHTML = currentIdx === total - 1
+      ? 'See My Result <span class="btn-arrow">→</span>'
+      : 'Next <span class="btn-arrow">→</span>';
+
+    // Re-measure: question text length varies, so iframe needs to resize
+    // each time we navigate between questions (not just between screens).
+    // requestAnimationFrame ensures the browser has laid out the new content first.
+    requestAnimationFrame(postHeight);
+  }
+
+  function selectOption(value) {
+    answers[currentIdx] = value;
+    renderQuestion();
+  }
+
+  function nextQuestion() {
+    if (answers[currentIdx] === null) return;
+    if (currentIdx === QUESTIONS.length - 1) {
+      finishQuiz();
+    } else {
+      currentIdx++;
+      renderQuestion();
+    }
+  }
+
+  function prevQuestion() {
+    if (currentIdx > 0) {
+      currentIdx--;
+      renderQuestion();
+    }
+  }
+
+  function finishQuiz() {
+    const score = answers.reduce((sum, v) => sum + (v || 0), 0);
+    const portfolio = pickPortfolio(score);
+    renderResults(score, portfolio);
+    show('results');
+  }
+
+  function renderResults(score, p) {
+    document.getElementById('scoreDisplay').textContent = score;
+    document.getElementById('resultName').innerHTML = p.name;
+    document.getElementById('resultTagline').textContent = p.tagline;
+    document.getElementById('statCagr').textContent = p.cagr;
+    document.getElementById('statDD').textContent = p.maxdd;
+    document.getElementById('statYield').textContent = p.yield;
+    document.getElementById('statER').textContent = p.er;
+
+    // Point the secondary calculator link to the matched portfolio's calculator page
+    const calcLink = document.getElementById('calculatorLink');
+    calcLink.href = p.calculatorUrl;
+    document.getElementById('calcPortfolioName').textContent = p.shortName;
+
+    const bar = document.getElementById('allocationBar');
+    bar.innerHTML = '';
+    p.allocation.forEach(a => {
+      const seg = document.createElement('div');
+      seg.className = 'allocation-segment';
+      seg.style.width = `${a.weight}%`;
+      seg.style.background = a.color;
+      seg.title = `${a.ticker} — ${a.weight}%`;
+      bar.appendChild(seg);
+    });
+
+    const legend = document.getElementById('allocationLegend');
+    legend.innerHTML = '';
+    p.allocation.forEach(a => {
+      const row = document.createElement('div');
+      row.className = 'legend-row';
+      row.innerHTML = `
+        <span class="legend-swatch" style="background:${a.color}"></span>
+        <span class="legend-ticker">${a.ticker}</span>
+        <span class="legend-name">${a.name}</span>
+        <span class="legend-weight">${a.weight}%</span>
+      `;
+      legend.appendChild(row);
+    });
+  }
+
+  function restart() { show('intro'); }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    const questionVisible = document.getElementById('question').classList.contains('active');
+    if (!questionVisible) return;
+    if (e.key === 'ArrowRight' && answers[currentIdx] !== null) nextQuestion();
+    if (e.key === 'ArrowLeft' && currentIdx > 0) prevQuestion();
+    const num = parseInt(e.key);
+    if (num >= 1 && num <= 4) {
+      const opt = QUESTIONS[currentIdx].options[num - 1];
+      if (opt) selectOption(opt.value);
+    }
+  });
+
+  // Auto-resize: post initial height on load, and again once fonts settle
+  // (web fonts can shift layout slightly after first paint).
+  window.addEventListener('load', () => setTimeout(postHeight, 100));
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => setTimeout(postHeight, 50));
+  }
+</script>
+
+</body>
+</html>
