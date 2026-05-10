@@ -452,6 +452,21 @@ section {
     margin-top: 0.5rem;
 }
 
+.calc-output-monthly {
+    font-size: 0.9rem;
+    color: var(--charcoal-soft);
+    font-style: italic;
+    margin-top: 0.6rem;
+    line-height: 1.5;
+}
+
+.calc-output-monthly strong {
+    color: var(--charcoal);
+    font-weight: 600;
+    font-style: normal;
+    font-variant-numeric: tabular-nums;
+}
+
 .calc-output-rows {
     display: flex;
     flex-direction: column;
@@ -1346,12 +1361,12 @@ section {
             </div>
             <div class="schedule-table-row">
                 <div class="schedule-table-cell">Next $2,000,000 ($1M – $3M)</div>
-                <div class="schedule-table-cell numeric">0.45%</div>
+                <div class="schedule-table-cell numeric">0.40%</div>
                 <div class="schedule-table-cell numeric hide-mobile">0.40%</div>
             </div>
             <div class="schedule-table-row">
                 <div class="schedule-table-cell">Above $3,000,000</div>
-                <div class="schedule-table-cell numeric">0.35%</div>
+                <div class="schedule-table-cell numeric">0.30%</div>
                 <div class="schedule-table-cell numeric hide-mobile">0.40%</div>
             </div>
         </div>
@@ -1400,6 +1415,7 @@ section {
                         <div class="calc-output-total-label">Annual Advisory Fee</div>
                         <div class="calc-output-total" id="output-total">$13,750</div>
                         <div class="calc-output-pct" id="output-pct">1.375% blended advisor/platform</div>
+                        <div class="calc-output-monthly">That's about <strong id="output-monthly">$1,146</strong>/month, debited from your account.</div>
                     </div>
                 </div>
                 <div class="calc-output-rows">
@@ -1538,16 +1554,16 @@ function calculateFees(assets) {
         return { advisor: 0, platform: 0, tech: 0, total: 0, pct: 0 };
     }
 
-    // Advisor fee tiers: 1.00% / 0.80% / 0.45% / 0.35% at $500K, $1M, $3M
+    // Advisor fee tiers: 1.00% / 0.80% / 0.40% / 0.30% at $500K, $1M, $3M
     let advisor = 0;
     if (assets <= 500000) {
         advisor = assets * 0.0100;
     } else if (assets <= 1000000) {
         advisor = 500000 * 0.0100 + (assets - 500000) * 0.0080;
     } else if (assets <= 3000000) {
-        advisor = 500000 * 0.0100 + 500000 * 0.0080 + (assets - 1000000) * 0.0045;
+        advisor = 500000 * 0.0100 + 500000 * 0.0080 + (assets - 1000000) * 0.0040;
     } else {
-        advisor = 500000 * 0.0100 + 500000 * 0.0080 + 2000000 * 0.0045 + (assets - 3000000) * 0.0035;
+        advisor = 500000 * 0.0100 + 500000 * 0.0080 + 2000000 * 0.0040 + (assets - 3000000) * 0.0030;
     }
 
     // Platform fee tiers: 0.50% / 0.45% / 0.40% at $500K, $1M
@@ -1577,9 +1593,11 @@ function updateCalc() {
     const aumFee = fees.advisor + fees.platform;
     const aumPct = assets > 0 ? (aumFee / assets) * 100 : 0;
     const grandTotal = aumFee + fees.tech;
+    const monthly = aumFee / 12;
 
     document.getElementById('output-total').textContent = formatCurrency(aumFee);
     document.getElementById('output-pct').textContent = aumPct.toFixed(3) + '% blended advisor/platform';
+    document.getElementById('output-monthly').textContent = formatCurrency(monthly);
     document.getElementById('output-advisor').textContent = formatCurrency(fees.advisor);
     document.getElementById('output-platform').textContent = formatCurrency(fees.platform);
     document.getElementById('output-grand-total').textContent = formatCurrency(grandTotal);
