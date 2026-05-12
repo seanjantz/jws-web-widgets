@@ -201,5 +201,36 @@
   </div>
 </section>
 
+<script>
+  // Tells the parent Duda page how tall this section is, so the iframe
+  // resizes cleanly across desktop, tablet, and mobile.
+  (function() {
+    function sendHeight() {
+      var h = Math.max(
+        document.body.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.scrollHeight,
+        document.documentElement.offsetHeight
+      );
+      window.parent.postMessage(
+        { type: 'jantz-keep-advisor-resize', height: h },
+        '*'
+      );
+    }
+    window.addEventListener('load', sendHeight);
+    window.addEventListener('resize', sendHeight);
+    if (typeof ResizeObserver !== 'undefined') {
+      new ResizeObserver(sendHeight).observe(document.body);
+    }
+    // Fallback: send a few times in the first 3 seconds in case of late
+    // font loading or other content shifts.
+    var attempts = 0;
+    var interval = setInterval(function() {
+      sendHeight();
+      if (++attempts >= 6) clearInterval(interval);
+    }, 500);
+  })();
+</script>
+
 </body>
 </html>
