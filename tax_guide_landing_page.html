@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Taxes No One Warned You About in Retirement | Jantz Wealth Solutions</title>
+<meta name="description" content="A free 2026 guide to Social Security taxes, IRMAA surcharges, RMDs, capital gains, and the planning window where coordinated decisions can avoid most of them.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="The Taxes No One Warned You About in Retirement">
+<meta property="og:description" content="A free 2026 guide from Jantz Wealth Solutions showing the four tax cascades waiting in retirement, and how coordinated planning can avoid them.">
+<meta property="og:type" content="website">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Kit form script -->
+<script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+
+<style>
+/* ======================================
+   BRAND TOKENS
+   ====================================== */
+:root {
+  --navy: #00446A;
+  --navy-dark: #002F4A;
+  --blue: #0084D3;
+  --bronze: #B8794A;
+  --bronze-light: #E8D9BC;
+  --cream: #FCFAF6;
+  --charcoal: #353E44;
+  --gray-text: #5A6470;
+  --gray-bg: #F8FAFC;
+  --gray-border: #E5E7EB;
+  --white: #FFFFFF;
+  --font-head: 'Montserrat', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--charcoal);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.container-narrow {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ======================================
+   HERO
+   ====================================== */
+.hero {
+  padding: 64px 0 72px;
+  background: linear-gradient(180deg, var(--white) 0%, var(--gray-bg) 100%);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.hero-eyebrow {
+  font-family: var(--font-head);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--bronze);
+  margin-bottom: 18px;
+}
+
+.hero-headline {
+  font-family: var(--font-head);
+  font-size: 42px;
+  line-height: 1.12;
+  color: var(--navy);
+  font-weight: 500;
+  margin: 0 0 18px;
+  letter-spacing: -0.015em;
+}
+
+@media (max-width: 700px) {
+  .hero-headline { font-size: 30px; }
+}
+
+.hero-subhead {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--charcoal);
+  margin: 0 0 28px;
+}
+
+.hero-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px;
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--charcoal);
+}
+
+.hero-bullets li {
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 10px;
+}
+
+.hero-bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+
+.hero-bullets li::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 11px;
+  width: 6px;
+  height: 3px;
+  border-left: 1.5px solid var(--white);
+  border-bottom: 1.5px solid var(--white);
+  transform: rotate(-45deg);
+}
+
+.hero-form-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 26px;
+  border: 1px solid var(--gray-border);
+  box-shadow: 0 4px 24px rgba(0, 68, 106, 0.08);
+  max-width: 520px;
+}
+
+.hero-form-label {
+  font-family: var(--font-head);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.hero-form-title {
+  font-family: var(--font-head);
+  font-size: 18px;
+  color: var(--navy);
+  font-weight: 500;
+  margin: 0 0 16px;
+  line-height: 1.35;
+}
+
+.hero-form-privacy {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--gray-text);
+  text-align: center;
+  margin: 4px 0 0;
+  font-style: italic;
+}
+
+.hero-image-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 540px;
+  height: auto;
+  display: block;
+}
+
+/* ======================================
+   SECTIONS
+   ====================================== */
+.section {
+  padding: 80px 0;
+}
+
+.section-tight {
+  padding: 64px 0;
+}
+
+.section-gray { background: var(--gray-bg); }
+
+.section-cream { background: var(--cream); }
+
+.section-eyebrow {
+  font-family: var(--font-head);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--blue);
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.section-eyebrow-bronze { color: var(--bronze); }
+
+.section-heading {
+  font-family: var(--font-head);
+  font-size: 34px;
+  line-height: 1.2;
+  color: var(--navy);
+  font-weight: 500;
+  margin: 0 0 18px;
+  text-align: center;
+  letter-spacing: -0.012em;
+}
+
+@media (max-width: 700px) {
+  .section-heading { font-size: 26px; }
+}
+
+.section-intro {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--charcoal);
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 48px;
+}
+
+/* ======================================
+   FOUR TAXES
+   ====================================== */
+.tax-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+@media (max-width: 700px) {
+  .tax-grid { grid-template-columns: 1fr; }
+}
+
+.tax-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 26px 28px;
+  border: 1px solid var(--gray-border);
+  border-left: 4px solid var(--blue);
+}
+
+.tax-num {
+  font-family: var(--font-head);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--blue);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.tax-title {
+  font-family: var(--font-head);
+  font-size: 19px;
+  color: var(--navy);
+  font-weight: 500;
+  margin: 0 0 10px;
+  line-height: 1.25;
+}
+
+.tax-desc {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--gray-text);
+  margin: 0;
+}
+
+/* ======================================
+   GOLDEN WINDOW TEASER
+   ====================================== */
+.gw-teaser {
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.gw-timeline {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 0;
+  margin: 36px auto 36px;
+  max-width: 680px;
+  align-items: stretch;
+}
+
+.gw-timeline-cell {
+  background: #F0EEEA;
+  padding: 18px 14px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.gw-timeline-cell-center {
+  background: var(--cream);
+  border: 2px solid var(--bronze);
+  border-radius: 6px;
+  padding: 18px 16px;
+}
+
+.gw-cell-title {
+  font-family: var(--font-head);
+  font-size: 14px;
+  color: var(--navy);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.gw-cell-title-bronze { font-size: 16px; }
+
+.gw-cell-sub {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--gray-text);
+}
+
+.gw-cell-sub-bronze {
+  color: var(--bronze);
+  font-style: italic;
+}
+
+.gw-teaser-text {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--charcoal);
+  margin: 0 auto;
+  max-width: 660px;
+}
+
+.gw-teaser-text strong {
+  color: var(--bronze);
+  font-weight: 500;
+}
+
+/* ======================================
+   WHO THIS IS FOR
+   ====================================== */
+.who-list {
+  max-width: 760px;
+  margin: 36px auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 36px;
+}
+
+@media (max-width: 700px) {
+  .who-list { grid-template-columns: 1fr; }
+}
+
+.who-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--charcoal);
+}
+
+.who-check {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  background: var(--blue);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 1px;
+  position: relative;
+}
+
+.who-check::before {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 4px;
+  border-left: 2px solid var(--white);
+  border-bottom: 2px solid var(--white);
+  transform: rotate(-45deg);
+  top: 8px;
+  left: 8px;
+}
+
+/* ======================================
+   ABOUT
+   ====================================== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 44px;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (max-width: 700px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    text-align: center;
+  }
+}
+
+.about-photo {
+  width: 100%;
+  border-radius: 12px;
+  background: var(--cream);
+  border: 1px solid var(--bronze-light);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+}
+
+.about-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.about-eyebrow {
+  font-family: var(--font-head);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--bronze);
+  margin-bottom: 10px;
+}
+
+.about-name {
+  font-family: var(--font-head);
+  font-size: 24px;
+  color: var(--navy);
+  font-weight: 500;
+  margin: 0 0 14px;
+  letter-spacing: -0.005em;
+}
+
+.about-text {
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--charcoal);
+  margin: 0 0 12px;
+}
+
+.about-text:last-child { margin-bottom: 0; }
+
+.about-text strong {
+  color: var(--navy);
+  font-weight: 500;
+}
+
+/* ======================================
+   FINAL CTA
+   ====================================== */
+.cta-section {
+  background: var(--navy);
+  padding: 72px 0;
+  text-align: center;
+}
+
+.cta-section .section-eyebrow {
+  color: var(--bronze-light);
+}
+
+.cta-section .section-heading {
+  color: var(--white);
+}
+
+.cta-section .section-intro {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.cta-form-wrap {
+  max-width: 520px;
+  margin: 0 auto;
+  background: var(--white);
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.cta-form-title {
+  font-family: var(--font-head);
+  font-size: 17px;
+  color: var(--navy);
+  font-weight: 500;
+  margin: 0 0 14px;
+  line-height: 1.35;
+  text-align: center;
+}
+
+/* ======================================
+   KIT FORM OVERRIDES
+   Match Kit's form to brand styling
+   ====================================== */
+.formkit-form[data-uid="ac4a3e51a2"] {
+  font-family: var(--font-body) !important;
+  max-width: 100% !important;
+}
+
+.formkit-form[data-uid="ac4a3e51a2"] [data-style="clean"] {
+  padding: 0 !important;
+}
+
+.formkit-form[data-uid="ac4a3e51a2"] .formkit-fields {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  margin: 0 !important;
+}
+
+.formkit-form[data-uid="ac4a3e51a2"] .formkit-field {
+  margin: 0 !important;
+  flex: 1 0 100% !important;
+}
+
+.formkit-form[data-uid="ac4a3e51a2"] .formkit-input {
+  font-family: var(--font-body) !important;
+  font-size: 15px !important;
+  padding: 13px 14px !important;
+  border: 1px solid var(--gray-border) !important;
+  border-radius: 8px !important;
+  color: var(--charcoal) !important;
+  background: var(--white) !important;
+  width: 100% !important;
+  transition: border-color 200ms !important;
+}
+
+.formkit-form[data-uid="ac4a3e51a2"] .formkit-input:focus {
+  outline: none !important;
+  border-color: var(--blue) !important;
+  box-shadow: 0 0 0 3px rgba(0, 132, 211, 0.15) !important;
+}
+
+.formkit-form[data-uid="ac4a3e51a2"] .formkit-input::placeholder {
+  color: var(--gray-text) !important;
+  opacity: 0.7 !important;
+}
+
+.formkit-form[data-uid="ac4a3e51a2"] .formkit-submit {
+  background-color: var(--navy) !important;
+  color: var(--white) !important;
+  font-family: var(--font-head) !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em !important;
+  border-radius: 8px !important;
+  margin: 4px 0 0 !important;
+  width: 100% !important;
+  transition: background-color 200ms !important;
+}
+
+.formkit-form[data-uid="ac4a3e51a2"] .formkit-submit:hover {
+  background-color: var(--navy-dark) !important;
+}
+
+.formkit-form[data-uid="ac4a3e51a2"] .formkit-submit > span {
+  padding: 14px 24px !important;
+  color: var(--white) !important;
+}
+
+.formkit-form[data-uid="ac4a3e51a2"] .formkit-submit:hover > span {
+  background-color: transparent !important;
+  color: var(--white) !important;
+}
+
+.formkit-form[data-uid="ac4a3e51a2"] .formkit-alert-success {
+  background: var(--cream) !important;
+  border: 1px solid var(--bronze) !important;
+  color: var(--navy) !important;
+  font-family: var(--font-body) !important;
+  font-size: 14.5px !important;
+  line-height: 1.55 !important;
+  padding: 16px 20px !important;
+  border-radius: 8px !important;
+  margin: 0 !important;
+}
+
+.formkit-form[data-uid="ac4a3e51a2"] .formkit-alert-error {
+  font-family: var(--font-body) !important;
+  font-size: 13px !important;
+  border-radius: 8px !important;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ======================================
+     HERO
+     ====================================== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="hero-eyebrow">A FREE 2026 GUIDE FROM JANTZ WEALTH SOLUTIONS</div>
+        <h1 class="hero-headline">The taxes no one warned you about in retirement.</h1>
+        <p class="hero-subhead">A practical 2026 guide to Social Security taxation, IRMAA surcharges, RMDs, the capital gains squeeze, and the planning window where coordinated decisions can avoid most of them.</p>
+        <ul class="hero-bullets">
+          <li>The four hidden tax cascades most retirees never see coming</li>
+          <li>The eight-to-thirteen-year window where coordinated planning matters most</li>
+          <li>Three concrete things you can do this week to find your own window</li>
+        </ul>
+        <div class="hero-form-card">
+          <div class="hero-form-label">DOWNLOAD THE FREE GUIDE</div>
+          <h3 class="hero-form-title">Send me the 2026 retirement tax guide.</h3>
+          <form action="https://app.kit.com/forms/9435625/subscriptions" class="seva-form formkit-form" method="post" data-sv-form="9435625" data-uid="ac4a3e51a2" data-format="inline" data-version="5" data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Success! Now check your email to download your eBook (check Promotions folder and Spam)","redirect_url":""},"analytics":{"google":null,"fathom":null,"facebook":null,"segment":null,"pinterest":null,"sparkloop":null,"googletagmanager":null},"modal":{"trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"powered_by":{"show":false,"url":"https://kit.com/features/forms?utm_campaign=poweredby&utm_content=form&utm_medium=referral&utm_source=dynamic"},"recaptcha":{"enabled":false},"return_visitor":{"action":"show","custom_content":""},"slide_in":{"display_in":"bottom_right","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"sticky_bar":{"display_in":"top","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15}},"version":"5"}'>
+            <div data-style="clean">
+              <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
+              <div data-element="fields" data-stacked="true" class="seva-fields formkit-fields">
+                <div class="formkit-field">
+                  <input class="formkit-input" aria-label="First Name" name="fields[first_name]" required="" placeholder="First name" type="text">
+                </div>
+                <div class="formkit-field">
+                  <input class="formkit-input" aria-label="Last Name" name="fields[last_name]" required="" placeholder="Last name" type="text">
+                </div>
+                <div class="formkit-field">
+                  <input class="formkit-input" name="email_address" aria-label="Email Address" placeholder="Email address" required="" type="email">
+                </div>
+                <button data-element="submit" class="formkit-submit formkit-submit">
+                  <div class="formkit-spinner"><div></div><div></div><div></div></div>
+                  <span>Download the guide</span>
+                </button>
+              </div>
+            </div>
+          </form>
+          <p class="hero-form-privacy">No spam. Unsubscribe anytime.</p>
+        </div>
+      </div>
+      <div class="hero-image-wrap">
+        <img src="four-taxes-guide-mockup.png" alt="The Taxes No One Warned You About in Retirement — 2026 Updated Guide, shown on print, laptop, and mobile" class="hero-image">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================
+     FOUR TAXES SECTION
+     ====================================== -->
+<section class="section section-gray">
+  <div class="container">
+    <div class="section-eyebrow">What's inside</div>
+    <h2 class="section-heading">Four tax cascades. One connected system.</h2>
+    <p class="section-intro">Most retirees plan for one or two of these. The guide walks through all four, why they trigger each other, and what the cumulative cost looks like across a typical retirement.</p>
+    <div class="tax-grid">
+      <div class="tax-card">
+        <div class="tax-num">01 &nbsp;THE FIRST TAX</div>
+        <h3 class="tax-title">Social Security taxation</h3>
+        <p class="tax-desc">Up to 85% of your Social Security benefits can become taxable based on a formula most retirees have never heard of, with thresholds that haven't changed since 1984.</p>
+      </div>
+      <div class="tax-card">
+        <div class="tax-num">02 &nbsp;THE SECOND TAX</div>
+        <h3 class="tax-title">IRMAA surcharges</h3>
+        <p class="tax-desc">A one-time income spike can raise your Medicare premiums by thousands of dollars per year, triggered for two years, with no way to deduct your way out.</p>
+      </div>
+      <div class="tax-card">
+        <div class="tax-num">03 &nbsp;THE THIRD TAX</div>
+        <h3 class="tax-title">Required minimum distributions</h3>
+        <p class="tax-desc">Starting at age 73, the IRS forces withdrawals from traditional 401(k)s and IRAs, percentages that escalate every year and magnify the other three taxes.</p>
+      </div>
+      <div class="tax-card">
+        <div class="tax-num">04 &nbsp;THE FOURTH TAX</div>
+        <h3 class="tax-title">Capital gains squeeze</h3>
+        <p class="tax-desc">Selling appreciated investments triggers Net Investment Income Tax, Social Security cascades, and IRMAA brackets, on top of the capital gains rate itself.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================
+     GOLDEN WINDOW TEASER
+     ====================================== -->
+<section class="section section-cream">
+  <div class="container">
+    <div class="section-eyebrow section-eyebrow-bronze">THE STRATEGY</div>
+    <h2 class="section-heading">Most retirees don't know about this window.</h2>
+    <div class="gw-teaser">
+      <div class="gw-timeline">
+        <div class="gw-timeline-cell">
+          <div class="gw-cell-title">Working</div>
+          <div class="gw-cell-sub">Wages, high tax</div>
+        </div>
+        <div class="gw-timeline-cell-center">
+          <div class="gw-cell-title gw-cell-title-bronze">The Golden Window</div>
+          <div class="gw-cell-sub gw-cell-sub-bronze">8 to 13 years</div>
+        </div>
+        <div class="gw-timeline-cell">
+          <div class="gw-cell-title">RMDs + SS</div>
+          <div class="gw-cell-sub">Forced income</div>
+        </div>
+      </div>
+      <p class="gw-teaser-text">Between the year you retire and the year RMDs begin at 73, there's a period of unusually low taxable income. The guide calls it <strong>the Golden Window</strong> because it's the only period in retirement when you have meaningful control over how much taxable income shows up on your return. The four taxes share something most retirees miss: there's a single window of time when a coordinated plan can address all of them at once.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================
+     WHO THIS IS FOR
+     ====================================== -->
+<section class="section-tight">
+  <div class="container-narrow">
+    <div class="section-eyebrow">Who this is for</div>
+    <h2 class="section-heading">The guide is built for retirees who want to plan, not panic.</h2>
+    <div class="who-list">
+      <div class="who-item">
+        <div class="who-check"></div>
+        <div>You're 55 to 75, retired or planning to retire within the next ten years</div>
+      </div>
+      <div class="who-item">
+        <div class="who-check"></div>
+        <div>Most of your retirement savings is in traditional 401(k)s, traditional IRAs, or other pre-tax accounts</div>
+      </div>
+      <div class="who-item">
+        <div class="who-check"></div>
+        <div>You want a written reference you can read once, then share with your spouse</div>
+      </div>
+      <div class="who-item">
+        <div class="who-check"></div>
+        <div>You want plain English explanations, not technical jargon or sales pitches</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================
+     ABOUT
+     ====================================== -->
+<section class="section section-gray">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-photo">
+        <img src="sean-and-megan-jantz.png" alt="Sean and Megan Jantz, financial advisors at Jantz Wealth Solutions in Twin Falls, Idaho">
+      </div>
+      <div class="about-content">
+        <div class="about-eyebrow">ABOUT THE ADVISORS</div>
+        <h2 class="about-name">Sean and Megan Jantz.</h2>
+        <p class="about-text">We're an independent advisory firm in Twin Falls, Idaho, serving clients in person and virtually nationwide. The kind of planning this guide walks through is the kind of planning we do every day, coordinating Roth conversions, Social Security timing, IRMAA management, and capital gains strategy so the four taxes work with our clients instead of against them.</p>
+        <p class="about-text">We built Jantz Wealth Solutions to do this work as <strong>hybrid advisors</strong>. That means we use both investments and insurance products, including growth annuities, income annuities, and indexed universal life, when each is the right tool for the plan. The plan drives the tools, not the other way around.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================
+     FINAL CTA
+     ====================================== -->
+<section class="cta-section" id="get-the-guide">
+  <div class="container">
+    <div class="section-eyebrow">GET YOUR COPY</div>
+    <h2 class="section-heading">Read it. Share it. Plan around it.</h2>
+    <p class="section-intro">The full 18-page guide, free. No paywall, no upsells. Enter your name and email and we'll send the PDF to your inbox.</p>
+    <div class="cta-form-wrap">
+      <div class="hero-form-label">DOWNLOAD THE FREE GUIDE</div>
+      <h3 class="cta-form-title">Send me the 2026 retirement tax guide.</h3>
+      <form action="https://app.kit.com/forms/9435625/subscriptions" class="seva-form formkit-form" method="post" data-sv-form="9435625" data-uid="ac4a3e51a2" data-format="inline" data-version="5" data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Success! Now check your email to download your eBook (check Promotions folder and Spam)","redirect_url":""},"analytics":{"google":null,"fathom":null,"facebook":null,"segment":null,"pinterest":null,"sparkloop":null,"googletagmanager":null},"modal":{"trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"powered_by":{"show":false,"url":"https://kit.com/features/forms?utm_campaign=poweredby&utm_content=form&utm_medium=referral&utm_source=dynamic"},"recaptcha":{"enabled":false},"return_visitor":{"action":"show","custom_content":""},"slide_in":{"display_in":"bottom_right","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"sticky_bar":{"display_in":"top","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15}},"version":"5"}'>
+        <div data-style="clean">
+          <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
+          <div data-element="fields" data-stacked="true" class="seva-fields formkit-fields">
+            <div class="formkit-field">
+              <input class="formkit-input" aria-label="First Name" name="fields[first_name]" required="" placeholder="First name" type="text">
+            </div>
+            <div class="formkit-field">
+              <input class="formkit-input" aria-label="Last Name" name="fields[last_name]" required="" placeholder="Last name" type="text">
+            </div>
+            <div class="formkit-field">
+              <input class="formkit-input" name="email_address" aria-label="Email Address" placeholder="Email address" required="" type="email">
+            </div>
+            <button data-element="submit" class="formkit-submit formkit-submit">
+              <div class="formkit-spinner"><div></div><div></div><div></div></div>
+              <span>Download the guide</span>
+            </button>
+          </div>
+        </div>
+      </form>
+      <p class="hero-form-privacy">No spam. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================
+     FOOTER
+     Header and site footer are managed in Duda.
+     Add the educational/compliance disclosure to the Duda footer template.
+     ====================================== -->
+
+</body>
+</html>
