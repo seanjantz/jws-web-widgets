@@ -1963,63 +1963,54 @@ p + p { margin-top: 16px; }
 (function() {
   if (window.parent === window) return; // not embedded
 
-  let lastHeight = 0;
-  function sendHeight() {
-    const h = Math.max(
+  let lastSentHeight = 0;
+  let lockedHeight = 0;
+
+  function measureHeight() {
+    // Use the most reliable measurement: documentElement.scrollHeight
+    // Wrapped in a hidden container measurement to avoid feedback loops
+    return Math.max(
       document.body.scrollHeight,
-      document.documentElement.scrollHeight,
-      document.body.offsetHeight,
-      document.documentElement.offsetHeight
+      document.documentElement.scrollHeight
     );
-    if (h > 0 && Math.abs(h - lastHeight) > 2) {
-      lastHeight = h;
-      window.parent.postMessage({ type: 'jws-resize', height: h }, '*');
-    }
+  }
+
+  function sendHeight(force) {
+    const h = measureHeight();
+    if (h <= 0) return;
+    if (!force && Math.abs(h - lastSentHeight) < 5) return;
+    lastSentHeight = h;
+    window.parent.postMessage({ type: 'jws-resize', height: h }, '*');
   }
 
   // Respond if parent asks for current height
   window.addEventListener('message', function(event) {
     if (event.data && event.data.type === 'jws-request-height') {
-      lastHeight = 0; // force resend
-      sendHeight();
+      sendHeight(true);
     }
   });
 
-  // Send on multiple lifecycle events to catch fonts, images, and animations settling
-  sendHeight();
-  document.addEventListener('DOMContentLoaded', sendHeight);
+  // Send at key lifecycle moments - NO ResizeObserver to avoid feedback loops
   window.addEventListener('load', function() {
-    sendHeight();
-    setTimeout(sendHeight, 100);
-    setTimeout(sendHeight, 500);
-    setTimeout(sendHeight, 1500);
-    setTimeout(sendHeight, 3000);
+    sendHeight(true);
+    setTimeout(() => sendHeight(true), 250);
+    setTimeout(() => sendHeight(true), 800);
+    setTimeout(() => sendHeight(true), 2000);
+    // After 2 seconds, lock the height - no more updates unless explicitly requested
+    setTimeout(() => { lockedHeight = lastSentHeight; }, 2500);
   });
-  window.addEventListener('resize', sendHeight);
 
-  // Watch for any layout changes (reveal animations, font loading, image loads)
-  if ('ResizeObserver' in window) {
-    new ResizeObserver(sendHeight).observe(document.documentElement);
-    new ResizeObserver(sendHeight).observe(document.body);
-  }
+  // Only respond to window resize events (real user resizing, not iframe growth)
+  let resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => sendHeight(true), 200);
+  });
 
-  // Also listen for image and font loads
+  // Fonts settle = real layout change that matters
   if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(sendHeight);
+    document.fonts.ready.then(() => setTimeout(() => sendHeight(true), 100));
   }
-  window.addEventListener('load', function() {
-    document.querySelectorAll('img').forEach(function(img) {
-      if (!img.complete) img.addEventListener('load', sendHeight);
-    });
-  });
-
-  // Continuous safety net for the first 10 seconds
-  let pollCount = 0;
-  const pollInterval = setInterval(function() {
-    sendHeight();
-    pollCount++;
-    if (pollCount > 20) clearInterval(pollInterval);
-  }, 500);
 })();
 </script>
 
