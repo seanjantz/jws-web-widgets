@@ -1,0 +1,1892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Global Core Portfolios | Jantz Wealth Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Brand */
+  --navy: #00446A;
+  --navy-deep: #003355;
+  --blue: #0084D3;
+  --blue-mid: #4A86A8;
+  --blue-light: #7FB3D9;
+  --bronze: #C8A560;
+  --charcoal: #353E44;
+  --charcoal-mid: #5A6670;
+  --charcoal-light: #8A95A0;
+
+  /* Surfaces */
+  --bg: #FAFAF7;
+  --surface: #FFFFFF;
+  --surface-warm: #F4F1EB;
+  --border: #E5E2DA;
+  --border-strong: #C9C4B8;
+
+  /* Type */
+  --display: 'Montserrat', system-ui, sans-serif;
+  --body: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--charcoal);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ───────── Layout ───────── */
+.shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+section { padding: 88px 0; }
+
+@media (max-width: 768px) {
+  body { font-size: 16px; }
+  .shell { padding: 0 20px; }
+  section { padding: 56px 0; }
+}
+
+/* ───────── Typography ───────── */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 20px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--display);
+  color: var(--navy);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: clamp(40px, 6vw, 68px);
+  font-weight: 300;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+h1 em { font-style: italic; font-weight: 300; color: var(--blue); }
+
+h2 {
+  font-size: clamp(32px, 4vw, 46px);
+  font-weight: 350;
+  margin-bottom: 24px;
+}
+
+h3 {
+  font-size: clamp(24px, 2.8vw, 30px);
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+
+h4 {
+  font-size: 18px;
+  font-weight: 500;
+  font-family: var(--body);
+  color: var(--navy);
+  letter-spacing: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 13px;
+}
+
+p { color: var(--charcoal); }
+p + p { margin-top: 16px; }
+.lede { font-size: 21px; line-height: 1.55; color: var(--charcoal-mid); font-weight: 300; }
+
+/* ───────── Hero ───────── */
+.hero {
+  padding: 120px 0 100px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; right: -10%;
+  width: 60%; height: 100%;
+  background:
+    radial-gradient(circle at 70% 30%, rgba(0, 132, 211, 0.06) 0%, transparent 60%),
+    radial-gradient(circle at 50% 70%, rgba(200, 165, 96, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero .shell { position: relative; z-index: 1; }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 80px;
+  align-items: end;
+}
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero { padding: 60px 0 50px; }
+}
+.hero-intro p {
+  margin-top: 28px;
+  max-width: 520px;
+}
+.hero-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  border-top: 1px solid var(--border-strong);
+  padding-top: 24px;
+}
+.hero-stat .num {
+  font-family: var(--display);
+  font-size: 36px;
+  font-weight: 300;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.hero-stat .lbl {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--charcoal-light);
+  margin-top: 8px;
+}
+
+/* ───────── Risk Spectrum ───────── */
+.spectrum {
+  background: var(--surface-warm);
+  padding: 80px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.spectrum-head {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 56px;
+}
+.spectrum-rail {
+  position: relative;
+  padding: 32px 0 16px;
+}
+.spectrum-line {
+  position: absolute;
+  top: 41px; /* 32px rail padding-top + 9px (half of 18px dot) puts the line through dot centers */
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: linear-gradient(to right,
+    var(--blue-light) 0%,
+    var(--blue-mid) 33%,
+    var(--navy) 66%,
+    var(--navy-deep) 100%);
+}
+.spectrum-dots {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+  z-index: 1;
+}
+.spectrum-dot {
+  text-align: center;
+  position: relative;
+}
+.spectrum-dot::before {
+  content: '';
+  display: block;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 3px solid var(--navy);
+  margin: 0 auto 16px;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+.spectrum-dot:nth-child(1)::before { border-color: var(--blue-light); }
+.spectrum-dot:nth-child(2)::before { border-color: var(--blue-mid); }
+.spectrum-dot:nth-child(3)::before { border-color: var(--navy); }
+.spectrum-dot:nth-child(4)::before { border-color: var(--navy-deep); }
+.spectrum-dot:hover::before { transform: scale(1.3); }
+.spectrum-name {
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--navy);
+  line-height: 1.2;
+}
+.spectrum-tier {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--charcoal-light);
+  margin-top: 4px;
+}
+.spectrum-cagr {
+  font-family: var(--display);
+  font-size: 26px;
+  font-weight: 300;
+  color: var(--blue);
+  margin-top: 12px;
+  letter-spacing: -0.02em;
+}
+.spectrum-cagr small {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--charcoal-light);
+  margin-top: 2px;
+  font-weight: 500;
+}
+@media (max-width: 720px) {
+  .spectrum-dots { grid-template-columns: repeat(2, 1fr); gap: 32px 16px; }
+  .spectrum-line { display: none; }
+}
+
+/* ───────── Comparison Table ───────── */
+.comparison-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 32px;
+  margin-bottom: 48px;
+}
+.comparison-head p { max-width: 480px; color: var(--charcoal-mid); }
+@media (max-width: 768px) {
+  .comparison-head { grid-template-columns: 1fr; }
+}
+
+.compare-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+}
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  min-width: 720px;
+}
+.compare-table th, .compare-table td {
+  padding: 16px 20px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.compare-table thead th {
+  background: var(--surface-warm);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--charcoal-mid);
+  font-weight: 500;
+  border-bottom: 1px solid var(--border-strong);
+}
+.compare-table tbody tr:last-child td { border-bottom: none; }
+.compare-table tbody tr:hover { background: rgba(0, 132, 211, 0.025); }
+.compare-name {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+}
+.compare-tier {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-top: 2px;
+}
+.compare-num {
+  font-family: var(--display);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+}
+.compare-num.neg { color: var(--charcoal); }
+.compare-num small {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--charcoal-light);
+  font-weight: 500;
+  margin-top: 2px;
+}
+.compare-table .compare-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.compare-table .compare-link a:hover { color: var(--navy); }
+.compare-table .compare-link a::after {
+  content: '→';
+  transition: transform 0.2s;
+}
+.compare-table .compare-link a:hover::after { transform: translateX(3px); }
+
+/* ───────── Fee Transparency Note ───────── */
+.fee-note {
+  margin-top: 28px;
+  padding: 18px 24px;
+  background: transparent;
+  border-left: 2px solid var(--bronze);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--charcoal-mid);
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.fee-note .fee-text { flex: 1; min-width: 280px; }
+.fee-note a {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+.fee-note a:hover { color: var(--navy); }
+.fee-note a::after {
+  content: '→';
+  transition: transform 0.2s;
+}
+.fee-note a:hover::after { transform: translateX(3px); }
+
+/* ───────── Reading the Numbers (Glossary) ───────── */
+.glossary {
+  padding-top: 0;
+}
+.glossary-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 48px 56px;
+  position: relative;
+}
+.glossary-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 56px;
+  right: 56px;
+  height: 3px;
+  background: linear-gradient(to right, var(--blue-light), var(--blue-mid), var(--navy), var(--bronze));
+}
+.glossary-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 36px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+.glossary-head h3 {
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  margin-bottom: 6px;
+}
+.glossary-head p {
+  color: var(--charcoal-mid);
+  font-size: 14.5px;
+  max-width: 360px;
+  text-align: right;
+}
+.glossary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+.glossary-item {
+  position: relative;
+}
+.glossary-term {
+  font-family: var(--display);
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--navy);
+  letter-spacing: -0.005em;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+.glossary-abbr {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+.glossary-def {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--charcoal);
+}
+.glossary-def strong {
+  color: var(--navy);
+  font-weight: 500;
+}
+@media (max-width: 900px) {
+  .glossary-card { padding: 36px 32px; }
+  .glossary-card::before { left: 32px; right: 32px; }
+  .glossary-grid { grid-template-columns: repeat(2, 1fr); gap: 32px 28px; }
+  .glossary-head { grid-template-columns: 1fr; align-items: start; }
+  .glossary-head p { text-align: left; max-width: none; }
+}
+@media (max-width: 520px) {
+  .glossary-card { padding: 28px 24px; }
+  .glossary-card::before { left: 24px; right: 24px; }
+  .glossary-grid { grid-template-columns: 1fr; gap: 24px; }
+}
+
+/* ───────── Methodology ───────── */
+.methodology {
+  background: var(--navy);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.methodology::before {
+  content: '';
+  position: absolute;
+  top: -50%; right: -20%;
+  width: 70%; height: 200%;
+  background: radial-gradient(ellipse at center, rgba(0, 132, 211, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.methodology .shell { position: relative; z-index: 1; }
+.methodology .eyebrow { color: var(--blue-light); }
+.methodology h2 { color: #fff; max-width: 700px; }
+.methodology .lede { color: rgba(255,255,255,0.75); max-width: 640px; margin-top: 16px; }
+
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.1);
+  margin-top: 64px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.pillar {
+  background: var(--navy);
+  padding: 36px 28px;
+}
+.pillar-num {
+  font-family: var(--display);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--bronze);
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+.pillar h4 {
+  color: #fff;
+  font-family: var(--display);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.pillar p {
+  color: rgba(255,255,255,0.75);
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+@media (max-width: 900px) {
+  .pillars { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 500px) {
+  .pillars { grid-template-columns: 1fr; }
+}
+
+/* Asset class roles */
+.asset-roles {
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 64px;
+  align-items: start;
+}
+.asset-roles-intro h3 {
+  color: #fff;
+  font-style: italic;
+  font-weight: 300;
+}
+.asset-roles-intro p {
+  color: rgba(255,255,255,0.75);
+  margin-top: 16px;
+}
+.asset-roles-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+.asset-role {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 20px;
+  align-items: center;
+}
+.asset-swatch {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+}
+.asset-name {
+  display: flex;
+  flex-direction: column;
+}
+.asset-name .ticker {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--bronze);
+  margin-bottom: 2px;
+}
+.asset-name .desc {
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 400;
+  color: #fff;
+  line-height: 1.3;
+}
+.asset-role-text {
+  color: rgba(255,255,255,0.7);
+  font-size: 14.5px;
+  max-width: 320px;
+  text-align: right;
+}
+@media (max-width: 900px) {
+  .asset-roles { grid-template-columns: 1fr; gap: 32px; }
+  .asset-role { grid-template-columns: 32px 1fr; }
+  .asset-role-text { grid-column: 1 / -1; text-align: left; padding-left: 52px; max-width: none; }
+}
+
+/* ───────── Compounding Callout (featured) ───────── */
+.compound-callout {
+  margin-top: 88px;
+  padding-top: 64px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 72px;
+  align-items: center;
+}
+.compound-narrative .eyebrow { color: var(--bronze); }
+.compound-narrative h3 {
+  color: #fff;
+  font-family: var(--display);
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin-bottom: 24px;
+  max-width: 480px;
+}
+.compound-narrative p {
+  color: rgba(255,255,255,0.78);
+  font-size: 15.5px;
+  line-height: 1.65;
+  max-width: 480px;
+}
+.compound-narrative p + p { margin-top: 16px; }
+.compound-narrative p strong {
+  color: var(--bronze);
+  font-weight: 500;
+}
+.compound-visual {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
+  padding: 32px 32px 28px;
+}
+.compound-visual-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+  gap: 16px;
+}
+.compound-visual-title {
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: -0.005em;
+}
+.compound-visual-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+.compound-visual-sub {
+  color: rgba(255,255,255,0.55);
+  font-size: 12.5px;
+  margin-bottom: 20px;
+}
+.compound-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 8px;
+}
+.compound-stats {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.compound-stat-label {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.compound-stat-value {
+  font-family: var(--display);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1;
+}
+.compound-stat-value.gold { color: var(--bronze); }
+.compound-stat-value.bright { color: #fff; }
+
+@media (max-width: 900px) {
+  .compound-callout { grid-template-columns: 1fr; gap: 40px; padding-top: 48px; margin-top: 64px; }
+  .compound-visual { padding: 24px 24px 22px; }
+}
+
+/* ───────── Portfolio Detail Sections ───────── */
+.portfolio {
+  border-top: 1px solid var(--border);
+  scroll-margin-top: 40px;
+}
+.portfolio:first-of-type { border-top: none; }
+
+.final-cta { scroll-margin-top: 40px; }
+
+/* Arrival flash: brief bronze accent on the eyebrow when section is anchor-targeted */
+.portfolio:target .eyebrow,
+.final-cta:target .eyebrow {
+  animation: arrival-flash 1.8s ease-out;
+}
+@keyframes arrival-flash {
+  0%   { color: var(--blue); }
+  15%  { color: var(--bronze); letter-spacing: 0.22em; }
+  60%  { color: var(--bronze); letter-spacing: 0.18em; }
+  100% { color: var(--blue); letter-spacing: 0.18em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio:target .eyebrow,
+  .final-cta:target .eyebrow { animation: none; }
+}
+
+.portfolio-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 48px;
+  margin-bottom: 56px;
+  align-items: end;
+}
+.portfolio-marker {
+  font-family: var(--display);
+  font-size: 88px;
+  font-weight: 200;
+  color: var(--blue);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+.portfolio-marker small {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--charcoal-light);
+  display: block;
+  font-weight: 500;
+  margin-top: 8px;
+}
+.portfolio-title h2 { margin-bottom: 12px; }
+.portfolio-title .tagline {
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--charcoal-mid);
+  font-weight: 300;
+  max-width: 620px;
+}
+@media (max-width: 700px) {
+  .portfolio-head { grid-template-columns: 1fr; gap: 16px; }
+  .portfolio-marker { font-size: 56px; }
+}
+
+.portfolio-body {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .portfolio-body { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* Donut */
+.donut-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 1;
+  margin: 0 auto;
+}
+.donut-svg {
+  width: 100%; height: 100%;
+  transform: rotate(-90deg);
+}
+.donut-segment {
+  fill: none;
+  stroke-width: 22;
+  transition: stroke-width 0.25s ease;
+}
+.donut-segment:hover { stroke-width: 28; }
+.donut-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.donut-center .label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--charcoal-light);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.donut-center .value {
+  font-family: var(--display);
+  font-size: 44px;
+  font-weight: 300;
+  color: var(--navy);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.donut-center .sub {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--charcoal-mid);
+  font-weight: 500;
+  margin-top: 6px;
+}
+
+/* Holdings table */
+.holdings {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.holdings thead th {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--charcoal-light);
+  font-weight: 500;
+  text-align: left;
+  padding: 0 0 12px;
+  border-bottom: 1px solid var(--border-strong);
+}
+.holdings thead th:last-child { text-align: right; }
+.holdings tbody td {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.holdings tbody tr:last-child td { border-bottom: none; }
+.holdings .h-swatch {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 2px;
+  margin-right: 12px;
+  vertical-align: middle;
+}
+.holdings .h-ticker {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--navy);
+  letter-spacing: 0.06em;
+  display: inline-block;
+  vertical-align: middle;
+  width: 50px;
+}
+.holdings .h-name {
+  color: var(--charcoal);
+  font-size: 14px;
+}
+.holdings .h-weight {
+  text-align: right;
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--navy);
+}
+
+/* Metrics strip */
+.metrics-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin: 32px 0;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.metric .m-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--charcoal-light);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.metric .m-value {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+@media (max-width: 600px) {
+  .metrics-strip { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+}
+
+.portfolio-rationale {
+  margin-top: 24px;
+  padding: 20px 24px;
+  background: var(--surface-warm);
+  border-left: 3px solid var(--blue);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--charcoal);
+}
+.portfolio-rationale strong { color: var(--navy); font-weight: 500; }
+
+.portfolio-cta {
+  margin-top: 28px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 26px;
+  font-family: var(--body);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+}
+.btn-primary {
+  background: var(--navy);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--blue);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0, 68, 106, 0.15);
+}
+.btn-primary::after {
+  content: '→';
+  transition: transform 0.2s;
+}
+.btn-primary:hover::after { transform: translateX(3px); }
+.btn-ghost {
+  background: transparent;
+  color: var(--navy);
+  border: 1px solid var(--border-strong);
+}
+.btn-ghost:hover {
+  background: var(--surface-warm);
+  border-color: var(--navy);
+}
+
+/* ───────── Final CTA ───────── */
+.final-cta {
+  background: var(--surface-warm);
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+
+/* ───────── Custom Portfolio Callout (bronze banner) ───────── */
+.custom-callout {
+  padding: 72px 0;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+}
+.custom-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 48px 56px;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.custom-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--bronze);
+}
+.custom-card::after {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 165, 96, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.custom-content { position: relative; z-index: 1; }
+.custom-content .eyebrow { color: var(--bronze); }
+.custom-content h3 {
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(26px, 3vw, 32px);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin-bottom: 20px;
+  max-width: 520px;
+}
+.custom-content p {
+  color: var(--charcoal);
+  font-size: 15.5px;
+  line-height: 1.65;
+  max-width: 540px;
+}
+.custom-content p + p { margin-top: 14px; }
+.custom-action {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+}
+.custom-action .examples {
+  text-align: right;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--charcoal-light);
+  line-height: 1.8;
+  font-weight: 500;
+}
+.custom-action .examples span {
+  display: block;
+}
+.custom-action .examples span::before {
+  content: '+ ';
+  color: var(--bronze);
+  font-weight: 600;
+}
+@media (max-width: 900px) {
+  .custom-callout { padding: 56px 0; }
+  .custom-card {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 36px 32px 36px 36px;
+  }
+  .custom-action { align-items: flex-start; }
+  .custom-action .examples { text-align: left; }
+}
+@media (max-width: 520px) {
+  .custom-card { padding: 28px 24px 28px 28px; }
+}
+.final-cta h2 {
+  font-style: italic;
+  font-weight: 300;
+  max-width: 720px;
+  margin: 0 auto 24px;
+}
+.final-cta p {
+  max-width: 560px;
+  margin: 0 auto 36px;
+  font-size: 18px;
+  color: var(--charcoal-mid);
+}
+.final-cta .cta-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ───────── Footer / Disclosures ───────── */
+.site-footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.7);
+  padding: 56px 0 40px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.site-footer h4 {
+  color: rgba(255,255,255,0.9);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.site-footer p { margin-bottom: 12px; color: rgba(255,255,255,0.6); }
+.site-footer p:last-child { margin-bottom: 0; }
+.disclosures {
+  border-top: 1px solid rgba(255,255,255,0.15);
+  margin-top: 32px;
+  padding-top: 32px;
+  font-size: 12px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.5);
+}
+
+/* ───────── Subtle reveal animation ───────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<section class="hero">
+  <div class="shell">
+    <div class="hero-grid">
+      <div class="hero-intro reveal">
+        <div class="eyebrow">The Global Core Portfolios</div>
+        <h1>Four portfolios. <em>One disciplined framework.</em></h1>
+        <p class="lede">Globally diversified ETF allocations built on five asset classes, calibrated to four distinct risk profiles. Designed to capture growth, contain drawdowns, and stay invested through both.</p>
+      </div>
+      <div class="hero-stats reveal">
+        <div class="hero-stat">
+          <div class="num">4</div>
+          <div class="lbl">Risk Profiles</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">5</div>
+          <div class="lbl">Asset Classes</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">0.09<span style="font-size:20px">%</span></div>
+          <div class="lbl">Avg. Expense Ratio</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">14<span style="font-size:20px">yr</span></div>
+          <div class="lbl">Backtested History</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ RISK SPECTRUM ═══════════════════════ -->
+<section class="spectrum">
+  <div class="shell">
+    <div class="spectrum-head reveal">
+      <div class="eyebrow">The Risk Spectrum</div>
+      <h2>From capital preservation to maximum growth.</h2>
+    </div>
+    <div class="spectrum-rail reveal">
+      <div class="spectrum-line"></div>
+      <div class="spectrum-dots">
+        <div class="spectrum-dot">
+          <div class="spectrum-name">Conservative<br>Low Volatility</div>
+          <div class="spectrum-tier">Tier 1</div>
+          <div class="spectrum-cagr">7.61%<small>14-yr CAGR</small></div>
+        </div>
+        <div class="spectrum-dot">
+          <div class="spectrum-name">Conservative</div>
+          <div class="spectrum-tier">Tier 2</div>
+          <div class="spectrum-cagr">8.52%<small>14-yr CAGR</small></div>
+        </div>
+        <div class="spectrum-dot">
+          <div class="spectrum-name">Moderate</div>
+          <div class="spectrum-tier">Tier 3</div>
+          <div class="spectrum-cagr">9.93%<small>14-yr CAGR</small></div>
+        </div>
+        <div class="spectrum-dot">
+          <div class="spectrum-name">Aggressive</div>
+          <div class="spectrum-tier">Tier 4</div>
+          <div class="spectrum-cagr">12.64%<small>14-yr CAGR</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ COMPARISON TABLE ═══════════════════════ -->
+<section>
+  <div class="shell">
+    <div class="comparison-head reveal">
+      <div>
+        <div class="eyebrow">At a Glance</div>
+        <h2>Side by side.</h2>
+      </div>
+      <p>Backtested performance January 2012 through December 2025. Past performance does not guarantee future results.</p>
+    </div>
+
+    <div class="compare-wrap reveal">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Portfolio</th>
+            <th>14-yr CAGR</th>
+            <th>Max Drawdown</th>
+            <th>Yield</th>
+            <th>Expense Ratio</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="compare-name">Conservative Low Volatility</div>
+              <div class="compare-tier">Tier 1</div>
+            </td>
+            <td><div class="compare-num">7.61%<small>annualized</small></div></td>
+            <td><div class="compare-num neg">−2.95%<small>peak to trough</small></div></td>
+            <td><div class="compare-num">2.63%<small>trailing 12 mo</small></div></td>
+            <td><div class="compare-num">0.16%<small>weighted avg</small></div></td>
+            <td class="compare-link"><a href="#conservative-lv">View details</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="compare-name">Conservative</div>
+              <div class="compare-tier">Tier 2</div>
+            </td>
+            <td><div class="compare-num">8.52%<small>annualized</small></div></td>
+            <td><div class="compare-num neg">−5.86%<small>peak to trough</small></div></td>
+            <td><div class="compare-num">2.41%<small>trailing 12 mo</small></div></td>
+            <td><div class="compare-num">0.11%<small>weighted avg</small></div></td>
+            <td class="compare-link"><a href="#conservative">View details</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="compare-name">Moderate</div>
+              <div class="compare-tier">Tier 3</div>
+            </td>
+            <td><div class="compare-num">9.93%<small>annualized</small></div></td>
+            <td><div class="compare-num neg">−9.42%<small>peak to trough</small></div></td>
+            <td><div class="compare-num">2.15%<small>trailing 12 mo</small></div></td>
+            <td><div class="compare-num">0.09%<small>weighted avg</small></div></td>
+            <td class="compare-link"><a href="#moderate">View details</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="compare-name">Aggressive</div>
+              <div class="compare-tier">Tier 4</div>
+            </td>
+            <td><div class="compare-num">12.64%<small>annualized</small></div></td>
+            <td><div class="compare-num neg">−13.62%<small>peak to trough</small></div></td>
+            <td><div class="compare-num">1.73%<small>trailing 12 mo</small></div></td>
+            <td><div class="compare-num">0.06%<small>weighted avg</small></div></td>
+            <td class="compare-link"><a href="#aggressive">View details</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="fee-note reveal">
+      <div class="fee-text">Returns shown are gross of advisor and platform fees. Net returns will vary based on your specific fee schedule and account type.</div>
+      <a href="https://www.jantzwealth.com/fees" target="_blank" rel="noopener noreferrer">View Fee Schedule</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ READING THE NUMBERS ═══════════════════════ -->
+<section class="glossary">
+  <div class="shell">
+    <div class="glossary-card reveal">
+      <div class="glossary-head">
+        <div>
+          <div class="eyebrow">Reading the Numbers</div>
+          <h3>What each metric actually tells you.</h3>
+        </div>
+        <p>Four numbers do most of the work in evaluating a portfolio. Here is how to interpret each one.</p>
+      </div>
+      <div class="glossary-grid">
+        <div class="glossary-item">
+          <div class="glossary-term">Compound Annual Growth Rate</div>
+          <div class="glossary-abbr">CAGR</div>
+          <div class="glossary-def">The <strong>smoothed annual return</strong> that, if earned every year, would produce the same ending value as the actual year-by-year results. The cleanest single number for comparing long-term growth.</div>
+        </div>
+        <div class="glossary-item">
+          <div class="glossary-term">Maximum Drawdown</div>
+          <div class="glossary-abbr">Max DD</div>
+          <div class="glossary-def">The <strong>worst peak-to-trough loss</strong> the portfolio experienced during the backtest period. A measure of downside, not theory. Smaller drawdowns mean less recovery work and easier behavior in bad markets.</div>
+        </div>
+        <div class="glossary-item">
+          <div class="glossary-term">Yield</div>
+          <div class="glossary-abbr">TTM Yield</div>
+          <div class="glossary-def">The <strong>trailing twelve-month income</strong> generated by dividends and interest, as a percentage of the portfolio's current value. The cash flow component of total return.</div>
+        </div>
+        <div class="glossary-item">
+          <div class="glossary-term">Expense Ratio</div>
+          <div class="glossary-abbr">Weighted ER</div>
+          <div class="glossary-def">The <strong>annual cost</strong> of the underlying ETFs, weighted by allocation. Subtracted automatically from fund returns. Lower is better and compounds meaningfully over decades.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ METHODOLOGY ═══════════════════════ -->
+<section class="methodology">
+  <div class="shell">
+    <div class="reveal">
+      <div class="eyebrow">How They're Built</div>
+      <h2>Strategic, not reactive. Diversified, not diluted.</h2>
+      <p class="lede">Every Global Core portfolio is built from the same five-asset-class framework. What changes between tiers is the weighting, not the philosophy. The result is a coherent product family where moving from Conservative to Moderate to Aggressive is a question of how much volatility a client can absorb, not which strategy they happen to land on.</p>
+    </div>
+
+    <div class="pillars reveal">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <h4>Low-cost ETFs</h4>
+        <p>Weighted expense ratios between 0.06% and 0.16%. Every basis point saved on fees compounds for decades.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <h4>True diversification</h4>
+        <p>Across asset classes (equity, income, gold) and geographies (U.S., international developed). Not just a different shade of the same risk.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <h4>Built-in defense</h4>
+        <p>Gold, ultra-short income, and dividend quality serve as structural ballast. Drawdown protection is engineered in, not bolted on.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">04</div>
+        <h4>Strategic, not tactical</h4>
+        <p>Allocations are set with intent and held with discipline. We do not chase momentum, predict markets, or shuffle positions on news cycles.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">05</div>
+        <h4>Rebalanced annually</h4>
+        <p>Drift is the enemy of risk discipline. Annual rebalancing keeps each portfolio anchored to its stated risk profile.</p>
+      </div>
+    </div>
+
+    <div class="asset-roles reveal">
+      <div class="asset-roles-intro">
+        <div class="eyebrow" style="color: var(--bronze);">The Five Roles</div>
+        <h3>Each holding plays a deliberate role.</h3>
+        <p>The portfolios are not a collection of funds we like. They are a system where every position answers a specific question about growth, income, or protection.</p>
+      </div>
+      <div class="asset-roles-list">
+        <div class="asset-role">
+          <span class="asset-swatch" style="background: #F4F1EB;"></span>
+          <div class="asset-name">
+            <span class="ticker">SCHB / SPLV</span>
+            <span class="desc">U.S. Equity</span>
+          </div>
+          <div class="asset-role-text">Primary growth engine. SCHB delivers total-market exposure. SPLV adds a low-volatility screen for clients who need equity returns without equity drama.</div>
+        </div>
+        <div class="asset-role">
+          <span class="asset-swatch" style="background: #0084D3;"></span>
+          <div class="asset-name">
+            <span class="ticker">SCHF</span>
+            <span class="desc">International Developed Equity</span>
+          </div>
+          <div class="asset-role-text">Geographic diversification across 1,400+ holdings in developed markets outside the U.S. Hedges against single-country concentration risk.</div>
+        </div>
+        <div class="asset-role">
+          <span class="asset-swatch" style="background: #4A86A8;"></span>
+          <div class="asset-name">
+            <span class="ticker">SCUS</span>
+            <span class="desc">Ultra-Short Income</span>
+          </div>
+          <div class="asset-role-text">Volatility buffer and dry powder. Provides yield while preserving capital. Lets clients rebalance into weakness instead of selling into it.</div>
+        </div>
+        <div class="asset-role">
+          <span class="asset-swatch" style="background: #7FB3D9;"></span>
+          <div class="asset-name">
+            <span class="ticker">SCHD</span>
+            <span class="desc">U.S. Dividend Equity</span>
+          </div>
+          <div class="asset-role-text">Quality factor exposure. The 100-stock screen for dividend consistency and balance-sheet strength has historically softened drawdowns while keeping pace in growth markets.</div>
+        </div>
+        <div class="asset-role">
+          <span class="asset-swatch" style="background: #C8A560;"></span>
+          <div class="asset-name">
+            <span class="ticker">IAU</span>
+            <span class="desc">Gold / Hard Asset</span>
+          </div>
+          <div class="asset-role-text">Inflation hedge and crisis diversifier. Low correlation with both stocks and bonds means gold often zigs when the rest of the portfolio zags.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Callout: The Compounding Engine -->
+    <div class="compound-callout reveal">
+      <div class="compound-narrative">
+        <div class="eyebrow">The Compounding Engine</div>
+        <h3>Every dividend. Every interest payment. Automatically reinvested.</h3>
+        <p>Dividends from SCHB, SCHD, and SCHF, along with interest from SCUS, are not pulled out as cash. They go straight back to work, buying more shares, generating more income, compounding quietly and relentlessly across decades.</p>
+        <p>This is not optional behavior. It is the <strong>structural choice that turns a 2% yield into a meaningful share of long-term total return.</strong> No cash sits idle. The earliest dollars work for the longest time, and that is where compounding does its real damage to the case for keeping money on the sidelines.</p>
+      </div>
+
+      <div class="compound-visual">
+        <div class="compound-visual-head">
+          <div class="compound-visual-title">$100,000 on Global Core Moderate</div>
+          <div class="compound-visual-tag">14-yr Backtest</div>
+        </div>
+        <div class="compound-visual-sub">January 2012 through December 2025, full reinvestment, annual rebalancing.</div>
+
+        <svg class="compound-svg" viewBox="0 0 480 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+          <!-- Baseline -->
+          <line x1="60" y1="220" x2="460" y2="220" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+
+          <!-- Soft fill under the compound curve -->
+          <path d="M 60 220 C 210 215, 290 180, 460 50 L 460 220 Z"
+                fill="rgba(200,165,96,0.14)"/>
+
+          <!-- The compound growth curve -->
+          <path d="M 60 220 C 210 215, 290 180, 460 50"
+                stroke="#C8A560" stroke-width="2.5" fill="none"
+                stroke-linecap="round"/>
+
+          <!-- Start marker -->
+          <circle cx="60" cy="220" r="4.5" fill="#FFFFFF"/>
+          <text x="60" y="205" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="11.5" font-family="Inter, sans-serif" font-weight="500">$100K</text>
+          <text x="60" y="244" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9.5" font-family="JetBrains Mono, monospace" letter-spacing="1.2">START</text>
+
+          <!-- Midpoint annotation (year 7, ~$195K) -->
+          <circle cx="252" cy="170" r="3.5" fill="rgba(200,165,96,0.65)"/>
+          <text x="252" y="158" text-anchor="middle" fill="rgba(200,165,96,0.85)" font-size="10.5" font-family="Inter, sans-serif">~$194K</text>
+          <text x="252" y="244" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="9.5" font-family="JetBrains Mono, monospace" letter-spacing="1.2">YEAR 7</text>
+
+          <!-- Endpoint -->
+          <circle cx="460" cy="50" r="6" fill="#C8A560"/>
+          <circle cx="460" cy="50" r="11" fill="none" stroke="rgba(200,165,96,0.35)" stroke-width="1"/>
+          <text x="455" y="38" text-anchor="end" fill="#C8A560" font-size="15" font-weight="600" font-family="Inter, sans-serif">$376,381</text>
+          <text x="460" y="244" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9.5" font-family="JetBrains Mono, monospace" letter-spacing="1.2">YEAR 14</text>
+        </svg>
+
+        <div class="compound-stats">
+          <div>
+            <div class="compound-stat-label">Total Wealth Created</div>
+            <div class="compound-stat-value gold">+$276,381</div>
+          </div>
+          <div>
+            <div class="compound-stat-label">Compound Annual Growth</div>
+            <div class="compound-stat-value bright">9.93%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════ PORTFOLIO 1: CONSERVATIVE LOW VOL ═══════════════════════ -->
+<section class="portfolio" id="conservative-lv">
+  <div class="shell">
+    <div class="portfolio-head reveal">
+      <div class="portfolio-marker">
+        01<small>Tier One</small>
+      </div>
+      <div class="portfolio-title">
+        <div class="eyebrow">Capital Preservation</div>
+        <h2>Global Core Conservative, Low Volatility</h2>
+        <p class="tagline">Designed for investors prioritizing capital preservation and minimal drawdowns, with reduced equity volatility through a low-volatility screen.</p>
+      </div>
+    </div>
+
+    <div class="portfolio-body reveal">
+      <div>
+        <div class="donut-wrap">
+          <svg class="donut-svg" viewBox="0 0 200 200">
+            <!-- Conservative-LV: SPLV 20 / SCHF 10 / SCUS 30 / SCHD 20 / IAU 20 -->
+            <circle class="donut-segment" cx="100" cy="100" r="80" stroke="#00446A" stroke-dasharray="100.53 502.65" stroke-dashoffset="0"/>
+            <circle class="donut-segment" cx="100" cy="100" r="80" stroke="#0084D3" stroke-dasharray="50.27 502.65" stroke-dashoffset="-100.53"/>
+            <circle class="donut-segment" cx="100" cy="100" r="80" stroke="#4A86A8" stroke-dasharray="150.80 502.65" stroke-dashoffset="-150.80"/>
+            <circle class="donut-segment" cx="100" cy="100" r="80" stroke="#7FB3D9" stroke-dasharray="100.53 502.65" stroke-dashoffset="-301.59"/>
+            <circle class="donut-segment" cx="100" cy="100" r="80" stroke="#C8A560" stroke-dasharray="100.53 502.65" stroke-dashoffset="-402.12"/>
+          </svg>
+          <div class="donut-center">
+            <div class="label">14-yr CAGR</div>
+            <div class="value">7.61<span style="font-size:24px">%</span></div>
+            <div class="sub">−2.95% Max DD</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <table class="holdings">
+          <thead>
+            <tr><th>Holding</th><th>Role</th><th>Weight</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="h-swatch" style="background:#00446A"></span><span class="h-ticker">SPLV</span></td>
+              <td class="h-name">U.S. Low Volatility</td>
+              <td class="h-weight">20%</td>
+            </tr>
+            <tr>
+              <td><span class="h-swatch" style="background:#0084D3"></span><span class="h-ticker">SCHF</span></td>
+              <td class="h-name">International Equity</td>
+              <td class="h-weight">10%</td>
+            </tr>
+            <tr>
+              <td><span class="h-swatch" style="background:#4A86A8"></span><span class="h-ticker">SCUS</span></td>
+              <td class="h-name">Ultra-Short Income</td>
+              <td class="h-weight">30%</td>
+            </tr>
+            <tr>
+              <td><span class="h-swatch" style="background:#7FB3D9"></span><span class="h-ticker">SCHD</span></td>
+              <td class="h-name">U.S. Dividend Equity</td>
+              <td class="h-weight">20%</td>
+            </tr>
+            <tr>
+              <td><span class="h-swatch" style="background:#C8A560"></span><span class="h-ticker">IAU</span></td>
+              <td class="h-name">Gold / Hard Asset</td>
+              <td class="h-weight">20%</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="metrics-strip">
+          <div class="metric"><div class="m-label">CAGR</div><div class="m-value">7.61%</div></div>
+          <div class="metric"><div class="m-label">Max DD</div><div class="m-value">−2.95%</div></div>
+          <div class="metric"><div class="m-label">Yield</div><div class="m-value">2.63%</div></div>
+          <div class="metric"><div class="m-label">Expense</div><div class="m-value">0.16%</div></div>
+        </div>
+
+        <div class="portfolio-rationale">
+          <strong>Why this works.</strong> Replacing broad U.S. equity (SCHB) with a low-volatility screen (SPLV) lowers the portfolio's beta without sacrificing equity participation. Combined with the highest cash and gold weightings in the suite, this is the portfolio for retirees, near-retirees, and clients who simply cannot stomach meaningful drawdowns.
+        </div>
+
+        <div class="portfolio-cta">
+          <a href="https://www.jantzwealth.com/conservative-lowvol-calculator" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Open the Calculator</a>
+          <a href="#schedule" class="btn btn-ghost">Discuss This Portfolio</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ PORTFOLIO 2: CONSERVATIVE ═══════════════════════ -->
+<section class="portfolio" id="conservative">
+  <div class="shell">
+    <div class="portfolio-head reveal">
+      <div class="portfolio-marker">
+        02<small>Tier Two</small>
+      </div>
+      <div class="portfolio-title">
+        <div class="eyebrow">Capital Preservation with Growth</div>
+        <h2>Global Core Conservative</h2>
+        <p class="tagline">Designed for investors prioritizing capital preservation with steady growth and limited drawdowns.</p>
+      </div>
+    </div>
+
+    <div class="portfolio-body reveal">
+      <div>
+        <div class="donut-wrap">
+          <svg class="donut-svg" viewBox="0 0 200 200">
+            <!-- Conservative: SCHB 20 / SCHF 10 / SCUS 30 / SCHD 20 / IAU 20 -->
+            <circle class="donut-segment" cx="100" cy="100" r="80" stroke="#00446A" stroke-dasharray="100.53 502.65" stroke-dashoffset="0"/>
+            <circle class="donut-segment" cx="100" cy="100" r="80" stroke="#0084D3" stroke-dasharray="50.27 502.65" stroke-dashoffset="-100.53"/>
+            <circle class="donut-segment" cx="100" cy="100" r="80" stroke="#4A86A8" stroke-dasharray="150.80 502.65" stroke-dashoffset="-150.80"/>
+            <circle class="donut-segment" cx="100" cy="100" r="80" stroke="#7FB3D9" stroke-dasharray="100.53 502.65" stroke-dashoffset="-301.59"/>
+            <circle class="donut-segment" cx="100" cy="100" r="80" stroke="#C8A560" stroke-dasharray="100.53 502.65" stroke-dashoffset="-402.12"/>
+          </svg>
+          <div class="donut-center">
+            <div class="label">14-yr CAGR</div>
+            <div class="value">8.52<span style="font-size:24px">%</span></div>
+            <div class="sub">−5.86% Max DD</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <table class="holdings">
+          <thead>
+            <tr><th>Holding</th><th>Role</th><th>Weight</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="h-swatch" style="background:#00446A"></span><span class="h-ticker">SCHB</span></td>
+              <td class="h-name">U.S. Equity</td>
+              <td class="h-weight">20%</td>
+            </tr>
+            <tr>
+              <td><span class="h-swatch" style="background:#0084D3"></span><span class="h-ticker">SCHF</span></td>
+              <td class="h-name">International Equity</td>
+              <td class="h-weight">10%</td>
+            </tr>
+            <tr>
+              <td><span class="h-swatch" style="background:#4A86A8"></span><span class="h-ticker">SCUS</span></td>
+              <td class="h-name">Ultra-Short Income</td>
+              <td class="h-weight">30%</td>
+            </tr>
+            <tr>
+              <td><span class="h-swatch" style="background:#7FB3D9"></span><span class="h-ticker">SCHD</span></td>
+              <td class="h-name">U.S. Dividend Equity</td>
+              <td class="h-weight">20%</td>
+            </tr>
+            <tr>
+              <td><span class="h-swatch" style="background:#C8A560"></span><span class="h-ticker">IAU</span></td>
+              <td class="h-name">Gold / Hard Asset</td>
+              <td class="h-weight">20%</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="metrics-strip">
+          <div class="metric"><div class="m-label">CAGR</div><div class="m-value">8.52%</div></div>
+          <div class="metric"><div class="m-label">Max DD</div><div class="m-value">−5.86%</div></div>
+          <div class="metric"><div class="m-label">Yield</div><div class="m-value">2.41%</div></div>
+          <div class="metric"><div class="m-label">Expense</div><div class="m-value">0.11%</div></div>
+        </div>
+
+        <div class="portfolio-rationale">
+          <strong>Why this works.</strong> Same defensive architecture as the Low Volatility tier (30% income, 20% gold) but with broad U.S. equity exposure swapped in for the low-vol screen. The result is roughly a percentage point of additional CAGR for clients willing to accept a still-modest 5.86% historical drawdown. Suited to retirees with longer horizons or conservative pre-retirees.
+        </div>
+
+        <div class="portfolio-cta">
+          <a href="https://www.jantzwealth.com/conservative-calculator" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Open the Calculator</a>
+          <a href="#schedule" class="btn btn-ghost">Discuss This Portfolio</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ PORTFOLIO 3: MODERATE ═══════════════════════ -->
+<section class="portfolio" id="moderate">
+  <div class="shell">
+    <div class="portfolio-head reveal">
+      <div class="portfolio-marker">
+        03<small>Tier Three</small>
+      </div>
+      <div class="portfolio-title">
+        <div class="eyebrow">Balanced Growth</div>
+        <h2>Global Core Moderate</h2>
+        <p class="tagline">Designed for investors seeking growth with built-in guardrails to limit drawdowns.</p>
+      </div>
+    </div>
+
+    <div class="portfolio-body reveal">
+      <div>
+        <div class="donut-wrap">
+          <svg class="donut-svg" viewBox="0 0 200 200">
+            <!-- Moderate: SCHB 35 / SCHF 15 / SCUS 20 / SCHD 15 / IAU 15 -->
+            <circle class="donut-segment" cx="100" cy="100" r="80" stroke="#00446A" stroke-dasharray="175.93 502.65" stroke-dashoffset="0"/>
+            <circle class="donut-segment" cx="100" cy="100" r="80" stroke="#0084D3" stroke-dasharray="75.40 502.65" stroke-dashoffset="-175.93"/>
+            <circle class="donut-segment" cx="100" cy="100" r="80" stroke="#4A86A8" stroke-dasharray="100.53 502.65" stroke-dashoffset="-251.33"/>
+            <circle class="donut-segment" cx="100" cy="100" r="80" stroke="#7FB3D9" stroke-dasharray="75.40 502.65" stroke-dashoffset="-351.86"/>
+            <circle class="donut-segment" cx="100" cy="100" r="80" stroke="#C8A560" stroke-dasharray="75.40 502.65" stroke-dashoffset="-427.25"/>
+          </svg>
+          <div class="donut-center">
+            <div class="label">14-yr CAGR</div>
+            <div class="value">9.93<span style="font-size:24px">%</span></div>
+            <div class="sub">−9.42% Max DD</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <table class="holdings">
+          <thead>
+            <tr><th>Holding</th><th>Role</th><th>Weight</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="h-swatch" style="background:#00446A"></span><span class="h-ticker">SCHB</span></td>
+              <td class="h-name">U.S. Equity</td>
+              <td class="h-weight">35%</td>
+            </tr>
+            <tr>
+              <td><span class="h-swatch" style="background:#0084D3"></span><span class="h-ticker">SCHF</span></td>
+              <td class="h-name">International Equity</td>
+              <td class="h-weight">15%</td>
+            </tr>
+            <tr>
+              <td><span class="h-swatch" style="background:#4A86A8"></span><span class="h-ticker">SCUS</span></td>
+              <td class="h-name">Ultra-Short Income</td>
+              <td class="h-weight">20%</td>
+            </tr>
+            <tr>
+              <td><span class="h-swatch" style="background:#7FB3D9"></span><span class="h-ticker">SCHD</span></td>
+              <td class="h-name">U.S. Dividend Equity</td>
+              <td class="h-weight">15%</td>
+            </tr>
+            <tr>
+              <td><span class="h-swatch" style="background:#C8A560"></span><span class="h-ticker">IAU</span></td>
+              <td class="h-name">Gold / Hard Asset</td>
+              <td class="h-weight">15%</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="metrics-strip">
+          <div class="metric"><div class="m-label">CAGR</div><div class="m-value">9.93%</div></div>
+          <div class="metric"><div class="m-label">Max DD</div><div class="m-value">−9.42%</div></div>
+          <div class="metric"><div class="m-label">Yield</div><div class="m-value">2.15%</div></div>
+          <div class="metric"><div class="m-label">Expense</div><div class="m-value">0.09%</div></div>
+        </div>
+
+        <div class="portfolio-rationale">
+          <strong>Why this works.</strong> The most popular tier for a reason. Equity exposure rises to roughly 65% to capture real growth, while a meaningful 20% income sleeve and 15% gold position contain volatility. A 9.42% peak-to-trough loss is notably milder than the broad market, which gives clients the staying power to actually realize equity returns.
+        </div>
+
+        <div class="portfolio-cta">
+          <a href="https://www.jantzwealth.com/moderate-calculator" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Open the Calculator</a>
+          <a href="#schedule" class="btn btn-ghost">Discuss This Portfolio</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ PORTFOLIO 4: AGGRESSIVE ═══════════════════════ -->
+<section class="portfolio" id="aggressive">
+  <div class="shell">
+    <div class="portfolio-head reveal">
+      <div class="portfolio-marker">
+        04<small>Tier Four</small>
+      </div>
+      <div class="portfolio-title">
+        <div class="eyebrow">Maximum Growth</div>
+        <h2>Global Core Aggressive</h2>
+        <p class="tagline">Designed for investors seeking maximum growth while being comfortable with volatility in exchange for higher long-term returns.</p>
+      </div>
+    </div>
+
+    <div class="portfolio-body reveal">
+      <div>
+        <div class="donut-wrap">
+          <svg class="donut-svg" viewBox="0 0 200 200">
+            <!-- Aggressive: SCHB 55 / SCHF 15 / SCHD 20 / IAU 10 -->
+            <circle class="donut-segment" cx="100" cy="100" r="80" stroke="#00446A" stroke-dasharray="276.46 502.65" stroke-dashoffset="0"/>
+            <circle class="donut-segment" cx="100" cy="100" r="80" stroke="#0084D3" stroke-dasharray="75.40 502.65" stroke-dashoffset="-276.46"/>
+            <circle class="donut-segment" cx="100" cy="100" r="80" stroke="#7FB3D9" stroke-dasharray="100.53 502.65" stroke-dashoffset="-351.86"/>
+            <circle class="donut-segment" cx="100" cy="100" r="80" stroke="#C8A560" stroke-dasharray="50.27 502.65" stroke-dashoffset="-452.39"/>
+          </svg>
+          <div class="donut-center">
+            <div class="label">14-yr CAGR</div>
+            <div class="value">12.64<span style="font-size:24px">%</span></div>
+            <div class="sub">−13.62% Max DD</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <table class="holdings">
+          <thead>
+            <tr><th>Holding</th><th>Role</th><th>Weight</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="h-swatch" style="background:#00446A"></span><span class="h-ticker">SCHB</span></td>
+              <td class="h-name">U.S. Equity</td>
+              <td class="h-weight">55%</td>
+            </tr>
+            <tr>
+              <td><span class="h-swatch" style="background:#0084D3"></span><span class="h-ticker">SCHF</span></td>
+              <td class="h-name">International Equity</td>
+              <td class="h-weight">15%</td>
+            </tr>
+            <tr>
+              <td><span class="h-swatch" style="background:#7FB3D9"></span><span class="h-ticker">SCHD</span></td>
+              <td class="h-name">U.S. Dividend Equity</td>
+              <td class="h-weight">20%</td>
+            </tr>
+            <tr>
+              <td><span class="h-swatch" style="background:#C8A560"></span><span class="h-ticker">IAU</span></td>
+              <td class="h-name">Gold / Hard Asset</td>
+              <td class="h-weight">10%</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="metrics-strip">
+          <div class="metric"><div class="m-label">CAGR</div><div class="m-value">12.64%</div></div>
+          <div class="metric"><div class="m-label">Max DD</div><div class="m-value">−13.62%</div></div>
+          <div class="metric"><div class="m-label">Yield</div><div class="m-value">1.73%</div></div>
+          <div class="metric"><div class="m-label">Expense</div><div class="m-value">0.06%</div></div>
+        </div>
+
+        <div class="portfolio-rationale">
+          <strong>Why this works.</strong> The income sleeve is removed and equity exposure rises to 90%, with SCHD providing quality-factor support to soften drawdowns. Gold remains at 10% as a structural diversifier. Outperformed a traditional 80/20 portfolio over the backtest period with materially lower drawdowns than a 100% equity portfolio. Suited to accumulators with long horizons.
+        </div>
+
+        <div class="portfolio-cta">
+          <a href="https://www.jantzwealth.com/aggressive-calculator" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Open the Calculator</a>
+          <a href="#schedule" class="btn btn-ghost">Discuss This Portfolio</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CUSTOM PORTFOLIO CALLOUT ═══════════════════════ -->
+<section class="custom-callout">
+  <div class="shell">
+    <div class="custom-card reveal">
+      <div class="custom-content">
+        <div class="eyebrow">A Note on Customization</div>
+        <h3>Models are a starting point, not a ceiling.</h3>
+        <p>Many clients sit comfortably inside one of the four Global Core portfolios. Others have specific preferences that deserve respect. A meaningful Bitcoin allocation. A long-held position in a single stock they want to keep. A tilt toward a sector they believe in. A holding they want to avoid for personal reasons.</p>
+        <p>The framework bends. Custom allocations are built on the same five-role foundation, with the same discipline around cost, diversification, and rebalancing, then adjusted to the client's specific wishes.</p>
+      </div>
+      <div class="custom-action">
+        <div class="examples">
+          <span>Crypto Allocation</span>
+          <span>Concentrated Positions</span>
+          <span>Sector Tilts</span>
+          <span>Values-Based Screens</span>
+        </div>
+        <a href="#schedule" class="btn btn-primary">Discuss a Custom Portfolio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ FINAL CTA ═══════════════════════ -->
+<section class="final-cta" id="schedule">
+  <div class="shell">
+    <div class="reveal">
+      <div class="eyebrow">The Next Step</div>
+      <h2>Which portfolio fits your road ahead?</h2>
+      <p>The right portfolio depends on your time horizon, your tax situation, and your tolerance for volatility. A short conversation is the fastest way to find out.</p>
+      <div class="cta-buttons">
+        <a href="https://www.jantzwealth.com/schedule" class="btn btn-primary">Schedule a Conversation</a>
+        <a href="https://www.jantzwealth.com/investment-strategy" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Take the Risk Assessment</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer class="site-footer">
+  <div class="shell">
+    <h4>Disclosures</h4>
+    <div class="disclosures">
+      <p>Performance figures reflect backtested results from January 2012 through December 2025 using historical annual total returns of the underlying ETFs, rebalanced annually. SCUS (Schwab Ultra-Short Income ETF) launched in August 2024; historical returns for the SCUS allocation use iShares Short Treasury Bond ETF (SHV) as a proxy due to limited fund history.</p>
+      <p>Backtested performance is hypothetical and does not represent actual investment results. <strong style="color: rgba(255,255,255,0.85); font-weight: 500;">All returns shown are gross of advisor and platform fees.</strong> Net returns will be lower and will vary based on the client's specific fee schedule, account type, and any custodial or trading costs. Backtested figures do not reflect the deduction of any fees, taxes, or other expenses an investor would actually incur. Past performance is not indicative of future results. All investments involve risk, including the possible loss of principal. For a complete description of advisory fees, see the Jantz Wealth Solutions fee schedule.</p>
+      <p>The Global Core Portfolios are model allocations and may not be appropriate for every investor. Individual portfolio recommendations are based on each client's financial situation, time horizon, tax considerations, and risk tolerance. Holdings, weights, and methodology are subject to change. Yield and expense ratio figures are weighted averages based on fund data as of May 2026 and are subject to change.</p>
+      <p style="margin-top:24px;">Investment advisory services offered through Brookstone Wealth Advisors, LLC (BWA), a registered investment advisor. BWA and Brookstone Capital Management, LLC are affiliated companies. BWA and Jantz Wealth Solutions are independent of each other. Insurance products and services are not offered through BWA but are offered and sold through individually licensed and appointed agents.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Subtle reveal-on-scroll
+(function() {
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
+})();
+</script>
+
+</body>
+</html>
