@@ -766,6 +766,198 @@ section {
     font-weight: 600;
 }
 
+/* ---------- The Math Section ---------- */
+.math-section {
+    background: var(--bg-soft);
+}
+
+.math-intro {
+    max-width: 760px;
+    margin-top: 2rem;
+}
+
+.math-intro p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--charcoal);
+    margin-bottom: 1rem;
+}
+
+.math-intro p:last-child {
+    margin-bottom: 0;
+}
+
+.math-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+@media (max-width: 900px) {
+    .math-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+}
+
+.math-card {
+    background: var(--white);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+}
+
+.math-card-header {
+    padding: 1.5rem 1.5rem 1.25rem;
+    border-bottom: 1px solid var(--rule);
+    text-align: center;
+}
+
+.math-card-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--charcoal-soft);
+    margin-bottom: 0.4rem;
+}
+
+.math-card-size {
+    font-family: var(--display);
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1;
+    letter-spacing: -0.01em;
+}
+
+.math-card-body {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.math-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.math-side-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--charcoal-soft);
+    margin-bottom: 0.6rem;
+    line-height: 1.3;
+    min-height: 2.3rem;
+    display: flex;
+    align-items: flex-end;
+}
+
+.math-side-hybrid .math-side-label {
+    color: var(--blue);
+}
+
+.math-allocation {
+    font-size: 0.85rem;
+    color: var(--charcoal);
+    margin-bottom: 0.3rem;
+    line-height: 1.4;
+}
+
+.math-allocation strong {
+    color: var(--navy);
+    font-weight: 600;
+}
+
+.math-allocation-dash {
+    color: var(--charcoal-soft);
+}
+
+.math-figures {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--rule);
+}
+
+.math-fee-dollar {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.math-side-hybrid .math-fee-dollar {
+    color: var(--blue);
+}
+
+.math-fee-rate {
+    font-size: 0.8rem;
+    color: var(--charcoal-soft);
+    margin-top: 0.35rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.math-savings {
+    background: var(--bg-navy-tint);
+    margin: 0 -1.5rem -1.5rem;
+    padding: 1.25rem 1.5rem;
+    text-align: center;
+    border-top: 2px solid var(--blue);
+}
+
+.math-savings-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 0.35rem;
+}
+
+.math-savings-value {
+    font-family: var(--display);
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.math-savings-pct {
+    font-size: 0.8rem;
+    color: var(--charcoal-soft);
+    margin-top: 0.35rem;
+}
+
+.math-closing {
+    max-width: 760px;
+    margin: 3rem 0 0;
+}
+
+.math-closing p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--charcoal);
+    margin-bottom: 1rem;
+}
+
+.math-closing p:last-child {
+    margin-bottom: 0;
+}
+
+.math-closing em {
+    color: var(--navy);
+    font-style: italic;
+    font-weight: 500;
+}
+
 /* ---------- Integration Section ---------- */
 .integration-section {
     background: var(--navy);
@@ -1512,6 +1704,7 @@ section {
                 <p>For clients who want tax-advantaged growth and income beyond what qualified plans allow, IUL is often the right answer, especially when paired with a properly structured investment portfolio and the right annuity strategy. The math, when designed correctly, can be excellent.</p>
                 <p>When I recommend IUL, you'll see a full illustration with realistic assumptions, a clear breakdown of how it fits into your plan, and the specific role it plays alongside your investments and any annuities. The structure of the policy matters enormously. IUL designed for cash accumulation looks different from IUL designed for death benefit, and the design choices we make together determine the outcome.</p>
                 <p style="margin-top: 1.25rem; font-size: 0.95rem; color: var(--charcoal-soft); font-style: italic;">I also place term life insurance when there's a real protection need, typically for clients in their working years with dependents or unpaid debt. It's the simplest and least expensive form of life insurance, and the right answer for most families during accumulation years.</p>
+                <p style="margin-top: 1.25rem;"><strong>The life insurance policies I recommend include Living Benefits.</strong> These no-additional-cost riders let you access a portion of the death benefit <em>while still alive</em> if you're diagnosed with a critical illness (cancer, heart attack, stroke, organ failure), a chronic illness (inability to perform daily activities of living or severe cognitive impairment), or a terminal illness. For many retirees, the chronic illness benefit can help offset costs related to long-term care needs. Funds accessed through Living Benefits are typically income-tax-free.</p>
             </div>
         </div>
 
@@ -1526,6 +1719,130 @@ section {
 
         <div class="conflict-prose">
             <p><strong>The plan comes before the product.</strong> Every insurance recommendation starts from a planning analysis: what problem are we trying to solve, what tools could solve it, what are the trade-offs of each. The product comes after the analysis, never the other way around. You'll see the alternatives we considered before any recommendation, and the commission structure is disclosed in every illustration. If you want to see exactly what I'm paid on any product, ask. I'd rather you ask than wonder.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ====== Section 3d: The Math of the Hybrid Approach ====== -->
+<section class="math-section">
+    <div class="container">
+        <div class="eyebrow">The Math</div>
+        <h2 class="display">The Math of the<br/><em>Hybrid Approach.</em></h2>
+
+        <div class="math-intro">
+            <p>Because Growth Annuities have zero internal fees, every dollar allocated to one is a dollar that isn't paying an advisory fee. In a typical hybrid portfolio, that means the effective cost across your full portfolio is meaningfully lower than what an investment-only advisor would charge for the same dollars.</p>
+            <p>The examples below assume a 60/40 split: 60% of the portfolio in actively managed investments (billed at the advisory fee schedule above), and 40% in a Growth Annuity (zero fees). For most pre-retirees and retirees, this is a realistic allocation. Your specific allocation depends on your risk tolerance, time horizon, and planning needs.</p>
+        </div>
+
+        <div class="math-grid">
+
+            <div class="math-card">
+                <div class="math-card-header">
+                    <div class="math-card-label">Portfolio Size</div>
+                    <div class="math-card-size">$500,000</div>
+                </div>
+                <div class="math-card-body">
+                    <div class="math-comparison">
+                        <div class="math-side math-side-investment">
+                            <div class="math-side-label">Investment-Only</div>
+                            <div class="math-allocation"><strong>$500K</strong> in investments</div>
+                            <div class="math-allocation math-allocation-dash">— no annuity allocation</div>
+                            <div class="math-figures">
+                                <div class="math-fee-dollar">$7,500</div>
+                                <div class="math-fee-rate">1.500% effective rate</div>
+                            </div>
+                        </div>
+                        <div class="math-side math-side-hybrid">
+                            <div class="math-side-label">Hybrid Approach</div>
+                            <div class="math-allocation"><strong>$300K</strong> in investments</div>
+                            <div class="math-allocation"><strong>$200K</strong> in Growth Annuity</div>
+                            <div class="math-figures">
+                                <div class="math-fee-dollar">$4,500</div>
+                                <div class="math-fee-rate">0.900% effective rate</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="math-savings">
+                        <div class="math-savings-label">Annual Savings</div>
+                        <div class="math-savings-value">$3,000</div>
+                        <div class="math-savings-pct">40% lower cost</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="math-card">
+                <div class="math-card-header">
+                    <div class="math-card-label">Portfolio Size</div>
+                    <div class="math-card-size">$1,000,000</div>
+                </div>
+                <div class="math-card-body">
+                    <div class="math-comparison">
+                        <div class="math-side math-side-investment">
+                            <div class="math-side-label">Investment-Only</div>
+                            <div class="math-allocation"><strong>$1M</strong> in investments</div>
+                            <div class="math-allocation math-allocation-dash">— no annuity allocation</div>
+                            <div class="math-figures">
+                                <div class="math-fee-dollar">$13,750</div>
+                                <div class="math-fee-rate">1.375% effective rate</div>
+                            </div>
+                        </div>
+                        <div class="math-side math-side-hybrid">
+                            <div class="math-side-label">Hybrid Approach</div>
+                            <div class="math-allocation"><strong>$600K</strong> in investments</div>
+                            <div class="math-allocation"><strong>$400K</strong> in Growth Annuity</div>
+                            <div class="math-figures">
+                                <div class="math-fee-dollar">$8,750</div>
+                                <div class="math-fee-rate">0.875% effective rate</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="math-savings">
+                        <div class="math-savings-label">Annual Savings</div>
+                        <div class="math-savings-value">$5,000</div>
+                        <div class="math-savings-pct">36% lower cost</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="math-card">
+                <div class="math-card-header">
+                    <div class="math-card-label">Portfolio Size</div>
+                    <div class="math-card-size">$1,500,000</div>
+                </div>
+                <div class="math-card-body">
+                    <div class="math-comparison">
+                        <div class="math-side math-side-investment">
+                            <div class="math-side-label">Investment-Only</div>
+                            <div class="math-allocation"><strong>$1.5M</strong> in investments</div>
+                            <div class="math-allocation math-allocation-dash">— no annuity allocation</div>
+                            <div class="math-figures">
+                                <div class="math-fee-dollar">$17,750</div>
+                                <div class="math-fee-rate">1.183% effective rate</div>
+                            </div>
+                        </div>
+                        <div class="math-side math-side-hybrid">
+                            <div class="math-side-label">Hybrid Approach</div>
+                            <div class="math-allocation"><strong>$900K</strong> in investments</div>
+                            <div class="math-allocation"><strong>$600K</strong> in Growth Annuity</div>
+                            <div class="math-figures">
+                                <div class="math-fee-dollar">$12,500</div>
+                                <div class="math-fee-rate">0.833% effective rate</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="math-savings">
+                        <div class="math-savings-label">Annual Savings</div>
+                        <div class="math-savings-value">$5,250</div>
+                        <div class="math-savings-pct">30% lower cost</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="math-closing">
+            <p>Lower total cost is a real consequence of the hybrid structure, and one that traditional investment-only approaches can't match. But the cost savings aren't the <em>reason</em> I recommend Growth Annuities. They're the result of recommending them when they're the right fit.</p>
+            <p>The conservative portion of a retirement portfolio needs to do a specific job, and Growth Annuities are structurally better at that job than bonds. The lower fee is a useful side effect.</p>
         </div>
     </div>
 </section>
