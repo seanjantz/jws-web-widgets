@@ -46,7 +46,7 @@
     line-height: 1.6;
   }
 
-  .page {
+  .container {
     max-width: 880px;
     margin: 0 auto;
     padding: 0 24px;
@@ -55,6 +55,9 @@
   /* HERO */
   .hero {
     padding: 80px 0 60px;
+  }
+
+  .hero .container {
     position: relative;
   }
 
@@ -143,8 +146,8 @@
 
   /* CREDIBILITY BLOCK */
   .credibility {
-    padding: 0 0 64px;
-    border-bottom: 1px solid var(--jws-light-gray);
+    background: var(--jws-cream);
+    padding: 72px 0;
   }
 
   .credibility-eyebrow {
@@ -224,9 +227,8 @@
 
   /* FAQ SECTION */
   .faq {
-    padding: 80px 0 60px;
-    border-top: 1px solid var(--jws-light-gray);
-    margin-top: 60px;
+    background: var(--jws-cream);
+    padding: 80px 0 72px;
   }
 
   .faq-eyebrow {
@@ -298,8 +300,6 @@
   /* FOOTER / DISCLOSURE */
   .footer {
     padding: 48px 0 64px;
-    border-top: 1px solid var(--jws-light-gray);
-    margin-top: 40px;
   }
 
   .disclosure {
@@ -331,80 +331,86 @@
 </head>
 <body>
 
-<div class="page">
-
   <!-- HERO -->
   <section class="hero">
-    <div class="stack-motif" aria-hidden="true">
-      <div class="layer l1"></div>
-      <div class="layer l2"></div>
-      <div class="layer l3"></div>
-      <div class="layer l4"></div>
-    </div>
+    <div class="container">
+      <div class="stack-motif" aria-hidden="true">
+        <div class="layer l1"></div>
+        <div class="layer l2"></div>
+        <div class="layer l3"></div>
+        <div class="layer l4"></div>
+      </div>
 
-    <img src="myretirement-design-logo.png" alt="myRetirement Design - Clarity for the road ahead" class="brand-mark">
-    <h1 class="hero-headline">Your retirement isn't an allocation. It's a design.</h1>
-    <p class="hero-subhead">Most retirement planning starts with what to invest in. We start with a different question: how do you actually want your retirement to feel and function? Take the Design Profile to discover the retirement design philosophy that fits you.</p>
-    <a href="#assessment" class="hero-cta">Begin the Design Profile</a>
-    <div class="hero-microcopy">
-      About 10 minutes <span class="dot">&bull;</span> Free <span class="dot">&bull;</span> No commitment required
+      <img src="myretirement-design-logo.png" alt="myRetirement Design - Clarity for the road ahead" class="brand-mark">
+      <h1 class="hero-headline">Your retirement isn't an allocation. It's a design.</h1>
+      <p class="hero-subhead">Most retirement planning starts with what to invest in. We start with a different question: how do you actually want your retirement to feel and function? Take the Design Profile to discover the retirement design philosophy that fits you.</p>
+      <a href="#assessment" class="hero-cta">Begin the Design Profile</a>
+      <div class="hero-microcopy">
+        About 10 minutes <span class="dot">&bull;</span> Free <span class="dot">&bull;</span> No commitment required
+      </div>
     </div>
   </section>
 
   <!-- CREDIBILITY -->
   <section class="credibility">
-    <div class="credibility-eyebrow">The methodology behind the assessment</div>
-    <h2 class="credibility-headline">Every dollar should have a role. Every vehicle should have a job.</h2>
-    <p class="credibility-body">The Design Profile is built on <strong>The Roles-Based Method</strong>, a retirement planning methodology developed at Jantz Wealth Solutions. Most retirement advice treats financial products as interchangeable wrappers around an asset allocation. We treat them as specialized tools, each with a specific job in your retirement. This assessment identifies which of four design Profiles fits how you want your retirement to feel, and shows you how your personalized Retirement Stack should be structured around it.</p>
+    <div class="container">
+      <div class="credibility-eyebrow">The methodology behind the assessment</div>
+      <h2 class="credibility-headline">Every dollar should have a role. Every vehicle should have a job.</h2>
+      <p class="credibility-body">The Design Profile is built on <strong>The Roles-Based Method</strong>, a retirement planning methodology developed at Jantz Wealth Solutions. Most retirement advice treats financial products as interchangeable wrappers around an asset allocation. We treat them as specialized tools, each with a specific job in your retirement. This assessment identifies which of four design Profiles fits how you want your retirement to feel, and shows you how your personalized Retirement Stack should be structured around it.</p>
+    </div>
   </section>
 
   <!-- ASSESSMENT EMBED -->
   <section class="assessment-section" id="assessment">
-    <div class="assessment-frame-wrap">
-      <div class="iframe-loading" id="iframe-loading">Loading the Design Profile...</div>
-      <iframe
-        id="assessment-iframe"
-        class="assessment-iframe"
-        src="https://seanjantz.github.io/jws-web-widgets/design_profile_assessment.html"
-        title="The Design Profile assessment"
-        loading="lazy"
-        onload="onIframeLoad()"
-      ></iframe>
+    <div class="container">
+      <div class="assessment-frame-wrap">
+        <div class="iframe-loading" id="iframe-loading">Loading the Design Profile...</div>
+        <iframe
+          id="assessment-iframe"
+          class="assessment-iframe"
+          src="https://seanjantz.github.io/jws-web-widgets/design_profile_assessment.html"
+          title="The Design Profile assessment"
+          loading="lazy"
+          onload="onIframeLoad()"
+        ></iframe>
+      </div>
     </div>
   </section>
 
   <!-- FAQ -->
   <section class="faq">
-    <div class="faq-eyebrow">Before you begin</div>
-    <h2 class="faq-headline">A few common questions</h2>
+    <div class="container">
+      <div class="faq-eyebrow">Before you begin</div>
+      <h2 class="faq-headline">A few common questions</h2>
 
-    <details class="faq-item">
-      <summary>How long does the Design Profile take?</summary>
-      <div class="faq-answer">About 8 to 10 minutes. There are 18 questions, plus a brief opening question about what brought you to the assessment. There's no time pressure, and you can move back and forth between questions if you want to revisit an answer.</div>
-    </details>
+      <details class="faq-item">
+        <summary>How long does the Design Profile take?</summary>
+        <div class="faq-answer">About 8 to 10 minutes. There are 18 questions, plus a brief opening question about what brought you to the assessment. There's no time pressure, and you can move back and forth between questions if you want to revisit an answer.</div>
+      </details>
 
-    <details class="faq-item">
-      <summary>What will I see at the end?</summary>
-      <div class="faq-answer">Your retirement design Profile, which is one of four philosophies that shape how retirees with your priorities should structure their plan. You'll also see your personalized Retirement Stack, a visual map of how your retirement design should be organized across guaranteed income, market growth, tax strategy, and legacy considerations. Plus the specific considerations retirees with your Profile typically need to think about.</div>
-    </details>
+      <details class="faq-item">
+        <summary>What will I see at the end?</summary>
+        <div class="faq-answer">Your retirement design Profile, which is one of four philosophies that shape how retirees with your priorities should structure their plan. You'll also see your personalized Retirement Stack, a visual map of how your retirement design should be organized across guaranteed income, market growth, tax strategy, and legacy considerations. Plus the specific considerations retirees with your Profile typically need to think about.</div>
+      </details>
 
-    <details class="faq-item">
-      <summary>Is my information shared with anyone?</summary>
-      <div class="faq-answer">Your email stays private. We use it to send you your Profile for reference and may share occasional retirement design content. We don't sell or share your information with third parties. You can unsubscribe anytime.</div>
-    </details>
+      <details class="faq-item">
+        <summary>Is my information shared with anyone?</summary>
+        <div class="faq-answer">Your email stays private. We use it to send you your Profile for reference and may share occasional retirement design content. We don't sell or share your information with third parties. You can unsubscribe anytime.</div>
+      </details>
 
-    <details class="faq-item">
-      <summary>Do I have to schedule a meeting after?</summary>
-      <div class="faq-answer">No. The Design Profile is free and educational. If you want to go deeper and map your real situation onto your personalized Retirement Stack, you can schedule a Discovery meeting at the end. If you'd rather take what you learned and apply it on your own, that's completely fine. There's no pressure either way.</div>
-    </details>
+      <details class="faq-item">
+        <summary>Do I have to schedule a meeting after?</summary>
+        <div class="faq-answer">No. The Design Profile is free and educational. If you want to go deeper and map your real situation onto your personalized Retirement Stack, you can schedule a Discovery meeting at the end. If you'd rather take what you learned and apply it on your own, that's completely fine. There's no pressure either way.</div>
+      </details>
+    </div>
   </section>
 
   <!-- FOOTER / DISCLOSURE -->
   <footer class="footer">
-    <p class="disclosure">Investment advisory services offered through Brookstone Wealth Advisors, LLC (BWA), a registered investment advisor. BWA and Brookstone Capital Management, LLC are affiliated companies. BWA and Jantz Wealth Solutions are independent of each other. Insurance products and services are not offered through BWA but are offered and sold through individually licensed and appointed agents. The Design Profile is an educational tool intended to help retirees understand their preferences and design philosophy. It is not a recommendation of specific securities, insurance products, or investment strategies. Any design conversation requires a personalized review of your individual circumstances.</p>
+    <div class="container">
+      <p class="disclosure">Investment advisory services offered through Brookstone Wealth Advisors, LLC (BWA), a registered investment advisor. BWA and Brookstone Capital Management, LLC are affiliated companies. BWA and Jantz Wealth Solutions are independent of each other. Insurance products and services are not offered through BWA but are offered and sold through individually licensed and appointed agents. The Design Profile is an educational tool intended to help retirees understand their preferences and design philosophy. It is not a recommendation of specific securities, insurance products, or investment strategies. Any design conversation requires a personalized review of your individual circumstances.</p>
+    </div>
   </footer>
-
-</div>
 
 <script>
 //=============================================================================
