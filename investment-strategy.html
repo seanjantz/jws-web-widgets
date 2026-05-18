@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Find Your Portfolio | Jantz Wealth Solutions</title>
+<title>Investment Strategy Assessment (ISA) | Jantz Wealth Solutions</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -72,6 +72,54 @@
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(8px); }
     to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─────────── INTRO BRAND MARK (ISA) ─────────── */
+  .brand-mark {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 32px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+  }
+  .isa-monogram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    background: var(--navy);
+    color: var(--white);
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.06em;
+    border-radius: 4px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(0, 68, 106, 0.18);
+  }
+  .brand-mark-label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+  .brand-mark-name {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--navy);
+    letter-spacing: -0.005em;
+    line-height: 1.2;
+  }
+  .brand-mark-firm {
+    font-family: var(--body);
+    font-size: 11px;
+    color: var(--charcoal-soft);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
   }
 
   /* ─────────── INTRO ─────────── */
@@ -519,6 +567,10 @@
     .nav-row { flex-direction: row-reverse; }
     .cta-primary-row .btn { width: 100%; justify-content: center; }
     .cta-tertiary-row .btn { width: 100%; justify-content: center; }
+    .brand-mark { gap: 14px; margin-bottom: 24px; padding-bottom: 22px; }
+    .isa-monogram { width: 60px; height: 60px; font-size: 18px; }
+    .brand-mark-name { font-size: 15px; }
+    .brand-mark-firm { font-size: 10px; letter-spacing: 0.12em; }
   }
 </style>
 </head>
@@ -528,7 +580,13 @@
 
   <!-- ═══════════ INTRO ═══════════ -->
   <section id="intro" class="screen active">
-    <div class="eyebrow">Jantz Wealth Solutions</div>
+    <div class="brand-mark">
+      <div class="isa-monogram">ISA</div>
+      <div class="brand-mark-label">
+        <div class="brand-mark-name">Investment Strategy Assessment</div>
+        <div class="brand-mark-firm">Jantz Wealth Solutions</div>
+      </div>
+    </div>
     <h1 class="display-h1">Find the investment strategy that <em>fits your goals.</em></h1>
     <p class="lede">
       A short questionnaire to help you identify which of our four core portfolios
@@ -581,6 +639,13 @@
 
   <!-- ═══════════ RESULTS ═══════════ -->
   <section id="results" class="screen">
+    <div class="brand-mark">
+      <div class="isa-monogram">ISA</div>
+      <div class="brand-mark-label">
+        <div class="brand-mark-name">Investment Strategy Assessment</div>
+        <div class="brand-mark-firm">Jantz Wealth Solutions</div>
+      </div>
+    </div>
     <div class="score-pill">
       <span class="score-pill-dot"></span>
       <span>Your score: <strong id="scoreDisplay"></strong> of 48</span>
@@ -616,18 +681,18 @@
     </div>
 
     <div class="cta-section">
-      <h3 class="cta-headline">Discuss this with your advisor.</h3>
+      <h3 class="cta-headline">Run the numbers on this allocation.</h3>
       <p class="cta-sub">
-        This questionnaire is a starting point. A conversation with our team
-        will help confirm whether this allocation is right for your full financial picture.
+        Use our interactive calculator to see how this portfolio could grow
+        over time. When you're ready, we're here to talk.
       </p>
       <div class="cta-primary-row">
-        <a href="https://www.jantzwealth.com/schedule" class="btn btn-primary" target="_blank" rel="noopener">
-          Schedule a Meeting <span class="btn-arrow">→</span>
+        <a href="#" class="btn btn-primary" id="calculatorLink" target="_top">
+          Explore the <span id="calcPortfolioName">Portfolio</span> Calculator <span class="btn-arrow">→</span>
         </a>
       </div>
-      <a href="#" class="cta-secondary-link" id="calculatorLink" target="_top">
-        Explore the <span id="calcPortfolioName">portfolio</span> calculator first <span class="btn-arrow">→</span>
+      <a href="https://www.jantzwealth.com/schedule" class="cta-secondary-link" target="_blank" rel="noopener">
+        Schedule a Meeting <span class="btn-arrow">→</span>
       </a>
       <div class="cta-tertiary-row">
         <button class="btn btn-ghost" onclick="restart()">Take Again</button>
@@ -635,7 +700,7 @@
     </div>
 
     <p class="disclaimer">
-      This questionnaire is provided for informational and educational purposes only. The portfolio match
+      The Investment Strategy Assessment (ISA) is provided for informational and educational purposes only. The portfolio match
       reflects a directional indication based on your responses and is not an offer or recommendation to
       buy or sell any security. Investment advisory services offered through Brookstone Wealth Advisors, LLC
       (BWA), a registered investment advisor. BWA and Brookstone Capital Management, LLC are affiliated
