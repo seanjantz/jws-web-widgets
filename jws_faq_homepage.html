@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Common Questions | Jantz Wealth Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #00446A;
+    --blue: #0084D3;
+    --charcoal: #353E44;
+    --cream: #FAFAFA;
+    --line: #E5EAEE;
+    --line-hover: #C9D4DC;
+    --body: #4A555C;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: #FFFFFF;
+    color: var(--charcoal);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .section {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 64px 32px 80px;
+  }
+
+  .eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
+  }
+
+  .lead {
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--body);
+    line-height: 1.6;
+    max-width: 620px;
+    margin-bottom: 48px;
+  }
+
+  .faq-list {
+    border-top: 1px solid var(--line);
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+    transition: border-color 0.2s ease;
+  }
+
+  .faq-item:hover {
+    border-bottom-color: var(--line-hover);
+  }
+
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    padding: 24px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    font-family: inherit;
+    color: var(--navy);
+    transition: color 0.2s ease;
+  }
+
+  .faq-question:hover {
+    color: var(--blue);
+  }
+
+  .faq-question:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  .faq-number {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--blue);
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+    padding-top: 4px;
+    min-width: 28px;
+  }
+
+  .faq-text {
+    flex: 1;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.005em;
+  }
+
+  .faq-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    margin-top: 4px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-icon::before,
+  .faq-icon::after {
+    content: '';
+    position: absolute;
+    background: var(--blue);
+    border-radius: 1px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-icon::before {
+    top: 11px;
+    left: 4px;
+    width: 16px;
+    height: 2px;
+  }
+
+  .faq-icon::after {
+    top: 4px;
+    left: 11px;
+    width: 2px;
+    height: 16px;
+  }
+
+  .faq-item.open .faq-icon::after {
+    transform: scaleY(0);
+  }
+
+  .faq-item.open .faq-icon {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-item.open .faq-answer {
+    grid-template-rows: 1fr;
+  }
+
+  .faq-answer-inner {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .faq-answer-content {
+    padding: 0 52px 28px 52px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--body);
+  }
+
+  .faq-answer-content p {
+    margin-bottom: 14px;
+  }
+
+  .faq-answer-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .inline-link {
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(0, 132, 211, 0.3);
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .inline-link:hover {
+    color: var(--navy);
+    border-bottom-color: var(--navy);
+  }
+
+  .inline-link:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .faq-cta {
+    margin-top: 48px;
+    padding: 32px;
+    background: var(--cream);
+    border-left: 3px solid var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .faq-cta-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: var(--charcoal);
+    line-height: 1.5;
+    flex: 1;
+    min-width: 240px;
+  }
+
+  .faq-cta-text strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  .faq-cta-button {
+    display: inline-block;
+    background: var(--navy);
+    color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 2px;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .faq-cta-button:hover {
+    background: var(--blue);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 640px) {
+    .section {
+      padding: 48px 20px 64px;
+    }
+    .faq-question {
+      gap: 16px;
+      padding: 20px 0;
+    }
+    .faq-text {
+      font-size: 16px;
+    }
+    .faq-answer-content {
+      padding: 0 0 24px 44px;
+      font-size: 15px;
+    }
+    .faq-cta {
+      padding: 24px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<section class="section">
+  <div class="eyebrow">Common Questions</div>
+  <h2>Questions worth asking before we talk</h2>
+  <p class="lead">The questions I hear most from people who land on this site and are deciding whether to reach out.</p>
+
+  <div class="faq-list" id="faqList">
+
+    <!-- Q1 -->
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        <span class="faq-number">01</span>
+        <span class="faq-text">Are you a fiduciary?</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          <div class="faq-answer-content">
+            <p>Yes, on the investment side. As an Investment Adviser Representative, I'm held to a fiduciary standard, meaning I'm legally required to put your interests ahead of my own.</p>
+            <p>On the insurance and annuity side, I'm a licensed agent and follow the best-interest standards required by state insurance regulators. The clearest way I show this in practice: I'll tell you when something I offer isn't the right fit for your situation.</p>
+            <p>You can verify my credentials and regulatory history anytime through the SEC's <a href="https://adviserinfo.sec.gov/individual/summary/8217260" target="_blank" rel="noopener noreferrer" class="inline-link">Investment Adviser Public Disclosure database</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        <span class="faq-number">02</span>
+        <span class="faq-text">What is a "hybrid advisor," and why does it matter to me?</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          <div class="faq-answer-content">
+            <p>A hybrid advisor is licensed and registered to provide both investment advisory services and insurance products. Most advisors specialize in only one.</p>
+            <p>The advantage for you is that retirement planning rarely fits neatly into one category. Sometimes the right answer is an investment strategy, sometimes it's an insurance solution, and often it's a combination of both. Being independent on both sides means I can recommend what actually fits your situation rather than what my license limits me to.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        <span class="faq-number">03</span>
+        <span class="faq-text">How do you get paid?</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          <div class="faq-answer-content">
+            <p>Two ways, depending on what we work on together.</p>
+            <p>For investment management, I charge a tiered advisory fee based on the assets I manage for you. It starts at 1.00% per year and steps down as your account grows.</p>
+            <p>For insurance and annuities, I'm paid a commission by the insurance company when you purchase a policy. You don't write a separate check, and the commission doesn't reduce your premium or contract value. I disclose how I'm compensated on any product before you decide.</p>
+            <p>No hidden fees, no kickbacks, and no proprietary products to push.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        <span class="faq-number">04</span>
+        <span class="faq-text">What happens if I schedule a call, and does it cost anything?</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          <div class="faq-answer-content">
+            <p>The first conversation is free, with no expectation that you become a client. It's a short 20 to 30 minute call where I learn about your situation, you learn how I work, and we both decide whether it makes sense to go further.</p>
+            <p>If we do, the next step is a planning meeting where we look at your full picture: income, taxes, investments, insurance, Social Security timing, and anything else on your mind. You'll leave with clarity on where you stand, whether you decide to work with me long-term or not.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        <span class="faq-number">05</span>
+        <span class="faq-text">Do I need to live in the Magic Valley to work with you?</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          <div class="faq-answer-content">
+            <p>No. I'm based in Twin Falls and work with families across the Magic Valley in person, but I also serve clients virtually. Planning meetings, investment reviews, and check-ins can all happen by video call, phone, or email, whichever you're most comfortable with.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        <span class="faq-number">06</span>
+        <span class="faq-text">How will my money actually be invested?</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          <div class="faq-answer-content">
+            <p>Your portfolio is built around your goals, your timeline, and how much risk you can comfortably take. In practice, that usually means a diversified mix of low-cost index funds and ETFs across U.S. stocks, international stocks, bonds, and at times alternatives like gold or short-term Treasuries.</p>
+            <p>I don't chase hot stocks, I don't try to time the market, and I don't use anything I wouldn't put my own family's money into. For clients who want guaranteed income or principal protection on part of their savings, we can layer an annuity alongside the investment portfolio. That's always a separate conversation and never required.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        <span class="faq-number">07</span>
+        <span class="faq-text">When does an annuity make sense, and when doesn't it?</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          <div class="faq-answer-content">
+            <p>Annuities can be a good fit when you want a guaranteed stream of income in retirement, protection from market losses on a portion of your savings, or a way to defer taxes on growth.</p>
+            <p>They're not a good fit when you need full liquidity, when the fees outweigh the benefits, or when a regular investment account would serve you just as well. I only recommend an annuity when I can clearly explain why it solves a specific problem in your plan.</p>
+            <p>If you've been pitched one elsewhere and aren't sure what to make of it, I'm happy to give you a second opinion at no cost.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        <span class="faq-number">08</span>
+        <span class="faq-text">Who do you typically work with, and do you have a minimum?</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          <div class="faq-answer-content">
+            <p>I primarily work with people preparing for or already in retirement, though I also work with younger families who are serious about building wealth for the long term. I don't have an account minimum.</p>
+            <p>If you're serious about planning for your financial future and we're a good fit personality-wise, I'm interested in working with you. The first conversation is the easiest way to find out.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="faq-cta">
+    <div class="faq-cta-text">
+      <strong>Still have questions?</strong><br>
+      The first call is the easiest way to get answers tailored to your situation.
+    </div>
+    <a href="#schedule" class="faq-cta-button" id="ctaButton">Schedule a Call</a>
+  </div>
+</section>
+
+<script>
+  // Accordion toggle with single-open behavior
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+
+      // Close all others
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      });
+
+      // Toggle current
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+
+      // Trigger resize after transition completes
+      setTimeout(sendHeight, 360);
+    });
+  });
+
+  // Duda iframe auto-resize via postMessage
+  function sendHeight() {
+    const height = document.documentElement.scrollHeight;
+    window.parent.postMessage({ type: 'resize', height: height }, '*');
+    // Duda-specific format (used on other JWS widgets)
+    window.parent.postMessage({ height: height, frameHeight: height }, '*');
+  }
+
+  window.addEventListener('load', sendHeight);
+  window.addEventListener('resize', sendHeight);
+
+  // Observe DOM changes for any dynamic content
+  if (window.ResizeObserver) {
+    new ResizeObserver(sendHeight).observe(document.body);
+  }
+</script>
+
+</body>
+</html>
