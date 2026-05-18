@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Financial Life, in One Secure Place | Jantz Wealth Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #00446A;
+    --navy-deep: #002F4A;
+    --blue: #0084D3;
+    --blue-soft: #E6F2FB;
+    --charcoal: #353E44;
+    --slate: #5C6770;
+    --line: #E2E6EA;
+    --cream: #F7F8FA;
+    --white: #FFFFFF;
+    --gold: #C9A961;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--charcoal);
+    background: var(--white);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, .display {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+  }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 55%, #00568A 100%);
+    color: var(--white);
+    padding: 72px 0 88px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(0,132,211,0.25) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    bottom: -150px; left: -150px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(0,132,211,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #9AC8E5;
+    margin-bottom: 18px;
+    padding: 6px 14px;
+    border: 1px solid rgba(154,200,229,0.35);
+    border-radius: 999px;
+  }
+  .hero h1 {
+    color: var(--white);
+    font-size: clamp(34px, 4.4vw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 22px;
+  }
+  .hero h1 span { color: #7FC4EC; }
+  .hero p.lede {
+    font-size: 18px;
+    color: #D6E5EF;
+    margin-bottom: 32px;
+    max-width: 540px;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 14px 26px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+    letter-spacing: 0.01em;
+  }
+  .btn-primary {
+    background: var(--blue);
+    color: var(--white);
+  }
+  .btn-primary:hover {
+    background: #006FB5;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(0,132,211,0.35);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.4);
+  }
+  .btn-ghost:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.7);
+  }
+  .hero-visual {
+    position: relative;
+  }
+  .hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4), 0 12px 24px rgba(0,0,0,0.2);
+    transform: perspective(1200px) rotateY(-2deg);
+    transition: transform 0.4s ease;
+  }
+  .hero-image:hover {
+    transform: perspective(1200px) rotateY(0deg);
+  }
+  .hero-image-glow {
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(circle at center, rgba(0,132,211,0.25) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(20px);
+  }
+
+  /* ---------- BADGE STRIP ---------- */
+  .badge-strip {
+    background: var(--cream);
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .badge-strip-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 36px;
+    text-align: center;
+  }
+  .badge-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--slate);
+    font-weight: 500;
+  }
+  .badge-item strong {
+    color: var(--navy);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+  }
+  .badge-item svg { flex-shrink: 0; }
+
+  /* ---------- SECTIONS ---------- */
+  section.block { padding: 80px 0; }
+
+  .section-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 14px;
+  }
+  h2.section-title {
+    font-size: clamp(28px, 3.4vw, 38px);
+    font-weight: 700;
+    line-height: 1.18;
+    margin-bottom: 18px;
+    max-width: 760px;
+  }
+  .section-lede {
+    font-size: 17px;
+    color: var(--slate);
+    max-width: 720px;
+    margin-bottom: 48px;
+  }
+
+  /* ---------- VIDEO SECTION ---------- */
+  .video-block {
+    background: var(--white);
+  }
+  .video-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .video-header .section-title,
+  .video-header .section-lede {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .video-frame {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--navy-deep);
+    box-shadow: 0 30px 60px rgba(0,68,106,0.18), 0 12px 24px rgba(0,68,106,0.1);
+  }
+  .video-frame::before {
+    content: "";
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(circle at center, rgba(0,132,211,0.15) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(20px);
+  }
+  .video-frame iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* ---------- WHY WE PROVIDE IT ---------- */
+  .why-block {
+    background: var(--cream);
+  }
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .why-card {
+    background: var(--white);
+    padding: 36px;
+    border-radius: 8px;
+    border-left: 4px solid var(--blue);
+    box-shadow: 0 4px 18px rgba(0,68,106,0.06);
+  }
+  .why-card h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .why-card p {
+    color: var(--slate);
+    margin-bottom: 14px;
+  }
+  .why-card p:last-child { margin-bottom: 0; }
+  .signature {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: var(--navy);
+    font-size: 15px;
+  }
+  .signature span {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--slate);
+    font-size: 13px;
+    margin-top: 2px;
+  }
+
+  /* ---------- FEATURE GRID ---------- */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .feature {
+    padding: 32px 28px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--white);
+    transition: all 0.25s ease;
+    position: relative;
+  }
+  .feature:hover {
+    border-color: var(--blue);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0,68,106,0.1);
+  }
+  .feature-icon {
+    width: 48px; height: 48px;
+    background: var(--blue-soft);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+  .feature h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .feature p {
+    font-size: 14.5px;
+    color: var(--slate);
+    line-height: 1.6;
+  }
+
+  /* ---------- STATS BAR ---------- */
+  .stats-bar {
+    background: var(--navy);
+    color: var(--white);
+    padding: 64px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .stats-bar::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue), transparent);
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(36px, 4.5vw, 52px);
+    font-weight: 700;
+    color: #7FC4EC;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .stat-label {
+    font-size: 14px;
+    color: #D6E5EF;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  /* ---------- MOBILE SECTION ---------- */
+  .mobile-section {
+    background: linear-gradient(180deg, var(--white) 0%, var(--cream) 100%);
+  }
+  .mobile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .mobile-list {
+    list-style: none;
+    margin-top: 28px;
+  }
+  .mobile-list li {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .mobile-list li:last-child { border-bottom: none; }
+  .mobile-list .check {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    background: var(--blue-soft);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .mobile-list h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+  .mobile-list p {
+    font-size: 14px;
+    color: var(--slate);
+    margin: 0;
+  }
+  .mobile-image-wrap {
+    position: relative;
+  }
+  .mobile-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 25px 50px rgba(0,68,106,0.25), 0 10px 20px rgba(0,68,106,0.12);
+  }
+  .mobile-image-glow {
+    position: absolute;
+    inset: -15px;
+    background: radial-gradient(circle at center, rgba(0,132,211,0.18) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(20px);
+  }
+
+  /* ---------- SECURITY ---------- */
+  .security {
+    background: var(--charcoal);
+    color: var(--white);
+    padding: 70px 0;
+  }
+  .security h2 { color: var(--white); }
+  .security .section-lede { color: #C8CDD2; }
+  .security-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+  }
+  .sec-item {
+    text-align: left;
+  }
+  .sec-item .sec-icon {
+    width: 38px; height: 38px;
+    background: rgba(127,196,236,0.15);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+  .sec-item h4 {
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .sec-item p {
+    color: #B0B7BD;
+    font-size: 13.5px;
+  }
+
+  /* ---------- CTA ---------- */
+  .cta-block {
+    background: linear-gradient(135deg, var(--navy) 0%, #005A8E 100%);
+    color: var(--white);
+    padding: 72px 0;
+    text-align: center;
+  }
+  .cta-block h2 {
+    color: var(--white);
+    font-size: clamp(28px, 3.4vw, 38px);
+    margin-bottom: 16px;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta-block p {
+    color: #D6E5EF;
+    font-size: 17px;
+    max-width: 620px;
+    margin: 0 auto 32px;
+  }
+
+  /* ---------- DISCLOSURE ---------- */
+  .disclosure {
+    background: var(--cream);
+    padding: 36px 0;
+    border-top: 1px solid var(--line);
+  }
+  .disclosure p {
+    font-size: 12px;
+    color: var(--slate);
+    line-height: 1.7;
+    max-width: 980px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 900px) {
+    .hero-inner, .why-grid, .mobile-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-grid { grid-template-columns: 1fr; gap: 28px; }
+    .security-grid { grid-template-columns: repeat(2, 1fr); }
+    section.block { padding: 60px 0; }
+    .hero { padding: 56px 0 64px; }
+  }
+  @media (max-width: 560px) {
+    .features-grid, .security-grid { grid-template-columns: 1fr; }
+    .badge-strip-inner { gap: 18px; }
+    .hero-ctas { flex-direction: column; align-items: stretch; }
+    .btn { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <span class="eyebrow">Included free for JWS clients</span>
+      <h1>Your entire financial picture, <span>in one secure place.</span></h1>
+      <p class="lede">As a Jantz Wealth Solutions client, you get free access to eMoney, the same financial planning platform used by more than 109,000 advisors across the country. We invested in it so you don't have to.</p>
+      <div class="hero-ctas">
+        <a href="https://wealth.emaplan.com/ema/SignIn?ema%2Fria%2Fjantzwealth" target="_blank" rel="noopener" class="btn btn-primary">Login Now</a>
+        <a href="#see-it-in-action" class="btn btn-ghost">See what's inside</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-image-glow"></div>
+      <img src="emoney-portal-screenshot.png" alt="Client reviewing her eMoney financial dashboard showing accounts, net worth, and retirement goals" class="hero-image">
+    </div>
+  </div>
+</section>
+
+<!-- BADGE STRIP -->
+<div class="badge-strip">
+  <div class="wrap badge-strip-inner">
+    <div class="badge-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v5c0 5.5 3.84 10.74 9 12 5.16-1.26 9-6.5 9-12V7l-9-5z" stroke="#00446A" stroke-width="2" stroke-linejoin="round"/></svg>
+      <span>Bank-level <strong>encryption</strong></span>
+    </div>
+    <div class="badge-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#00446A" stroke-width="2"/><path d="M12 7v5l3 2" stroke="#00446A" stroke-width="2" stroke-linecap="round"/></svg>
+      <span><strong>Real-time</strong> account values</span>
+    </div>
+    <div class="badge-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="2" stroke="#00446A" stroke-width="2"/><circle cx="12" cy="18" r="1.2" fill="#00446A"/></svg>
+      <span><strong>iOS &amp; Android</strong> apps</span>
+    </div>
+    <div class="badge-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 17l6-6 4 4 8-8" stroke="#00446A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 7h7v7" stroke="#00446A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><strong>Live</strong> progress tracking</span>
+    </div>
+    <div class="badge-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="#00446A" stroke-width="2" stroke-linejoin="round"/></svg>
+      <span>Secure <strong>advisor messaging</strong></span>
+    </div>
+  </div>
+</div>
+
+<!-- VIDEO SECTION -->
+<section class="block video-block" id="see-it-in-action">
+  <div class="wrap">
+    <div class="video-header">
+      <div class="section-eyebrow">See it in action</div>
+      <h2 class="section-title">A quick look at the portal.</h2>
+      <p class="section-lede">See how eMoney replaces the patchwork of statements and logins with one clear picture of where you stand today and where you're headed.</p>
+    </div>
+    <div class="video-frame">
+      <iframe
+        src="https://www.youtube.com/embed/N0PKXnKXyOI?rel=0"
+        title="eMoney Client Portal walkthrough"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- WHY WE PROVIDE IT -->
+<section class="block why-block">
+  <div class="wrap">
+    <div class="why-grid">
+      <div>
+        <div class="section-eyebrow">Why we did this</div>
+        <h2 class="section-title">A client portal worth paying for. So we did.</h2>
+        <p class="section-lede">Most financial websites give you a static statement once a quarter. We thought that fell short. Retirement planning depends on seeing the whole picture, not just the slice we manage. eMoney lets you connect every account that matters to your plan, so when we meet, we're looking at reality, not a snapshot from 90 days ago.</p>
+      </div>
+      <div class="why-card">
+        <h3>This is a gift to our clients.</h3>
+        <p>eMoney is the same platform used by some of the largest wealth management firms in the country. It typically isn't free for clients to access. We pay for the subscription so our clients get the full experience at no cost, with no upsell.</p>
+        <p>If you're a JWS client and you'd like access, just ask. We'll have you set up the same day.</p>
+        <div class="signature">
+          Sean Jantz
+          <span>Founder, Jantz Wealth Solutions</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="block" id="features">
+  <div class="wrap">
+    <div class="section-eyebrow">What's inside</div>
+    <h2 class="section-title">Built around how retirees actually think about money.</h2>
+    <p class="section-lede">eMoney was designed to make complex financial pictures simple to see and easy to act on. Here's what your portal does the moment you log in.</p>
+
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="#0084D3" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="#0084D3" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="#0084D3" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1" stroke="#0084D3" stroke-width="2"/></svg>
+        </div>
+        <h3>All accounts in one view</h3>
+        <p>Connect retirement accounts, bank accounts, brokerage accounts, even your mortgage and home value. See your full net worth update in real time, automatically.</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="#0084D3" stroke-width="2" stroke-linejoin="round"/><path d="M14 2v6h6" stroke="#0084D3" stroke-width="2" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Secure document vault</h3>
+        <p>Trust documents, tax returns, estate paperwork, beneficiary forms. Store everything important in an encrypted vault you and your advisor can both access. No more lost files.</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#0084D3" stroke-width="2"/><path d="M12 6v6l4 2" stroke="#0084D3" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Retirement goal tracking</h3>
+        <p>See exactly how close you are to your retirement goals, today. Watch the plan update as markets move, contributions change, or life shifts direction.</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 17l5-5 4 4 9-9" stroke="#0084D3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 21h18" stroke="#0084D3" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Spending and cash flow</h3>
+        <p>If you choose to use it, the portal can categorize your spending automatically and show where your money goes each month. Helpful for retirees trying to set a sustainable withdrawal rate.</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke="#0084D3" stroke-width="2" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Secure messaging with us</h3>
+        <p>Send sensitive questions, documents, or files through the portal instead of email. Everything stays inside one encrypted channel that we both monitor.</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="3" stroke="#0084D3" stroke-width="2"/><circle cx="12" cy="18" r="1.4" fill="#0084D3"/></svg>
+        </div>
+        <h3>Mobile app, biometric login</h3>
+        <p>Check your plan from your phone with face or fingerprint sign-in. Works on iPhone and Android. Same data, same security, on the go.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<section class="stats-bar">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div>
+        <div class="stat-num">109,000+</div>
+        <div class="stat-label">Financial professionals nationwide use the eMoney platform</div>
+      </div>
+      <div>
+        <div class="stat-num">6M+</div>
+        <div class="stat-label">Households served through eMoney across the U.S.</div>
+      </div>
+      <div>
+        <div class="stat-num">85%</div>
+        <div class="stat-label">Trust level reported by clients who use their portal regularly</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOBILE SECTION -->
+<section class="block mobile-section">
+  <div class="wrap">
+    <div class="mobile-grid">
+      <div>
+        <div class="section-eyebrow">On your phone</div>
+        <h2 class="section-title">Your plan, in your pocket.</h2>
+        <p class="section-lede">Travel often in retirement? Snowbird in the winter? The mobile app keeps your full financial picture one biometric tap away, anywhere you have a signal.</p>
+        <ul class="mobile-list">
+          <li>
+            <div class="check">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#0084D3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h4>Face ID and fingerprint login</h4>
+              <p>No password to remember. Sign in the same way you unlock your phone.</p>
+            </div>
+          </li>
+          <li>
+            <div class="check">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#0084D3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h4>Live balances on demand</h4>
+              <p>Pull up account values from anywhere. No need to log into five different banks.</p>
+            </div>
+          </li>
+          <li>
+            <div class="check">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#0084D3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h4>Push notifications you control</h4>
+              <p>Get alerts only for the things that matter to you. Turn off everything else.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <div class="mobile-image-wrap">
+          <div class="mobile-image-glow"></div>
+          <img src="emoney-mobile-screenshot.png" alt="Client reviewing the eMoney mobile app on her phone alongside the desktop dashboard" class="mobile-image">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECURITY -->
+<section class="security">
+  <div class="wrap">
+    <div class="section-eyebrow" style="color: #7FC4EC;">Built like a bank vault</div>
+    <h2 class="section-title">Security is the whole point.</h2>
+    <p class="section-lede">eMoney is used by tens of thousands of financial firms because it holds up to the same security standards as the institutions where your money already lives.</p>
+
+    <div class="security-grid">
+      <div class="sec-item">
+        <div class="sec-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="4" y="11" width="16" height="10" rx="2" stroke="#7FC4EC" stroke-width="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="#7FC4EC" stroke-width="2"/></svg>
+        </div>
+        <h4>End-to-end encryption</h4>
+        <p>Your data is encrypted both in transit and at rest, using the same standards used by major financial institutions.</p>
+      </div>
+      <div class="sec-item">
+        <div class="sec-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z" stroke="#7FC4EC" stroke-width="2" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>Two-factor authentication</h4>
+        <p>An extra verification step every time you log in from a new device, so a stolen password alone is never enough.</p>
+      </div>
+      <div class="sec-item">
+        <div class="sec-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#7FC4EC" stroke-width="2"/><path d="M12 2v20M2 12h20" stroke="#7FC4EC" stroke-width="2"/></svg>
+        </div>
+        <h4>Read-only connections</h4>
+        <p>Linked accounts share balance data only. No one can move money, place trades, or change anything in your accounts through the portal.</p>
+      </div>
+      <div class="sec-item">
+        <div class="sec-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 12h4l3-9 4 18 3-9h4" stroke="#7FC4EC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>Routine security testing</h4>
+        <p>eMoney runs ongoing penetration testing and stores client data in geographically separated, secured databases.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-block" id="getting-started">
+  <div class="wrap">
+    <h2>Ready to see your whole financial picture in one place?</h2>
+    <p>If you're already a Jantz Wealth Solutions client, your portal is waiting. Reach out and we'll send your login the same day, walk you through setup, and help you connect the accounts that matter most.</p>
+    <div class="hero-ctas" style="justify-content: center;">
+      <a href="https://jantzwealthsolutions.com/schedule" class="btn btn-primary">Request my portal access</a>
+      <a href="https://jantzwealthsolutions.com/schedule" class="btn btn-ghost">Schedule a setup call</a>
+    </div>
+  </div>
+</section>
+
+<!-- DISCLOSURE -->
+<div class="disclosure">
+  <div class="wrap">
+    <p>The eMoney Client Portal is offered to Jantz Wealth Solutions clients as a complimentary service. Account aggregation is read-only and does not authorize transactions on linked accounts. Investment advisory services offered through Brookstone Wealth Advisors, LLC (BWA), a registered investment advisor. BWA and Brookstone Capital Management, LLC are affiliated companies. BWA and Jantz Wealth Solutions are independent of each other. Insurance products and services are not offered through BWA but are offered and sold through individually licensed and appointed agents.</p>
+  </div>
+</div>
+
+<script>
+  // Duda iframe auto-resize (consistent with JWS widget embed pattern)
+  function postHeight() {
+    var height = document.documentElement.scrollHeight;
+    if (window.parent !== window) {
+      window.parent.postMessage({ type: 'jws-widget-resize', height: height }, '*');
+    }
+  }
+  window.addEventListener('load', postHeight);
+  window.addEventListener('resize', postHeight);
+  // Re-post on any layout shift
+  if (window.ResizeObserver) {
+    var ro = new ResizeObserver(postHeight);
+    ro.observe(document.body);
+  }
+</script>
+
+</body>
+</html>
