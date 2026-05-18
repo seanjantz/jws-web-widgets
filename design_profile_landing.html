@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Design Profile | Jantz Wealth Solutions</title>
+<meta name="description" content="Discover your retirement design Profile and see your personalized Retirement Stack. A free 10-minute assessment from Jantz Wealth Solutions.">
+
+<!--
+  THE DESIGN PROFILE: LANDING PAGE
+  Jantz Wealth Solutions / myRetirement Design / The Roles-Based Method
+
+  This standalone page is the canonical home of the Design Profile assessment.
+  It iframes the assessment widget hosted on GitHub Pages and provides:
+    - Hero with primary CTA
+    - Brief credibility paragraph introducing The Roles-Based Method
+    - Embedded assessment with postMessage auto-resize
+    - FAQ section
+    - BCM compliance disclosure
+
+  Deployment pattern (matches existing JWS widgets):
+    1. Host this file in the seanjantz/jws-web-widgets GitHub Pages repo
+    2. Embed via iframe in Duda using the standard postMessage auto-resize
+    3. URL it from YouTube video descriptions, social posts, etc.
+-->
+
+<style>
+  :root {
+    --jws-navy: #00446A;
+    --jws-blue: #0084D3;
+    --jws-charcoal: #353E44;
+    --jws-cream: #F8F6F1;
+    --jws-amber: #C28D3D;
+    --jws-light-gray: #E8E6E0;
+    --jws-gray: #8C8B85;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--jws-charcoal);
+    background: #ffffff;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 80px 0 60px;
+    position: relative;
+  }
+
+  .brand-mark {
+    display: block;
+    width: 320px;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 36px;
+  }
+
+  .hero-headline {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--jws-navy);
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    margin: 0 0 24px;
+    max-width: 720px;
+  }
+
+  .hero-subhead {
+    font-size: 19px;
+    color: var(--jws-charcoal);
+    line-height: 1.55;
+    margin: 0 0 36px;
+    max-width: 640px;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    background: var(--jws-blue);
+    color: white;
+    text-decoration: none;
+    padding: 16px 36px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 4px;
+    transition: background 0.2s ease, transform 0.15s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .hero-cta:hover {
+    background: var(--jws-navy);
+    transform: translateY(-1px);
+  }
+
+  .hero-microcopy {
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--jws-gray);
+    font-family: 'Inter', sans-serif;
+  }
+
+  .hero-microcopy .dot {
+    display: inline-block;
+    margin: 0 8px;
+    color: var(--jws-light-gray);
+  }
+
+  /* Visual accent: subtle stack motif in hero */
+  .stack-motif {
+    position: absolute;
+    top: 90px;
+    right: 0;
+    width: 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .stack-motif .layer {
+    height: 8px;
+    border-radius: 2px;
+    background: var(--jws-light-gray);
+  }
+
+  .stack-motif .layer.l1 { background: rgba(0, 68, 106, 0.85); width: 100%; }
+  .stack-motif .layer.l2 { background: rgba(43, 122, 120, 0.6); width: 86%; }
+  .stack-motif .layer.l3 { background: rgba(91, 75, 138, 0.5); width: 72%; }
+  .stack-motif .layer.l4 { background: rgba(184, 92, 122, 0.4); width: 58%; }
+
+  /* CREDIBILITY BLOCK */
+  .credibility {
+    padding: 0 0 64px;
+    border-bottom: 1px solid var(--jws-light-gray);
+  }
+
+  .credibility-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--jws-blue);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .credibility-headline {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--jws-navy);
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0 0 16px;
+    max-width: 640px;
+  }
+
+  .credibility-body {
+    font-size: 17px;
+    color: var(--jws-charcoal);
+    line-height: 1.65;
+    max-width: 680px;
+    margin: 0;
+  }
+
+  .credibility-body strong {
+    color: var(--jws-navy);
+    font-weight: 600;
+  }
+
+  /* ASSESSMENT SECTION */
+  .assessment-section {
+    padding: 64px 0 32px;
+    scroll-margin-top: 20px;
+  }
+
+  .assessment-frame-wrap {
+    background: white;
+    border: 1px solid var(--jws-light-gray);
+    border-radius: 8px;
+    overflow: hidden;
+    min-height: 600px;
+    position: relative;
+  }
+
+  .assessment-iframe {
+    width: 100%;
+    border: none;
+    display: block;
+    min-height: 600px;
+    transition: height 0.2s ease;
+  }
+
+  .iframe-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: var(--jws-gray);
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.5px;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .iframe-loading.hidden {
+    opacity: 0;
+  }
+
+  /* FAQ SECTION */
+  .faq {
+    padding: 80px 0 60px;
+    border-top: 1px solid var(--jws-light-gray);
+    margin-top: 60px;
+  }
+
+  .faq-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--jws-blue);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .faq-headline {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--jws-navy);
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 32px;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--jws-light-gray);
+    padding: 0;
+  }
+
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--jws-navy);
+    transition: color 0.15s ease;
+  }
+
+  .faq-item summary::-webkit-details-marker { display: none; }
+
+  .faq-item summary:hover {
+    color: var(--jws-blue);
+  }
+
+  .faq-item summary::after {
+    content: '+';
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--jws-blue);
+    margin-left: 16px;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .faq-item[open] summary::after {
+    content: '\2013';
+  }
+
+  .faq-answer {
+    padding: 0 0 22px;
+    color: var(--jws-charcoal);
+    font-size: 16px;
+    line-height: 1.65;
+    max-width: 720px;
+  }
+
+  /* FOOTER / DISCLOSURE */
+  .footer {
+    padding: 48px 0 64px;
+    border-top: 1px solid var(--jws-light-gray);
+    margin-top: 40px;
+  }
+
+  .disclosure {
+    font-size: 12px;
+    color: var(--jws-gray);
+    line-height: 1.5;
+    max-width: 760px;
+  }
+
+  /* MOBILE */
+  @media (max-width: 700px) {
+    .hero { padding: 56px 0 40px; }
+    .hero-headline { font-size: 34px; }
+    .hero-subhead { font-size: 17px; }
+    .brand-mark {
+      width: 260px;
+      margin-bottom: 28px;
+    }
+    .stack-motif { display: none; }
+    .credibility { padding-bottom: 48px; }
+    .credibility-headline { font-size: 20px; }
+    .credibility-body { font-size: 16px; }
+    .assessment-section { padding: 48px 0 24px; }
+    .faq { padding: 56px 0 40px; margin-top: 40px; }
+    .faq-headline { font-size: 24px; }
+    .faq-item summary { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="stack-motif" aria-hidden="true">
+      <div class="layer l1"></div>
+      <div class="layer l2"></div>
+      <div class="layer l3"></div>
+      <div class="layer l4"></div>
+    </div>
+
+    <img src="myretirement-design-logo.png" alt="myRetirement Design - Clarity for the road ahead" class="brand-mark">
+    <h1 class="hero-headline">Your retirement isn't an allocation. It's a design.</h1>
+    <p class="hero-subhead">Most retirement planning starts with what to invest in. We start with a different question: how do you actually want your retirement to feel and function? Take the Design Profile to discover the retirement design philosophy that fits you.</p>
+    <a href="#assessment" class="hero-cta">Begin the Design Profile</a>
+    <div class="hero-microcopy">
+      About 10 minutes <span class="dot">&bull;</span> Free <span class="dot">&bull;</span> No commitment required
+    </div>
+  </section>
+
+  <!-- CREDIBILITY -->
+  <section class="credibility">
+    <div class="credibility-eyebrow">The methodology behind the assessment</div>
+    <h2 class="credibility-headline">Every dollar should have a role. Every vehicle should have a job.</h2>
+    <p class="credibility-body">The Design Profile is built on <strong>The Roles-Based Method</strong>, a retirement planning methodology developed at Jantz Wealth Solutions. Most retirement advice treats financial products as interchangeable wrappers around an asset allocation. We treat them as specialized tools, each with a specific job in your retirement. This assessment identifies which of four design Profiles fits how you want your retirement to feel, and shows you how your personalized Retirement Stack should be structured around it.</p>
+  </section>
+
+  <!-- ASSESSMENT EMBED -->
+  <section class="assessment-section" id="assessment">
+    <div class="assessment-frame-wrap">
+      <div class="iframe-loading" id="iframe-loading">Loading the Design Profile...</div>
+      <iframe
+        id="assessment-iframe"
+        class="assessment-iframe"
+        src="https://seanjantz.github.io/jws-web-widgets/design_profile_assessment.html"
+        title="The Design Profile assessment"
+        loading="lazy"
+        onload="onIframeLoad()"
+      ></iframe>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="faq-eyebrow">Before you begin</div>
+    <h2 class="faq-headline">A few common questions</h2>
+
+    <details class="faq-item">
+      <summary>How long does the Design Profile take?</summary>
+      <div class="faq-answer">About 8 to 10 minutes. There are 18 questions, plus a brief opening question about what brought you to the assessment. There's no time pressure, and you can move back and forth between questions if you want to revisit an answer.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What will I see at the end?</summary>
+      <div class="faq-answer">Your retirement design Profile, which is one of four philosophies that shape how retirees with your priorities should structure their plan. You'll also see your personalized Retirement Stack, a visual map of how your retirement design should be organized across guaranteed income, market growth, tax strategy, and legacy considerations. Plus the specific considerations retirees with your Profile typically need to think about.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is my information shared with anyone?</summary>
+      <div class="faq-answer">Your email stays private. We use it to send you your Profile for reference and may share occasional retirement design content. We don't sell or share your information with third parties. You can unsubscribe anytime.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Do I have to schedule a meeting after?</summary>
+      <div class="faq-answer">No. The Design Profile is free and educational. If you want to go deeper and map your real situation onto your personalized Retirement Stack, you can schedule a Discovery meeting at the end. If you'd rather take what you learned and apply it on your own, that's completely fine. There's no pressure either way.</div>
+    </details>
+  </section>
+
+  <!-- FOOTER / DISCLOSURE -->
+  <footer class="footer">
+    <p class="disclosure">Investment advisory services offered through Brookstone Wealth Advisors, LLC (BWA), a registered investment advisor. BWA and Brookstone Capital Management, LLC are affiliated companies. BWA and Jantz Wealth Solutions are independent of each other. Insurance products and services are not offered through BWA but are offered and sold through individually licensed and appointed agents. The Design Profile is an educational tool intended to help retirees understand their preferences and design philosophy. It is not a recommendation of specific securities, insurance products, or investment strategies. Any design conversation requires a personalized review of your individual circumstances.</p>
+  </footer>
+
+</div>
+
+<script>
+//=============================================================================
+// IFRAME AUTO-RESIZE
+//=============================================================================
+// The assessment iframe sends postMessage events when its content height
+// changes (e.g., switching between intro, questions, and results screens).
+// We listen for those messages and resize the iframe to match.
+
+// Only accept resize messages from the assessment's known origin to prevent
+// malicious iframes from manipulating the page.
+const ALLOWED_IFRAME_ORIGINS = [
+  'https://seanjantz.github.io'
+];
+
+window.addEventListener('message', function(event) {
+  if (!ALLOWED_IFRAME_ORIGINS.includes(event.origin)) return;
+  if (event.data && event.data.type === 'resize' && typeof event.data.height === 'number') {
+    // Clamp to a reasonable range to prevent abuse
+    const height = Math.min(Math.max(event.data.height, 600), 8000);
+    document.getElementById('assessment-iframe').style.height = height + 'px';
+
+    // If this page itself is embedded in Duda, cascade the resize up
+    notifyParentResize();
+  }
+});
+
+function onIframeLoad() {
+  // Hide the loading placeholder once the iframe has loaded its content
+  const loader = document.getElementById('iframe-loading');
+  if (loader) {
+    loader.classList.add('hidden');
+    setTimeout(() => loader.remove(), 500);
+  }
+}
+
+//=============================================================================
+// DUDA EMBED COMPATIBILITY
+//=============================================================================
+// If this page is embedded inside Duda as an iframe, send our own height
+// to the parent so Duda can resize its iframe container.
+
+function notifyParentResize() {
+  if (window.parent !== window) {
+    setTimeout(() => {
+      const height = document.body.scrollHeight;
+      window.parent.postMessage({ type: 'resize', height: height }, '*');
+    }, 100);
+  }
+}
+
+window.addEventListener('load', notifyParentResize);
+window.addEventListener('resize', notifyParentResize);
+
+// Also notify when FAQ items expand or collapse, since they change page height
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.addEventListener('toggle', notifyParentResize);
+});
+
+//=============================================================================
+// SMOOTH SCROLL TO ASSESSMENT
+//=============================================================================
+// Override the anchor link behavior so the scroll is smooth and accounts
+// for any embed offset.
+
+document.querySelector('.hero-cta').addEventListener('click', function(e) {
+  e.preventDefault();
+  const target = document.getElementById('assessment');
+  if (target) {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Re-notify Duda after scroll completes
+    setTimeout(notifyParentResize, 800);
+  }
+});
+</script>
+
+</body>
+</html>
