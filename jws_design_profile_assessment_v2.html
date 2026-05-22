@@ -1,0 +1,1739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Design Profile | Jantz Wealth Solutions</title>
+<!--
+  The Design Profile Assessment v2.0 (Full-Screen Experience)
+  Jantz Wealth Solutions
+  myRetirement Design / The Roles-Based Method
+
+  NOTE: This widget should not be deployed publicly until BCM compliance
+  has reviewed the full output language (Profile descriptions, blend
+  descriptions, primary purpose callbacks, and Stack visualizations).
+-->
+<style>
+  :root {
+    --jws-navy: #00446A;
+    --jws-blue: #0084D3;
+    --jws-charcoal: #353E44;
+    --jws-cream: #F8F6F1;
+    --jws-amber: #C28D3D;
+    --jws-teal: #2B7A78;
+    --jws-purple: #5B4B8A;
+    --jws-pink: #B85C7A;
+    --jws-gray: #8C8B85;
+    --jws-light-gray: #E8E6E0;
+    --jws-border: #D9D6CE;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--jws-charcoal);
+    background: #ffffff;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* OUTER CANVAS - holds the wider screen experience */
+  .canvas {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 40px 48px 80px;
+  }
+
+  /* BRAND HEADER - persistent across all screens */
+  .brand-header {
+    padding: 0 0 32px;
+    margin-bottom: 48px;
+    border-bottom: 1px solid var(--jws-light-gray);
+  }
+
+  .brand-logo-link {
+    display: inline-block;
+    line-height: 0;
+  }
+
+  .brand-logo {
+    width: 280px;
+    height: auto;
+    max-width: 100%;
+    display: block;
+  }
+
+  /* READING-WIDTH INNER CONTAINER for questions/forms */
+  .reading {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--jws-navy);
+    font-weight: 300;
+    line-height: 1.15;
+    margin: 0 0 20px;
+    letter-spacing: -0.5px;
+  }
+
+  h1 { font-size: 48px; }
+  h2 { font-size: 32px; }
+  h3 { font-size: 20px; }
+
+  p {
+    margin: 0 0 18px;
+    font-size: 17px;
+  }
+
+  .eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--jws-blue);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  /* ============================================================
+     INTRO SCREEN - hero treatment with two columns
+     ============================================================ */
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 64px;
+    align-items: center;
+    min-height: 480px;
+  }
+
+  .intro-left h1 {
+    font-size: 52px;
+    margin-bottom: 24px;
+  }
+
+  .intro-lead {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--jws-charcoal);
+    margin-bottom: 28px;
+  }
+
+  .intro-info {
+    background: var(--jws-cream);
+    border-left: 3px solid var(--jws-blue);
+    padding: 20px 24px;
+    margin: 28px 0;
+    font-size: 16px;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .intro-info strong {
+    color: var(--jws-navy);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+  }
+
+  .intro-secondary {
+    font-size: 16px;
+    color: var(--jws-charcoal);
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+
+  /* Right column: 4-profile teaser card */
+  .profile-teaser {
+    background: var(--jws-cream);
+    border-radius: 12px;
+    padding: 36px 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .teaser-header {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .teaser-header-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--jws-gray);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .teaser-header-title {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--jws-navy);
+    font-size: 17px;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .teaser-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px 16px;
+    text-align: center;
+    border-top: 3px solid;
+  }
+
+  .teaser-card-1 { border-top-color: var(--jws-teal); }
+  .teaser-card-2 { border-top-color: var(--jws-purple); }
+  .teaser-card-3 { border-top-color: var(--jws-pink); }
+  .teaser-card-4 { border-top-color: var(--jws-amber); }
+
+  .teaser-card-name {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--jws-navy);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+
+  .teaser-card-tag {
+    font-size: 11px;
+    color: var(--jws-gray);
+    font-style: italic;
+    line-height: 1.35;
+  }
+
+  /* ============================================================
+     BUTTONS
+     ============================================================ */
+  .btn-primary {
+    display: inline-block;
+    background: var(--jws-blue);
+    color: white;
+    border: none;
+    padding: 16px 36px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-primary:hover {
+    background: var(--jws-navy);
+  }
+
+  .btn-primary:active {
+    transform: translateY(1px);
+  }
+
+  .btn-primary:disabled {
+    background: var(--jws-gray);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .btn-secondary {
+    display: inline-block;
+    background: transparent;
+    color: var(--jws-navy);
+    border: 1.5px solid var(--jws-navy);
+    padding: 14px 28px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+
+  .btn-secondary:hover {
+    background: var(--jws-navy);
+    color: white;
+  }
+
+  /* ============================================================
+     PROGRESS BAR
+     ============================================================ */
+  .progress-container {
+    margin: 0 0 48px;
+  }
+
+  .progress-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }
+
+  .progress-text {
+    font-size: 13px;
+    color: var(--jws-gray);
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .progress-pct {
+    font-size: 13px;
+    color: var(--jws-blue);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .progress-bar {
+    height: 5px;
+    background: var(--jws-light-gray);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--jws-blue), var(--jws-navy));
+    transition: width 0.4s ease;
+  }
+
+  /* ============================================================
+     QUESTION STYLES
+     ============================================================ */
+  .question-block {
+    margin-bottom: 40px;
+  }
+
+  .question-text {
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--jws-navy);
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.35;
+    margin-bottom: 32px;
+    letter-spacing: -0.3px;
+  }
+
+  .question-text em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--jws-charcoal);
+  }
+
+  .option-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .option-item {
+    margin-bottom: 12px;
+  }
+
+  .option-label {
+    display: block;
+    padding: 18px 22px;
+    border: 1.5px solid var(--jws-border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1.5;
+    transition: all 0.15s ease;
+    background: white;
+  }
+
+  .option-label:hover {
+    border-color: var(--jws-blue);
+    background: var(--jws-cream);
+  }
+
+  .option-label input[type="radio"] {
+    margin-right: 14px;
+    accent-color: var(--jws-blue);
+    transform: translateY(1px);
+  }
+
+  .option-label.selected {
+    border-color: var(--jws-blue);
+    background: var(--jws-cream);
+    border-width: 2px;
+    padding: 17px 21px;
+  }
+
+  /* Likert scale */
+  .likert-scale {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .likert-option {
+    text-align: center;
+  }
+
+  .likert-option input[type="radio"] {
+    display: none;
+  }
+
+  .likert-option label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 10px;
+    border: 1.5px solid var(--jws-border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1.3;
+    transition: all 0.15s ease;
+    background: white;
+    min-height: 88px;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .likert-option label:hover {
+    border-color: var(--jws-blue);
+    background: var(--jws-cream);
+  }
+
+  .likert-option input[type="radio"]:checked + label {
+    border-color: var(--jws-blue);
+    background: var(--jws-blue);
+    color: white;
+    font-weight: 600;
+    border-width: 2px;
+  }
+
+  .navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--jws-light-gray);
+  }
+
+  /* ============================================================
+     EMAIL GATE
+     ============================================================ */
+  .email-gate-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+    min-height: 420px;
+  }
+
+  .email-gate-left h1 {
+    font-size: 44px;
+    margin-bottom: 24px;
+  }
+
+  .email-gate-teaser {
+    font-size: 18px;
+    color: var(--jws-charcoal);
+    line-height: 1.6;
+  }
+
+  .email-gate-card {
+    background: var(--jws-cream);
+    border: 1px solid var(--jws-border);
+    border-radius: 12px;
+    padding: 40px 36px;
+  }
+
+  .email-gate-card-prompt {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--jws-navy);
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 24px;
+    line-height: 1.4;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--jws-charcoal);
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid var(--jws-border);
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: var(--jws-charcoal);
+    background: white;
+    transition: border-color 0.15s ease;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: var(--jws-blue);
+    border-width: 2px;
+    padding: 13px 15px;
+  }
+
+  .form-input.error {
+    border-color: #C53030;
+    background: #FFF5F5;
+  }
+
+  .form-error {
+    color: #C53030;
+    font-size: 13px;
+    margin-top: 6px;
+  }
+
+  .email-gate-submit {
+    width: 100%;
+    margin-top: 12px;
+    padding: 18px 28px;
+    font-size: 16px;
+  }
+
+  .privacy-note {
+    margin-top: 20px;
+    font-size: 12px;
+    color: var(--jws-gray);
+    line-height: 1.5;
+  }
+
+  .button-spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin-right: 8px;
+    vertical-align: -2px;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* ============================================================
+     RESULTS SCREEN
+     ============================================================ */
+  .result-hero {
+    text-align: center;
+    margin-bottom: 48px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--jws-light-gray);
+  }
+
+  .result-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--jws-blue);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .result-profile-name {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--jws-navy);
+    font-size: 56px;
+    font-weight: 300;
+    line-height: 1.05;
+    margin: 8px 0 28px;
+    letter-spacing: -1px;
+  }
+
+  .callback-paragraph {
+    font-size: 19px;
+    color: var(--jws-charcoal);
+    line-height: 1.65;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .result-section {
+    margin-bottom: 44px;
+  }
+
+  .result-section h3 {
+    color: var(--jws-navy);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .result-section p {
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  .result-description {
+    max-width: 820px;
+    margin: 0 auto 48px;
+  }
+
+  .stack-visualization {
+    background: var(--jws-cream);
+    padding: 48px 40px 40px;
+    border-radius: 12px;
+    margin: 0 0 48px;
+  }
+
+  .stack-visualization h3 {
+    text-align: center;
+    margin-bottom: 6px;
+    color: var(--jws-navy);
+    font-size: 14px;
+  }
+
+  .stack-subtitle {
+    text-align: center;
+    color: var(--jws-gray);
+    font-size: 14px;
+    margin-bottom: 32px;
+    font-style: italic;
+  }
+
+  /* Two-column results section */
+  .result-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+
+  .result-col {
+    background: white;
+    padding: 32px;
+    border-radius: 12px;
+    border: 1px solid var(--jws-light-gray);
+  }
+
+  .result-col h3 {
+    margin-top: 0;
+  }
+
+  /* CTA */
+  .cta-block {
+    background: var(--jws-navy);
+    color: white;
+    padding: 56px 48px;
+    border-radius: 12px;
+    text-align: center;
+    margin-top: 48px;
+    background-image: linear-gradient(135deg, var(--jws-navy) 0%, #003554 100%);
+  }
+
+  .cta-block h3 {
+    color: white;
+    text-transform: none;
+    letter-spacing: -0.3px;
+    font-size: 28px;
+    font-weight: 300;
+    margin-bottom: 16px;
+    line-height: 1.25;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .cta-block p {
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 17px;
+    margin-bottom: 28px;
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  .cta-block .btn-primary {
+    background: white;
+    color: var(--jws-navy);
+    padding: 18px 40px;
+    font-size: 16px;
+  }
+
+  .cta-block .btn-primary:hover {
+    background: var(--jws-cream);
+  }
+
+  .disclosure {
+    margin-top: 56px;
+    padding-top: 32px;
+    border-top: 1px solid var(--jws-light-gray);
+    font-size: 12px;
+    color: var(--jws-gray);
+    line-height: 1.6;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hidden { display: none; }
+
+  /* ============================================================
+     TABLET (900px and below)
+     ============================================================ */
+  @media (max-width: 980px) {
+    .canvas {
+      padding: 32px 32px 64px;
+    }
+
+    .brand-logo {
+      width: 240px;
+    }
+
+    .brand-header {
+      padding-bottom: 24px;
+      margin-bottom: 40px;
+    }
+
+    h1 { font-size: 40px; }
+    h2 { font-size: 28px; }
+
+    .intro-grid,
+    .email-gate-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .intro-left h1 { font-size: 42px; }
+    .email-gate-left h1 { font-size: 38px; }
+
+    .result-profile-name { font-size: 44px; }
+    .callback-paragraph { font-size: 18px; }
+
+    .result-two-col {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+
+  /* ============================================================
+     MOBILE (600px and below)
+     ============================================================ */
+  @media (max-width: 600px) {
+    .canvas {
+      padding: 24px 20px 48px;
+    }
+
+    .brand-logo {
+      width: 200px;
+    }
+
+    .brand-header {
+      padding-bottom: 20px;
+      margin-bottom: 32px;
+    }
+
+    h1 { font-size: 32px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 17px; }
+
+    .intro-left h1 { font-size: 34px; }
+    .intro-lead { font-size: 17px; }
+
+    .email-gate-left h1 { font-size: 30px; }
+    .email-gate-teaser { font-size: 16px; }
+    .email-gate-card { padding: 28px 22px; }
+
+    .question-text { font-size: 20px; }
+
+    .result-profile-name { font-size: 34px; }
+    .callback-paragraph { font-size: 17px; }
+
+    .stack-visualization {
+      padding: 28px 16px 24px;
+    }
+
+    .cta-block {
+      padding: 36px 24px;
+    }
+
+    .cta-block h3 { font-size: 22px; }
+
+    .likert-scale {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .likert-option label {
+      min-height: auto;
+      padding: 14px 18px;
+      text-align: left;
+      justify-content: flex-start;
+    }
+
+    .profile-teaser {
+      padding: 24px 20px;
+    }
+
+    .result-col {
+      padding: 24px 20px;
+    }
+
+    .navigation {
+      gap: 12px;
+    }
+
+    .btn-primary, .btn-secondary {
+      padding: 14px 22px;
+      font-size: 15px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+
+  <!-- ========================================================
+       BRAND HEADER (persistent across all screens)
+       ======================================================== -->
+  <header class="brand-header">
+    <a href="https://jantzwealth.com" target="_top" class="brand-logo-link" aria-label="myRetirement Design home">
+      <img src="https://seanjantz.github.io/jws-web-widgets/myretirement-design-logo.png" alt="myRetirement Design — Clarity for the road ahead" class="brand-logo">
+    </a>
+  </header>
+
+  <!-- ========================================================
+       INTRO SCREEN
+       ======================================================== -->
+  <div id="screen-intro" class="screen">
+    <div class="intro-grid">
+      <div class="intro-left">
+        <h1>Discover how you want to design your retirement</h1>
+        <p class="intro-lead">Most retirement advice asks what you want to invest in. We ask a different question first: how do you actually want your retirement to feel and function?</p>
+
+        <div class="intro-info">
+          <strong>What to expect:</strong> 18 questions, about 8 to 10 minutes. There are no right or wrong answers. Only honest ones. Your Profile reflects your preferences, not a test you can pass or fail.
+        </div>
+
+        <p class="intro-secondary">At the end, you'll see your Retirement Stack. It's a visual map of how your retirement should be structured, along with the specific things retirees with your Profile typically need to think about.</p>
+
+        <button class="btn-primary" onclick="goToScreen('purpose')">Begin the assessment</button>
+      </div>
+
+      <div class="intro-right">
+        <div class="profile-teaser">
+          <div class="teaser-header">
+            <div class="teaser-header-eyebrow">Four design philosophies</div>
+            <p class="teaser-header-title">Which one fits you?</p>
+          </div>
+          <div class="teaser-card teaser-card-1">
+            <div class="teaser-card-name">The Paycheck Planner</div>
+            <div class="teaser-card-tag">Wants income certainty</div>
+          </div>
+          <div class="teaser-card teaser-card-2">
+            <div class="teaser-card-name">The Market Investor</div>
+            <div class="teaser-card-tag">Wants growth and flexibility</div>
+          </div>
+          <div class="teaser-card teaser-card-3">
+            <div class="teaser-card-name">The Legacy Architect</div>
+            <div class="teaser-card-tag">Thinks generationally</div>
+          </div>
+          <div class="teaser-card teaser-card-4">
+            <div class="teaser-card-name">The Simplicity Seeker</div>
+            <div class="teaser-card-tag">Wants a plan that runs itself</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       PRIMARY PURPOSE SCREEN
+       ======================================================== -->
+  <div id="screen-purpose" class="screen hidden">
+    <div class="reading">
+      <div class="progress-container">
+        <div class="progress-row">
+          <div class="progress-text">Getting started</div>
+          <div class="progress-pct">Step 1</div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 5%;"></div></div>
+      </div>
+
+      <h2>First, what brought you here?</h2>
+      <p>Choose the statement that comes closest to your most important reason for thinking about your retirement design right now.</p>
+
+      <div class="question-block">
+        <ul class="option-list" id="purpose-options">
+          <li class="option-item">
+            <label class="option-label">
+              <input type="radio" name="purpose" value="1">
+              I want to feel confident I won't outlive my money.
+            </label>
+          </li>
+          <li class="option-item">
+            <label class="option-label">
+              <input type="radio" name="purpose" value="2">
+              I want to keep growing my wealth while drawing income I can rely on.
+            </label>
+          </li>
+          <li class="option-item">
+            <label class="option-label">
+              <input type="radio" name="purpose" value="3">
+              I want to make sure my wealth transfers efficiently to my heirs or causes I care about.
+            </label>
+          </li>
+          <li class="option-item">
+            <label class="option-label">
+              <input type="radio" name="purpose" value="4">
+              I want a simpler, less complicated approach to retirement.
+            </label>
+          </li>
+          <li class="option-item">
+            <label class="option-label">
+              <input type="radio" name="purpose" value="5">
+              I'm not sure yet. I'm exploring what's possible.
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="navigation">
+        <button class="btn-secondary" onclick="goToScreen('intro')">Back</button>
+        <button class="btn-primary" id="btn-purpose-next" onclick="goToQuestions()" disabled>Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       QUESTIONS SCREEN
+       ======================================================== -->
+  <div id="screen-questions" class="screen hidden">
+    <div class="reading">
+      <div class="progress-container">
+        <div class="progress-row">
+          <div class="progress-text" id="progress-text">Question 1 of 18</div>
+          <div class="progress-pct" id="progress-pct">6%</div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width: 5.5%;"></div></div>
+      </div>
+
+      <div id="question-container"></div>
+
+      <div class="navigation">
+        <button class="btn-secondary" id="btn-prev" onclick="prevQuestion()">Back</button>
+        <button class="btn-primary" id="btn-next" onclick="nextQuestion()" disabled>Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       EMAIL GATE SCREEN
+       ======================================================== -->
+  <div id="screen-email-gate" class="screen hidden">
+    <div class="reading" style="max-width: 1040px;">
+      <div class="progress-container">
+        <div class="progress-row">
+          <div class="progress-text">Almost there</div>
+          <div class="progress-pct">100%</div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 100%;"></div></div>
+      </div>
+
+      <div class="email-gate-grid">
+        <div class="email-gate-left">
+          <div class="eyebrow">Your responses are in</div>
+          <h1>Ready to see your Profile?</h1>
+          <p class="email-gate-teaser">Your responses point to a clear retirement design Profile, one of four philosophies that shape how retirees with your priorities should structure their plan. On the next page, you'll see which Profile fits you, what your personalized Retirement Stack looks like, and the specific things retirees with your Profile typically need to think about.</p>
+        </div>
+
+        <div class="email-gate-right">
+          <div class="email-gate-card">
+            <p class="email-gate-card-prompt">Enter your name and email to see your Profile and your personalized Retirement Stack:</p>
+
+            <div class="form-group">
+              <label class="form-label" for="gate-first-name">First name</label>
+              <input type="text" id="gate-first-name" class="form-input" autocomplete="given-name" placeholder="">
+              <div class="form-error hidden" id="gate-first-name-error">Please enter your first name.</div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="gate-email">Email address</label>
+              <input type="email" id="gate-email" class="form-input" autocomplete="email" placeholder="">
+              <div class="form-error hidden" id="gate-email-error">Please enter a valid email address.</div>
+            </div>
+
+            <button class="btn-primary email-gate-submit" id="btn-email-gate-submit" onclick="submitEmailGate()">Show my Design Profile</button>
+
+            <p class="privacy-note">Your email stays private. We'll send your Profile to you for reference and may share occasional retirement design content. Unsubscribe anytime.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="navigation">
+        <button class="btn-secondary" onclick="backToLastQuestion()">Back</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       RESULTS SCREEN
+       ======================================================== -->
+  <div id="screen-results" class="screen hidden">
+    <div id="results-content"></div>
+
+    <div class="disclosure">
+      Investment advisory services offered through Brookstone Wealth Advisors, LLC (BWA), a registered investment advisor. BWA and Brookstone Capital Management, LLC are affiliated companies. BWA and Jantz Wealth Solutions are independent of each other. Insurance products and services are not offered through BWA but are offered and sold through individually licensed and appointed agents. The Design Profile is an educational tool intended to help retirees understand their preferences and design philosophy. It is not a recommendation of specific securities, insurance products, or investment strategies. Any design conversation requires a personalized review of your individual circumstances.
+    </div>
+  </div>
+
+</div>
+
+<script>
+//=============================================================================
+// THE DESIGN PROFILE ASSESSMENT v2.0
+// Jantz Wealth Solutions / myRetirement Design / The Roles-Based Method
+//=============================================================================
+
+//=============================================================================
+// CONFIGURATION
+//=============================================================================
+const WORKER_URL = 'https://jws-design-profile-worker.seanmjantz.workers.dev';
+const KIT_CAPTURE_ENABLED = true;
+
+const state = {
+  currentScreen: 'intro',
+  currentQuestion: 0,
+  primaryPurpose: null,
+  answers: {},
+  scenarioAnswers: {},
+  emailGateData: null
+};
+
+//=============================================================================
+// QUESTION DEFINITIONS
+//=============================================================================
+
+const questions = [
+  {
+    id: 'q1', type: 'scenario',
+    text: "Imagine it's the third year of your retirement, and the market has just dropped 30% over the past twelve months. How do you most likely feel?",
+    options: [
+      { text: "I'm uncomfortable, but I trust my plan and stay the course.", tags: { market: 2 } },
+      { text: "I'm worried, but I'm relieved that a significant portion of my income is guaranteed and unaffected.", tags: { paycheck: 2 } },
+      { text: "I see it as an opportunity, possibly to do Roth conversions or reposition assets.", tags: { legacy: 1.5, market: 1 } },
+      { text: "I'm grateful my plan is simple enough that I don't have to make complicated decisions in a stressful moment.", tags: { simplicity: 2 } }
+    ]
+  },
+  {
+    id: 'q2', type: 'scenario',
+    text: "Imagine you've just retired and you're sitting down to plan your monthly income. Which statement comes closest to your ideal?",
+    options: [
+      { text: "I want a predictable amount that arrives in my account every month, regardless of markets.", tags: { paycheck: 2 } },
+      { text: "I want to draw what I need from my investments, adjusting based on how the year is going.", tags: { market: 2 } },
+      { text: "I want a system that mostly runs itself. I'd rather not think about monthly decisions.", tags: { simplicity: 2 } },
+      { text: "I want flexibility to take more in some years and less in others, depending on opportunities.", tags: { market: 1.5, legacy: 0.5 } }
+    ]
+  },
+  {
+    id: 'q3', type: 'scenario',
+    text: "Five years into retirement, you receive an unexpected $200,000 inheritance. What is your first instinct?",
+    options: [
+      { text: "Use it to lock in more guaranteed income for life.", tags: { paycheck: 2 } },
+      { text: "Invest it in the market, the same approach as the rest of my portfolio.", tags: { market: 2 } },
+      { text: "Convert some traditional IRA dollars to Roth using the inheritance to pay the taxes.", tags: { legacy: 2 } },
+      { text: "Put it somewhere simple, like a single investment or account, and let it grow.", tags: { simplicity: 2 } }
+    ]
+  },
+  { id: 'q4', type: 'likert', text: "I would feel more comfortable in retirement knowing a large portion of my essential expenses is covered by guaranteed lifetime income.", dimension: 'incomeCertainty', reverse: false },
+  { id: 'q5', type: 'likert', text: "I'd rather give up some growth potential in exchange for predictable, contractually guaranteed monthly income.", dimension: 'incomeCertainty', reverse: false },
+  { id: 'q6', type: 'likert', text: "I'd be uncomfortable with a retirement plan that relied entirely on portfolio withdrawals, even if the math said it was likely to work.", dimension: 'incomeCertainty', reverse: false },
+  { id: 'q7', type: 'likert', text: "I expect to live well into my late 80s or 90s, and my retirement plan should assume a long lifespan.", dimension: 'longevity', reverse: false },
+  { id: 'q8', type: 'likert', text: "I'm more worried about running out of money in old age than I am about leaving wealth unspent.", dimension: 'longevity', reverse: false },
+  { id: 'q9', type: 'likert', text: "Both of my parents (or those closest to me) lived into their 80s or beyond.", dimension: 'longevity', reverse: false },
+  { id: 'q10', type: 'likert', text: "Leaving a meaningful financial legacy to my heirs, charities, or causes is one of my most important retirement priorities.", dimension: 'legacy', reverse: false },
+  { id: 'q11', type: 'likert', text: "I'm willing to spend less during my own retirement if it means more of my wealth transfers efficiently to the next generation.", dimension: 'legacy', reverse: false },
+  { id: 'q12', type: 'likert', text: "Spending the money I worked hard for, on the life I want now, is more important to me than maximizing what I leave behind.", dimension: 'legacy', reverse: true },
+  { id: 'q13', type: 'likert', text: "I prefer to stay actively involved in decisions about my investments and retirement strategy.", dimension: 'control', reverse: false },
+  { id: 'q14', type: 'likert', text: "I'd rather have a simpler plan that runs mostly on its own than a more optimized plan that requires regular decisions.", dimension: 'control', reverse: true },
+  { id: 'q15', type: 'likert', text: "I'm willing to do meaningful tax planning work now, like Roth conversions or careful withdrawal sequencing, to reduce taxes over my lifetime and for my heirs.", dimension: 'taxEfficiency', reverse: false },
+  { id: 'q16', type: 'likert', text: "Paying more in taxes today to reduce taxes later sounds smart in theory, but it's not something I want to actively pursue.", dimension: 'taxEfficiency', reverse: true },
+  { id: 'q17', type: 'likert', text: "Each year in retirement, I'm willing to make specific decisions about which accounts to draw from, how much to convert to Roth, and how to adjust my withdrawals based on what markets did the previous year.", dimension: 'complexity', reverse: false },
+  { id: 'q18', type: 'likert', text: "I'd prefer my retirement income to come from as few accounts and sources as possible, even if it costs some optimization.", dimension: 'simplicity', reverse: false }
+];
+
+const likertLabels = [
+  "Strongly disagree",
+  "Disagree",
+  "Neutral",
+  "Agree",
+  "Strongly agree"
+];
+
+//=============================================================================
+// SCREEN NAVIGATION
+//=============================================================================
+
+function goToScreen(screenName) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+  document.getElementById('screen-' + screenName).classList.remove('hidden');
+  state.currentScreen = screenName;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  notifyParentResize();
+}
+
+function goToQuestions() {
+  if (!state.primaryPurpose) return;
+  state.currentQuestion = 0;
+  goToScreen('questions');
+  renderQuestion();
+}
+
+//=============================================================================
+// PRIMARY PURPOSE HANDLING
+//=============================================================================
+
+document.querySelectorAll('input[name="purpose"]').forEach(radio => {
+  radio.addEventListener('change', (e) => {
+    state.primaryPurpose = parseInt(e.target.value);
+    document.querySelectorAll('#purpose-options .option-label').forEach(l => l.classList.remove('selected'));
+    e.target.closest('.option-label').classList.add('selected');
+    document.getElementById('btn-purpose-next').disabled = false;
+  });
+});
+
+//=============================================================================
+// QUESTION RENDERING
+//=============================================================================
+
+function renderQuestion() {
+  const q = questions[state.currentQuestion];
+  const container = document.getElementById('question-container');
+
+  const progressPct = ((state.currentQuestion + 1) / questions.length) * 100;
+  document.getElementById('progress-text').textContent = `Question ${state.currentQuestion + 1} of ${questions.length}`;
+  document.getElementById('progress-pct').textContent = Math.round(progressPct) + '%';
+  document.getElementById('progress-fill').style.width = progressPct + '%';
+
+  document.getElementById('btn-prev').style.visibility = state.currentQuestion === 0 ? 'hidden' : 'visible';
+
+  let html = `<div class="question-block"><div class="question-text">`;
+  if (q.type === 'scenario') {
+    html += `<em>${q.text}</em>`;
+  } else {
+    html += q.text;
+  }
+  html += `</div>`;
+
+  if (q.type === 'scenario') {
+    html += `<ul class="option-list">`;
+    q.options.forEach((opt, idx) => {
+      const checked = state.answers[q.id] === idx ? 'checked' : '';
+      const selected = state.answers[q.id] === idx ? 'selected' : '';
+      html += `<li class="option-item">
+        <label class="option-label ${selected}">
+          <input type="radio" name="${q.id}" value="${idx}" ${checked} onchange="recordAnswer('${q.id}', ${idx}, 'scenario')">
+          ${opt.text}
+        </label>
+      </li>`;
+    });
+    html += `</ul>`;
+  } else {
+    html += `<div class="likert-scale">`;
+    for (let i = 0; i < 5; i++) {
+      const checked = state.answers[q.id] === i ? 'checked' : '';
+      html += `<div class="likert-option">
+        <input type="radio" id="${q.id}_${i}" name="${q.id}" value="${i}" ${checked} onchange="recordAnswer('${q.id}', ${i}, 'likert')">
+        <label for="${q.id}_${i}">${likertLabels[i]}</label>
+      </div>`;
+    }
+    html += `</div>`;
+  }
+
+  html += `</div>`;
+  container.innerHTML = html;
+
+  updateNextButton();
+  notifyParentResize();
+}
+
+function recordAnswer(qid, value, type) {
+  state.answers[qid] = value;
+
+  if (type === 'scenario') {
+    document.querySelectorAll(`input[name="${qid}"]`).forEach(input => {
+      input.closest('.option-label').classList.remove('selected');
+    });
+    document.querySelector(`input[name="${qid}"][value="${value}"]`).closest('.option-label').classList.add('selected');
+  }
+
+  updateNextButton();
+}
+
+function updateNextButton() {
+  const q = questions[state.currentQuestion];
+  const answered = state.answers[q.id] !== undefined;
+  document.getElementById('btn-next').disabled = !answered;
+  document.getElementById('btn-next').textContent =
+    state.currentQuestion === questions.length - 1 ? 'See my Profile' : 'Continue';
+}
+
+function nextQuestion() {
+  if (state.currentQuestion < questions.length - 1) {
+    state.currentQuestion++;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    goToEmailGate();
+  }
+}
+
+function prevQuestion() {
+  if (state.currentQuestion > 0) {
+    state.currentQuestion--;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+//=============================================================================
+// EMAIL GATE
+//=============================================================================
+
+function goToEmailGate() {
+  goToScreen('email-gate');
+  setTimeout(() => {
+    const nameField = document.getElementById('gate-first-name');
+    if (nameField) nameField.focus();
+  }, 100);
+}
+
+function backToLastQuestion() {
+  state.currentQuestion = questions.length - 1;
+  goToScreen('questions');
+  renderQuestion();
+}
+
+function validateEmailGate() {
+  const firstName = document.getElementById('gate-first-name').value.trim();
+  const email = document.getElementById('gate-email').value.trim();
+
+  let valid = true;
+
+  document.getElementById('gate-first-name').classList.remove('error');
+  document.getElementById('gate-first-name-error').classList.add('hidden');
+  document.getElementById('gate-email').classList.remove('error');
+  document.getElementById('gate-email-error').classList.add('hidden');
+
+  if (firstName.length === 0) {
+    document.getElementById('gate-first-name').classList.add('error');
+    document.getElementById('gate-first-name-error').classList.remove('hidden');
+    valid = false;
+  }
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    document.getElementById('gate-email').classList.add('error');
+    document.getElementById('gate-email-error').classList.remove('hidden');
+    valid = false;
+  }
+
+  return valid ? { firstName, email } : null;
+}
+
+async function submitEmailGate() {
+  const formData = validateEmailGate();
+  if (!formData) return;
+
+  const submitBtn = document.getElementById('btn-email-gate-submit');
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<span class="button-spinner"></span>Loading your Profile...';
+
+  const profileResult = computeProfile();
+
+  state.emailGateData = {
+    firstName: formData.firstName,
+    email: formData.email
+  };
+
+  if (KIT_CAPTURE_ENABLED && WORKER_URL && !WORKER_URL.includes('YOUR-SUBDOMAIN')) {
+    captureToKit(formData, profileResult).catch(err => {
+      console.warn('Kit capture failed (assessment continues normally):', err);
+    });
+  }
+
+  await new Promise(resolve => setTimeout(resolve, 600));
+  showResults(profileResult);
+}
+
+async function captureToKit(formData, profileResult) {
+  const payload = {
+    email: formData.email,
+    firstName: formData.firstName,
+    resultType: profileResult.type,
+    primaryProfile: profileResult.primary,
+    secondaryProfile: profileResult.secondary,
+    primaryPurpose: state.primaryPurpose,
+    percentages: profileResult.percentages
+  };
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+  try {
+    const response = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.warn('Kit worker returned non-OK:', response.status, errorText);
+    }
+  } catch (err) {
+    clearTimeout(timeoutId);
+    if (err.name === 'AbortError') {
+      console.warn('Kit worker call timed out');
+    } else {
+      console.warn('Kit worker call failed:', err);
+    }
+  }
+}
+
+//=============================================================================
+// SCORING ALGORITHM
+//=============================================================================
+
+function computeProfile() {
+  const dims = {
+    incomeCertainty: 0, longevity: 0, legacy: 0,
+    control: 0, taxEfficiency: 0, complexity: 0, simplicity: 0
+  };
+
+  const scenarioBonuses = { paycheck: 0, market: 0, legacy: 0, simplicity: 0 };
+
+  questions.forEach(q => {
+    const answer = state.answers[q.id];
+    if (answer === undefined) return;
+
+    if (q.type === 'scenario') {
+      const opt = q.options[answer];
+      if (opt.tags) {
+        Object.keys(opt.tags).forEach(tag => {
+          scenarioBonuses[tag] = (scenarioBonuses[tag] || 0) + opt.tags[tag];
+        });
+      }
+    } else if (q.type === 'likert') {
+      let score = answer - 2;
+      if (q.reverse) score = -score;
+      dims[q.dimension] = (dims[q.dimension] || 0) + score;
+    }
+  });
+
+  const paycheckRaw = dims.incomeCertainty * 1.0 + dims.longevity * 0.5 + scenarioBonuses.paycheck;
+  const marketRaw = dims.control * 1.0 + dims.taxEfficiency * 0.3 + (-dims.incomeCertainty) * 0.5 + scenarioBonuses.market;
+  const legacyRaw = dims.legacy * 1.0 + dims.taxEfficiency * 0.5 + scenarioBonuses.legacy;
+  const simplicityRaw = dims.simplicity * 1.0 + (-dims.complexity) * 0.5 + (-dims.control) * 0.5 + scenarioBonuses.simplicity;
+
+  const profiles = {
+    paycheck: Math.max(0, paycheckRaw + 10),
+    market: Math.max(0, marketRaw + 10),
+    legacy: Math.max(0, legacyRaw + 10),
+    simplicity: Math.max(0, simplicityRaw + 10)
+  };
+
+  const total = profiles.paycheck + profiles.market + profiles.legacy + profiles.simplicity;
+  const pct = {
+    paycheck: total > 0 ? (profiles.paycheck / total) * 100 : 25,
+    market: total > 0 ? (profiles.market / total) * 100 : 25,
+    legacy: total > 0 ? (profiles.legacy / total) * 100 : 25,
+    simplicity: total > 0 ? (profiles.simplicity / total) * 100 : 25
+  };
+
+  const sorted = Object.entries(pct).sort((a, b) => b[1] - a[1]);
+  const [primary, secondary, tertiary, quaternary] = sorted;
+
+  let resultType, resultKey;
+  if (primary[1] >= 45) {
+    resultType = 'pure';
+    resultKey = primary[0];
+  } else if (Math.abs(primary[1] - secondary[1]) <= 8 && (primary[1] + secondary[1]) >= 55) {
+    resultType = 'hybrid';
+    const blendPair = [primary[0], secondary[0]].sort();
+    resultKey = blendPair.join('_');
+  } else {
+    resultType = 'blend';
+    resultKey = primary[0] + '_' + secondary[0];
+  }
+
+  return {
+    type: resultType,
+    primary: primary[0],
+    secondary: secondary[0],
+    key: resultKey,
+    percentages: pct,
+    dimensions: dims
+  };
+}
+
+//=============================================================================
+// CONTENT LIBRARY
+//=============================================================================
+
+const profileNames = {
+  paycheck: 'The Paycheck Planner',
+  market: 'The Market Investor',
+  legacy: 'The Legacy Architect',
+  simplicity: 'The Simplicity Seeker'
+};
+
+const callbacks = {
+  '1_paycheck': "You came here wanting confidence that you won't outlive your money. Based on your responses, you've already arrived at the design philosophy that delivers exactly that confidence. And there's a name for it.",
+  '1_market': "You came here wanting confidence you won't outlive your money. That makes your responses interesting. You scored as someone comfortable bearing market risk in exchange for upside and flexibility, which is a different path to the same goal. The right design for you balances those two impulses, and that's a conversation worth having.",
+  '1_legacy': "You came here wanting confidence you won't outlive your money. Your responses suggest something more: you also want to make sure that what you don't spend transfers efficiently to the next generation. Both goals are achievable. Here's where your design starts.",
+  '1_simplicity': "You came here wanting confidence you won't outlive your money. Your responses suggest you want that confidence delivered through the simplest possible structure, not a complicated multi-vehicle design. That's a legitimate preference, and it shapes how your retirement should be built.",
+  '2_paycheck': "You came here wanting to keep growing your wealth while drawing reliable income. Your responses suggest you weight the reliable income side of that goal more heavily than the growing wealth side. That's a meaningful design signal, and the right starting point for your plan.",
+  '2_market': "You came here wanting to keep growing your wealth while drawing reliable income. Based on your responses, you've already chosen the design philosophy built for retirees who think exactly that way: disciplined market participation with thoughtful distribution.",
+  '2_legacy': "You came here wanting to keep growing your wealth while drawing reliable income. Your responses add another layer: you're also thinking generationally. You're thinking about what your wealth becomes after you're done using it. That broader view shapes the design substantially.",
+  '2_simplicity': "You came here wanting to keep growing your wealth while drawing reliable income. Your responses suggest something specific: you want this delivered through a simple, hands-off structure rather than an actively managed one. There's a real design that does exactly that, and it starts here.",
+  '3_paycheck': "You came here focused on efficient wealth transfer. Your responses suggest your own income security also matters substantially. That's a real design tension, because every dollar locked into guaranteed lifetime income is a dollar that won't transfer at death. Navigating that tradeoff is where careful design earns its keep.",
+  '3_market': "You came here focused on efficient wealth transfer. Your responses suggest you're well-positioned to pursue it. You're comfortable with markets, willing to do the tax planning work, and ready to think generationally. The Profile you fit is built for this exact orientation.",
+  '3_legacy': "You came here focused on efficient wealth transfer. Your responses confirm what you already suspected: you're in the Profile built specifically for retirees who think generationally about their wealth. Welcome to the right starting point.",
+  '3_simplicity': "You came here focused on efficient wealth transfer. Your responses suggest something interesting: you want the legacy outcome without the ongoing tax projects most legacy-focused retirees take on. That's reconcilable through careful upfront design. And that's the conversation worth having.",
+  '4_paycheck': "You came here wanting a simpler, less complicated approach. Your responses suggest the kind of simplicity you want: a reliable monthly paycheck that arrives regardless of what markets are doing. There's a design philosophy built for exactly that, and a name for it.",
+  '4_market': "You came here wanting a simpler approach to retirement. Your responses suggest you're comfortable with markets and willing to make distribution decisions yourself. That's a different kind of simplicity than no-decisions simplicity. The right design for you preserves what you already know how to do while removing what you don't want to manage.",
+  '4_legacy': "You came here wanting a simpler approach to retirement. Your responses suggest you also care about efficient wealth transfer. That usually requires more design work upfront, not less. The good news: the work can be front-loaded so the ongoing operation stays simple. That's exactly what the right structure delivers.",
+  '4_simplicity': "You came here wanting a simpler approach to retirement. Your responses confirm it. There's a name for retirees who think this way. Your preference is legitimate, it's underserved by most advisors, and the right design respects it rather than fighting it.",
+  '5_paycheck': "You came here exploring, and that's the right starting place. Most retirees aren't sure what they want until they see their options laid out. Based on what you shared, here's where your responses point, and what it means for how your retirement could be designed.",
+  '5_market': "You came here exploring, and that's the right starting place. Most retirees aren't sure what they want until they see their options laid out. Your responses point in a clear direction, and that direction has a name and a design philosophy attached to it.",
+  '5_legacy': "You came here exploring, and that's the right starting place. Your responses suggest you're already thinking beyond your own retirement. You're thinking about what your wealth becomes for the next generation. That's a sophisticated lens, and it has implications for how the design works.",
+  '5_simplicity': "You came here exploring, and that's the right starting place. Your responses suggest something specific: when you imagine your ideal retirement, it isn't complicated. It runs itself. There's a design philosophy that takes that preference seriously rather than dismissing it, and here's where it starts."
+};
+
+const pureProfiles = {
+  paycheck: {
+    name: 'The Paycheck Planner',
+    description: "Paycheck Planners design retirement to feel like the paycheck era. For forty years, you worked at companies that went up and down, in economies that went up and down, but the paycheck showed up every two weeks regardless. That predictability is what you want from retirement. Not the same amount necessarily, but the same <em>reliability</em>. You'd rather give up some growth potential in exchange for knowing the essentials will be covered no matter what markets do. That's not caution. It's a clear-eyed design choice with decades of academic support behind it.",
+    stack: "A Paycheck Planner's Stack is built from the bottom up, starting with the most reliable income source available, which is Social Security, and stacking guaranteed income on top until essential expenses are fully covered. Your Foundation is optimized; you likely benefit from delayed claiming, which can mean substantially more inflation-adjusted lifetime income. Your Guaranteed Income Floor is meaningfully larger than the average retiree's, often using pensions, income annuities, or fixed indexed annuities with lifetime income riders. Your Growth Engine still exists. It funds discretionary spending, inflation protection, and any legacy goals, but it isn't bearing the burden of essentials. Your Reserves are robust because once the floor is set, the portfolio doesn't need to be touched at the wrong time.",
+    considerations: "Inflation protection on the income floor. Are your guarantees keeping up with rising costs? Survivor income. Does the floor continue if your spouse outlives you? Diversification of guarantee providers, so no single insurer carries too much of your floor. And the question most Paycheck Planners underweight: how much <em>growth</em> do you actually need to protect against a 30-year retirement's inflation drag? Income certainty is essential, but so is purchasing power."
+  },
+  market: {
+    name: 'The Market Investor',
+    description: "Market Investors design retirement around continued market participation. You've lived through enough cycles to believe markets work over long horizons, and you don't see why that should change when you retire. You're comfortable making decisions, you understand drawdowns are temporary, and you'd rather have flexibility and upside than guaranteed income that costs you in long-run wealth. You have the temperament for an all-portfolio approach. And the temperament is the part most retirees don't have. The math says retirees who can stay invested and disciplined often build more lifetime wealth and more legacy than retirees who heavily annuitize. The key word is <em>disciplined</em>, and you have that.",
+    stack: "A Market Investor's Stack is concentrated in the Growth Engine. Your Foundation is still optimized. Social Security claiming strategy matters because it's a guaranteed inflation-adjusted return that's hard to beat anywhere else. But your Guaranteed Income Floor is minimal beyond Social Security. You may not add any voluntary guaranteed income at all. Your Growth Engine is the dominant layer. It's a diversified portfolio with a disciplined withdrawal approach, often using dynamic spending rules or guardrails strategies that adjust based on market conditions. You may use growth annuities for tax deferral or downside protection on a portion of the portfolio. Your Reserves are deliberately substantial, typically 18 to 36 months of expenses, because reserves are what make the all-portfolio approach work.",
+    considerations: "Withdrawal discipline. Your design only works if you actually follow the guardrails when markets drop. Reserve sizing and replenishment timing. Tax-efficient withdrawal sequencing, where you have more degrees of freedom than other Profiles and probably more optimization opportunity. Your Roth conversion strategy is likely the highest-leverage tax move available to you. And the question most Market Investors underweight: <em>what's the plan when you no longer want to make decisions?</em> An all-portfolio strategy requires active engagement."
+  },
+  legacy: {
+    name: 'The Legacy Architect',
+    description: "Legacy Architects design retirement around what transfers to the next generation. You may have more than you need for your own retirement, or you simply see your wealth as a multi-generational tool rather than just a personal-consumption fund. The question that drives your planning isn't \"will I run out?\" It's \"how do I get the right dollars to the right people at the right time, with the least friction?\" That's a sophisticated framing, and it has real consequences. The decisions you make about Roth conversions, beneficiary designations, asset location, and life insurance can change the after-tax wealth your heirs receive by amounts measured in hundreds of thousands or millions of dollars. Legacy-focused design isn't an afterthought to retirement planning. For you, it's the main event.",
+    stack: "A Legacy Architect's Stack has a distinctive shape. Your Foundation is optimized, often with attention to survivor benefits as much as your own income. Your Guaranteed Income Floor exists, but it's sized for your own essential needs only; you don't over-allocate to guaranteed income that ends at death. Your Growth Engine is significant and intentionally tax-managed: harvesting losses, locating assets optimally, aggressively converting traditional dollars to Roth dollars when the rate math works. Your Legacy Layer is the dominant differentiator. Roth balances built through systematic conversion, sometimes permanent life insurance for tax-free transfer, taxable assets held for step-up basis at death, and well-designed beneficiary structures across every account. Tax strategy isn't a side concern for you. It's the entire game.",
+    considerations: "Your Roth conversion runway. How aggressively to convert, in what years, up to what tax bracket. Your beneficiary structure across every account; most Legacy Architects have suboptimal beneficiaries on something. The role of permanent life insurance, if any, given your tax situation. Asset location optimization between taxable, tax-deferred, and Roth dollars. And the question most Legacy Architects underweight: <em>have you actually talked to your heirs?</em> The cleanest plan in the world fails if the people receiving it don't know what's coming or how to handle it."
+  },
+  simplicity: {
+    name: 'The Simplicity Seeker',
+    description: "Simplicity Seekers design retirement to require minimal ongoing management. Not because you're disengaged. It's because you've decided life is better spent on things other than rebalancing portfolios, optimizing withdrawal sequences, and reading prospectuses. You have a clear preference for fewer accounts, fewer decisions, automatic systems, and clean structures. You'd rather have a slightly less optimal plan that runs itself than a maximally optimal plan that demands constant attention. You may be highly sophisticated about money. You've just decided the marginal benefit of complexity isn't worth the marginal cost in time and mental energy. Your preference is legitimate, it's underserved by most advisors, and the behavioral finance research is clear: simpler plans that <em>get executed</em> outperform sophisticated plans that <em>don't</em>.",
+    stack: "A Simplicity Seeker's Stack is intentionally streamlined. Your Foundation is optimized through a one-time claiming decision and then left alone. Your Guaranteed Income Floor is usually a single instrument, often one FIA with a lifetime income rider, or a single SPIA, sized to cover essentials and chosen for its hands-off operation. Your Growth Engine is a single diversified portfolio with a simple withdrawal rule rather than an actively managed multi-fund design. Your Legacy Layer is structurally simple: clean beneficiary designations, possibly a Roth IRA, a basic will or simple trust. Tax strategy exists but it's executed through periodic check-ins, not constant optimization. Reserves are simple cash, not laddered or optimized for marginal yield.",
+    considerations: "The right level of simplicity for <em>you</em>. Finding the boundary where additional complexity stops being worth its cost. Automatic systems wherever possible. Clear documentation so that a spouse, adult child, or future advisor can step in if needed. Periodic review, once a year is usually enough, to make sure the simple plan is still the right plan as life changes. And the question most Simplicity Seekers underweight: <em>what happens when something non-simple comes up?</em> A surprise inheritance, a serious illness, an unexpected tax change. The Simplicity Seeker needs a trusted advisor relationship precisely so that when complexity arrives, someone is there to handle it."
+  }
+};
+
+const blendOutputs = {
+  'legacy_paycheck': {
+    title: 'A Blend: Paycheck Planner + Legacy Architect',
+    description: "Your responses place you between two Profiles. You're primarily a Paycheck Planner with strong Legacy Architect influences. That means you want income certainty for yourself <em>and</em> you want to make sure what's left transfers efficiently to the people or causes you care about. This is one of the most common blends among retirees with substantial wealth, and it's a design challenge that rewards getting right.",
+    stack: "A Paycheck Planner + Legacy Architect Stack does two things at once. You build a robust Guaranteed Income Floor for your own essentials, but you size it carefully, because over-allocating to guaranteed income that ends at death works against your legacy goals. Your Growth Engine plays a dual role, funding discretionary spending while also building wealth that will eventually transfer. Your Legacy Layer is intentional and well-structured, often featuring substantial Roth balances built through systematic conversions during your peak conversion years. Your tax strategy works overtime because Roth conversions and asset location decisions are doing legacy work even while you're still using the portfolio yourself.",
+    considerations: "The tension you're navigating: every dollar locked into guaranteed lifetime income is a dollar that won't transfer at death. The design question is <em>how much income certainty is enough</em>. Not how much is possible. Getting that calibration right is where this blend either works beautifully or quietly underperforms both goals."
+  },
+  'legacy_market': {
+    title: 'A Blend: Market Investor + Legacy Architect',
+    description: "Your responses place you between two Profiles. You're a blend of Market Investor and Legacy Architect. That means you believe in markets, you're comfortable managing a portfolio through retirement, <em>and</em> you want what you've built to transfer efficiently to the next generation or causes you care about. This blend is common among retirees who have done well financially and are now thinking generationally rather than just personally.",
+    stack: "A Market Investor + Legacy Architect Stack is portfolio-dominant <em>and</em> tax-strategy-intensive. Your Foundation is optimized, but you don't add voluntary guaranteed income because every dollar annuitized is a dollar that won't transfer. Your Growth Engine is the dominant layer, run with active tax management: loss harvesting, asset location, and careful realization of gains. Your Legacy Layer is built primarily through Roth conversion work. You're aggressively converting traditional dollars in years where the bracket math works, using non-IRA cash to pay the conversion taxes, building tax-free balances that compound for your heirs. Tax strategy is the connective tissue that holds both halves of this blend together.",
+    considerations: "You're playing a long game with multiple optimization levers, which means decisions in one area affect every other area. A Roth conversion changes your IRMAA exposure. A capital gains realization affects your conversion capacity. A withdrawal sequence change affects your legacy outcome. This blend rewards careful coordination and punishes ad-hoc decisions."
+  },
+  'paycheck_simplicity': {
+    title: 'A Blend: Paycheck Planner + Simplicity Seeker',
+    description: "Your responses place you between two Profiles. You're a blend of Paycheck Planner and Simplicity Seeker. That means you want income certainty <em>and</em> you want it delivered through the simplest possible structure. You're not interested in a multi-vehicle integrated design even if it's marginally more optimal. You want a paycheck, you want it to be reliable, and you want to spend your retirement on things other than financial decisions.",
+    stack: "A Paycheck Planner + Simplicity Seeker Stack is the cleanest retirement design there is. Social Security optimized once, then left alone. A single well-chosen guaranteed income vehicle, often one FIA with a lifetime income rider, or one income annuity, sized to cover essentials. A single diversified portfolio for discretionary spending and inflation protection, with a simple withdrawal rule. Clean beneficiary designations. A modest cash buffer. That's the entire Stack, and that's the point. The design isn't optimized for maximum theoretical return. It's optimized for <em>running itself reliably for the next 25-30 years</em>.",
+    considerations: "Resisting the urge to over-complicate. Every advisor you meet will want to add something: a second income vehicle, a more elaborate portfolio, or a tax optimization layer. Sometimes those additions help; often they don't, and they always cost you in management complexity. This blend works because of what it leaves out, not what it includes."
+  },
+  'market_simplicity': {
+    title: 'A Blend: Market Investor + Simplicity Seeker',
+    description: "Your responses place you between two Profiles. You're a blend of Market Investor and Simplicity Seeker. That means you believe in markets and want to stay invested, <em>and</em> you want the design to run without constant attention. You're often a retiree who had a successful investing career, has confidence in your approach, and now wants to keep the philosophy without the daily management.",
+    stack: "A Market Investor + Simplicity Seeker Stack is a portfolio-led design with deliberate simplicity. Social Security optimized once. Minimal or no voluntary guaranteed income. You trust the portfolio. Your Growth Engine is a single diversified portfolio, often a target-date-style allocation or a clean 60/40 structure that rebalances automatically. Your withdrawal approach is rule-based and largely automatic, like a percentage of beginning-of-year balance, or a fixed inflation-adjusted withdrawal with a simple guardrail. Reserves are healthy because they're what make a hands-off portfolio strategy survive bad markets. Tax strategy exists but it's executed at predictable annual checkpoints, not as a constant optimization project.",
+    considerations: "Discipline during drawdowns. Your design works because you don't fiddle with it. But that requires you to stay disciplined during years when other retirees are panic-selling or chasing performance. The simple version of an all-portfolio strategy is also the most vulnerable to behavioral mistakes if the simplicity becomes inattention. Periodic check-ins are non-negotiable, even though 'simplicity' might suggest otherwise."
+  },
+  'market_paycheck': {
+    title: 'An Unusual Blend: Paycheck Planner + Market Investor',
+    description: "Your responses don't place you cleanly in a single Profile, and that's actually a useful finding. You scored highly on both Paycheck Planner preferences (income certainty, stability, predictability) <em>and</em> Market Investor preferences (growth, flexibility, market participation). These are normally opposing philosophical commitments, which means one of two things is true.",
+    stack: "Either you genuinely want a hybrid design that gives meaningful weight to both. You're building a Floor for essentials <em>and</em> keeping substantial market exposure for upside (which is achievable, and is essentially the balanced retirement approach in deliberate form). Or you have unresolved feelings about which matters more. You want certainty <em>and</em> upside, and you haven't yet decided which one to prioritize when they trade off against each other. Both are common, both are legitimate, and both lead to better outcomes when surfaced rather than designed around silently.",
+    considerations: "The right next step for you is a Discovery conversation where we talk through <em>what you actually want when the two collide</em>. Most retirements don't require you to choose extremes, but every design does require you to make implicit tradeoffs. We can either make those tradeoffs intentionally, or you can have them made for you by default. Intentional is better."
+  },
+  'legacy_simplicity': {
+    title: 'An Unusual Blend: Legacy Architect + Simplicity Seeker',
+    description: "Your responses don't place you cleanly in a single Profile, and that's actually a useful finding. You scored highly on both Legacy Architect preferences (efficient wealth transfer, generational thinking, willingness to do tax work) <em>and</em> Simplicity Seeker preferences (minimal complexity, automated structures, less ongoing decision-making). These usually pull in opposite directions, because efficient wealth transfer typically requires ongoing tax management, but they can be reconciled with the right structure.",
+    stack: "You want your wealth to transfer efficiently, <em>and</em> you don't want to spend your retirement doing tax projects. That's a legitimate position. It's one that benefits from a <em>built-once, runs-itself</em> approach to legacy design. Roth conversions completed during a defined window then left alone. Beneficiary designations set up correctly the first time. Asset location decisions made deliberately at the design stage and not constantly revisited. Permanent life insurance, if appropriate, structured to handle transfer without ongoing decisions. The work is front-loaded so the operation can be simple.",
+    considerations: "The right next step for you is a Discovery conversation where we identify the legacy structures that can be put in place <em>now</em> so that the rest of your retirement can run with minimal attention. The trick is doing the design work upfront so the implementation can be hands-off."
+  }
+};
+
+//=============================================================================
+// PERSONALIZED STACK VISUALIZATION
+//=============================================================================
+
+function renderPersonalizedStack(profileResult) {
+  const pct = profileResult.percentages;
+
+  const total = 240;
+  const foundationBase = 50;
+  const remaining = total - foundationBase;
+
+  const floorWeight = pct.paycheck;
+  const growthWeight = pct.market;
+  const legacyWeight = pct.legacy;
+  const weightTotal = floorWeight + growthWeight + legacyWeight;
+
+  const minLayer = 30;
+  let floor = minLayer + (remaining - 3 * minLayer) * (floorWeight / weightTotal);
+  let growth = minLayer + (remaining - 3 * minLayer) * (growthWeight / weightTotal);
+  let legacy = minLayer + (remaining - 3 * minLayer) * (legacyWeight / weightTotal);
+
+  const simplicityFactor = pct.simplicity / 100;
+  if (simplicityFactor > 0.3) {
+    const compress = 1 - (simplicityFactor - 0.3) * 0.4;
+    floor *= compress;
+    growth *= compress;
+    legacy *= compress;
+  }
+
+  const layerWidths = 380;
+  const startX = 60;
+
+  const startY = 40;
+  const gap = 10;
+  const foundationH = foundationBase;
+  const floorH = floor;
+  const growthH = growth;
+  const legacyH = legacy;
+
+  let currentY = startY;
+  const legacyY = currentY;
+  currentY += legacyH + gap;
+  const growthY = currentY;
+  currentY += growthH + gap;
+  const floorY = currentY;
+  currentY += floorH + gap;
+  const foundationY = currentY;
+  const stackBottom = currentY + foundationH;
+
+  const totalSvgHeight = stackBottom + 40;
+  const taxBandY = startY;
+  const taxBandHeight = stackBottom - startY;
+
+  function layer(x, y, w, h, color, title, subtitle) {
+    return `
+      <g>
+        <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="8" fill="${color}" fill-opacity="0.15" stroke="${color}" stroke-width="1.5"/>
+        <text x="${x + 20}" y="${y + h/2 - 4}" font-family="Montserrat, sans-serif" font-size="15" font-weight="600" fill="${color}">${title}</text>
+        <text x="${x + 20}" y="${y + h/2 + 14}" font-family="Inter, sans-serif" font-size="12" fill="#555">${subtitle}</text>
+      </g>
+    `;
+  }
+
+  const taxX = startX + layerWidths + 20;
+  const taxW = 150;
+
+  const bridges = [
+    { y: legacyY + legacyH/2 - 10, h: 20 },
+    { y: growthY + growthH/2 - 10, h: 20 },
+    { y: floorY + floorH/2 - 10, h: 20 },
+    { y: foundationY + foundationH/2 - 10, h: 20 }
+  ].map(b => `<rect x="${startX + layerWidths}" y="${b.y}" width="20" height="${b.h}" fill="#C28D3D" fill-opacity="0.35"/>`).join('');
+
+  const reservesY = growthY;
+  const reservesH = Math.min(70, growthH);
+
+  return `
+  <svg width="100%" viewBox="0 0 880 ${totalSvgHeight}" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto;">
+    ${layer(startX, legacyY, layerWidths, legacyH, '#B85C7A', 'Legacy Layer', 'Roth, life insurance, transfer')}
+    ${layer(startX, growthY, layerWidths, growthH, '#5B4B8A', 'Growth Engine', 'Market portfolio + growth annuity')}
+    ${layer(startX, floorY, layerWidths, floorH, '#2B7A78', 'Guaranteed Income Floor', 'Pensions and income annuity')}
+    ${layer(startX, foundationY, layerWidths, foundationH, '#00446A', 'Foundation', 'Social Security, optimized')}
+
+    ${bridges}
+
+    <rect x="${taxX}" y="${taxBandY}" width="${taxW}" height="${taxBandHeight}" rx="8" fill="#C28D3D" fill-opacity="0.15" stroke="#C28D3D" stroke-width="1.5"/>
+    <text x="${taxX + taxW/2}" y="${taxBandY + 26}" font-family="Montserrat, sans-serif" font-size="15" font-weight="600" fill="#8A5E1A" text-anchor="middle">Tax Strategy</text>
+    <text x="${taxX + taxW/2}" y="${taxBandY + 46}" font-family="Inter, sans-serif" font-size="12" fill="#8A5E1A" text-anchor="middle" font-style="italic">Spans every layer</text>
+    <text x="${taxX + taxW/2}" y="${taxBandY + 88}" font-family="Inter, sans-serif" font-size="12" fill="#555" text-anchor="middle">Roth conversions</text>
+    <text x="${taxX + taxW/2}" y="${taxBandY + 108}" font-family="Inter, sans-serif" font-size="12" fill="#555" text-anchor="middle">Asset location</text>
+    <text x="${taxX + taxW/2}" y="${taxBandY + 128}" font-family="Inter, sans-serif" font-size="12" fill="#555" text-anchor="middle">Withdrawal order</text>
+    <text x="${taxX + taxW/2}" y="${taxBandY + 148}" font-family="Inter, sans-serif" font-size="12" fill="#555" text-anchor="middle">IRMAA, QCDs</text>
+
+    <rect x="${taxX + taxW + 20}" y="${reservesY}" width="120" height="${reservesH}" rx="8" fill="#8C8B85" fill-opacity="0.15" stroke="#8C8B85" stroke-width="1.5"/>
+    <text x="${taxX + taxW + 20 + 60}" y="${reservesY + reservesH/2 - 4}" font-family="Montserrat, sans-serif" font-size="15" font-weight="600" fill="#353E44" text-anchor="middle">Reserves</text>
+    <text x="${taxX + taxW + 20 + 60}" y="${reservesY + reservesH/2 + 14}" font-family="Inter, sans-serif" font-size="12" fill="#555" text-anchor="middle">Cash buffer</text>
+  </svg>
+  `;
+}
+
+//=============================================================================
+// RESULTS RENDERING
+//=============================================================================
+
+function showResults(precomputedResult) {
+  const result = precomputedResult || computeProfile();
+  const container = document.getElementById('results-content');
+
+  let html = '';
+
+  if (result.type === 'pure') {
+    const callbackKey = state.primaryPurpose + '_' + result.primary;
+    const callback = callbacks[callbackKey] || '';
+    const profile = pureProfiles[result.primary];
+
+    html = `
+      <div class="result-hero">
+        <div class="result-eyebrow">Your Design Profile</div>
+        <h1 class="result-profile-name">${profile.name}</h1>
+        <p class="callback-paragraph">${callback}</p>
+      </div>
+
+      <div class="result-description">
+        <div class="result-section">
+          <h3>Who you are</h3>
+          <p>${profile.description}</p>
+        </div>
+      </div>
+
+      <div class="stack-visualization">
+        <h3>Your Personalized Retirement Stack</h3>
+        <div class="stack-subtitle">Built around your Profile's design priorities</div>
+        ${renderPersonalizedStack(result)}
+      </div>
+
+      <div class="result-two-col">
+        <div class="result-col">
+          <h3>What your Stack typically looks like</h3>
+          <p>${profile.stack}</p>
+        </div>
+        <div class="result-col">
+          <h3>What you typically need to think about</h3>
+          <p>${profile.considerations}</p>
+        </div>
+      </div>
+    `;
+  } else {
+    const blend = blendOutputs[result.key] || blendOutputs[result.primary + '_' + result.secondary];
+
+    if (blend) {
+      html = `
+        <div class="result-hero">
+          <div class="result-eyebrow">Your Design Profile</div>
+          <h1 class="result-profile-name">${blend.title}</h1>
+          <p class="callback-paragraph">You came here thinking about your retirement design, and your responses revealed something worth talking through.</p>
+        </div>
+
+        <div class="result-description">
+          <div class="result-section">
+            <h3>What this means</h3>
+            <p>${blend.description}</p>
+          </div>
+        </div>
+
+        <div class="stack-visualization">
+          <h3>Your Personalized Retirement Stack</h3>
+          <div class="stack-subtitle">Shaped by your blended priorities</div>
+          ${renderPersonalizedStack(result)}
+        </div>
+
+        <div class="result-two-col">
+          <div class="result-col">
+            <h3>What your Stack typically looks like</h3>
+            <p>${blend.stack}</p>
+          </div>
+          <div class="result-col">
+            <h3>The conversation worth having</h3>
+            <p>${blend.considerations}</p>
+          </div>
+        </div>
+      `;
+    } else {
+      const profile = pureProfiles[result.primary];
+      const callbackKey = state.primaryPurpose + '_' + result.primary;
+      html = `
+        <div class="result-hero">
+          <div class="result-eyebrow">Your Design Profile</div>
+          <h1 class="result-profile-name">Primarily ${profile.name}</h1>
+          <p class="callback-paragraph">${callbacks[callbackKey] || ''}</p>
+        </div>
+        <div class="result-description">
+          <div class="result-section"><h3>Who you are</h3><p>${profile.description}</p></div>
+        </div>
+        <div class="stack-visualization">
+          <h3>Your Personalized Retirement Stack</h3>
+          <div class="stack-subtitle">Built around your Profile's design priorities</div>
+          ${renderPersonalizedStack(result)}
+        </div>
+        <div class="result-two-col">
+          <div class="result-col"><h3>What your Stack typically looks like</h3><p>${profile.stack}</p></div>
+          <div class="result-col"><h3>What you typically need to think about</h3><p>${profile.considerations}</p></div>
+        </div>
+      `;
+    }
+  }
+
+  html += `
+    <div class="cta-block">
+      <h3>Your Profile is the starting point for a real design conversation</h3>
+      <p>The next step is to map your existing accounts and income sources onto your personalized Retirement Stack, and design the rest. That's what the myRetirement Design process is built to do.</p>
+      <a href="https://jantzwealth.com/schedule" class="btn-primary" target="_top">Schedule your Discovery meeting</a>
+    </div>
+  `;
+
+  container.innerHTML = html;
+  goToScreen('results');
+}
+
+//=============================================================================
+// IFRAME RESIZE NOTIFICATION (for Duda postMessage embedding)
+//=============================================================================
+
+function notifyParentResize() {
+  if (window.parent !== window) {
+    setTimeout(() => {
+      const height = document.body.scrollHeight;
+      window.parent.postMessage({ type: 'resize', height: height }, '*');
+    }, 100);
+  }
+}
+
+window.addEventListener('load', notifyParentResize);
+window.addEventListener('resize', notifyParentResize);
+
+</script>
+
+</body>
+</html>
