@@ -1959,6 +1959,46 @@ p + p { margin-top: 16px; }
   }
 })();
 
+// Anchor link interception: when embedded in an iframe, route same-page hash
+// navigation up to the parent page so it can scroll the actual viewport.
+// Standard <a href="#section"> clicks inside an iframe cannot scroll the parent,
+// and because this page is auto-sized to its full content, there is no scroll
+// inside the iframe to perform either. So we measure the target's position and
+// postMessage it to the parent for handling.
+(function() {
+  if (window.parent === window) return; // not embedded, native anchor jumps work fine
+
+  document.addEventListener('click', function(e) {
+    // Find the nearest <a> ancestor (handles clicks on children of the link too)
+    const anchor = e.target.closest('a');
+    if (!anchor) return;
+
+    const href = anchor.getAttribute('href');
+    if (!href || !href.startsWith('#') || href === '#') return;
+
+    const targetId = href.slice(1);
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    e.preventDefault();
+
+    // Target's Y position relative to the top of this iframe document
+    const offset = target.getBoundingClientRect().top + window.scrollY;
+
+    window.parent.postMessage({
+      type: 'jws-scrollto',
+      offset: offset,
+      targetId: targetId
+    }, '*');
+
+    // Update the URL hash without triggering an in-iframe scroll, so the
+    // :target arrival-flash animation on the eyebrow still fires.
+    if (history.replaceState) {
+      history.replaceState(null, '', '#' + targetId);
+    }
+  });
+})();
+
 // Auto-resize: post height to parent (for iframe embedding in Duda)
 (function() {
   if (window.parent === window) return; // not embedded
