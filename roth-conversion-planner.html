@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi-Year Roth Conversion Planner | Jantz Wealth Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#00446A; --blue:#0084D3; --char:#353E44;
+    --green:#1F8A5B; --red:#C0392B;
+    --note-bg:#E8F2FD; --line:#D8E0E6; --soft:#F4F8FB;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    font-family:'Inter', Arial, sans-serif; color:var(--char);
+    background:#FFFFFF; line-height:1.5; padding:8px 4px 24px 4px;
+  }
+  .wrap{max-width:980px; margin:0 auto;}
+
+  /* ---------- Header ---------- */
+  .hdr{ border-bottom:3px solid var(--navy); padding-bottom:14px; margin-bottom:20px; }
+  .hdr .eyebrow{
+    font-family:'Montserrat', Arial, sans-serif; font-weight:600; font-size:11px;
+    letter-spacing:2.4px; text-transform:uppercase; color:var(--blue); margin-bottom:6px;
+  }
+  .hdr h1{
+    font-family:'Montserrat', Arial, sans-serif; font-weight:800; color:var(--navy);
+    font-size:27px; line-height:1.15;
+  }
+  .hdr p{ font-size:14px; color:#5A6670; margin-top:8px; max-width:70ch; }
+
+  /* ---------- Inputs ---------- */
+  .panel{
+    background:var(--soft); border:1px solid var(--line); border-radius:10px;
+    padding:18px 18px 8px 18px; margin-bottom:22px;
+  }
+  .panel h2, .results h2{
+    font-family:'Montserrat', Arial, sans-serif; font-weight:700; font-size:13px;
+    letter-spacing:1.8px; text-transform:uppercase; color:var(--navy); margin-bottom:14px;
+  }
+  .grid{ display:flex; flex-wrap:wrap; margin:0 -8px; }
+  .field{ width:25%; padding:0 8px; margin-bottom:14px; }
+  .field.w33{ width:33.33%; }
+  .field.w50{ width:50%; }
+  @media (max-width:760px){ .field, .field.w33{ width:50%; } }
+  @media (max-width:430px){ .field, .field.w33, .field.w50{ width:100%; } }
+  label{
+    display:block; font-family:'Montserrat', Arial, sans-serif; font-weight:600;
+    font-size:11px; letter-spacing:.4px; text-transform:uppercase; color:var(--char);
+    margin-bottom:5px;
+  }
+  .hint{ display:block; font-size:11px; color:#7A8590; font-weight:400; text-transform:none; letter-spacing:0; margin-top:2px; }
+  input[type=text], input[type=number], select{
+    width:100%; padding:9px 10px; border:1px solid #BCC8D1; border-radius:6px;
+    font-family:'Inter', Arial, sans-serif; font-size:15px; color:var(--char); background:#fff;
+  }
+  input:focus, select:focus{ outline:2px solid var(--blue); outline-offset:1px; border-color:var(--blue); }
+
+  /* segmented strategy control */
+  .seg{ display:flex; flex-wrap:wrap; border:1px solid var(--navy); border-radius:8px; overflow:hidden; margin-bottom:16px; }
+  .seg button{
+    flex:1 1 auto; min-width:160px; padding:11px 10px; border:none; background:#fff; cursor:pointer;
+    font-family:'Montserrat', Arial, sans-serif; font-weight:600; font-size:13px; color:var(--navy);
+    border-right:1px solid var(--navy);
+  }
+  .seg button:last-child{ border-right:none; }
+  .seg button.on{ background:var(--navy); color:#fff; }
+  .seg button:focus-visible{ outline:2px solid var(--blue); outline-offset:-3px; }
+
+  .toggles{ display:flex; flex-wrap:wrap; padding-top:4px; border-top:1px dashed var(--line); }
+  .yrcredits{ display:none; padding:10px 0 4px 0; border-top:1px dashed var(--line); }
+  .yrcredits.show{ display:block; }
+  .yrcredits .yc-title{
+    font-family:'Montserrat', Arial, sans-serif; font-weight:600; font-size:11px;
+    letter-spacing:.4px; text-transform:uppercase; color:var(--char); margin-bottom:8px;
+  }
+  .yrcredits .yc-title .hint{ display:inline; margin-left:8px; }
+  .ycgrid{ display:flex; flex-wrap:wrap; margin:0 -4px; }
+  .yc{ width:10%; padding:0 4px; margin-bottom:8px; }
+  @media (max-width:860px){ .yc{ width:20%; } }
+  @media (max-width:430px){ .yc{ width:33.33%; } }
+  .yc label{ font-size:10px; text-align:center; margin-bottom:3px; }
+  .yc input{ padding:7px 6px; font-size:14px; text-align:center; }
+  .tg{ display:flex; align-items:center; margin:8px 22px 8px 0; font-size:13.5px; cursor:pointer; }
+  .tg input{ width:17px; height:17px; margin-right:8px; accent-color:var(--navy); cursor:pointer; }
+
+  /* ---------- Metric cards ---------- */
+  .cards{ display:flex; flex-wrap:wrap; margin:0 -7px 20px -7px; }
+  .card{ width:33.33%; padding:0 7px; }
+  @media (max-width:640px){ .card{ width:100%; margin-bottom:10px; } }
+  .card .in{
+    border:1px solid var(--line); border-radius:10px; padding:16px 16px 14px 16px; height:100%;
+  }
+  .card.navy .in{ background:var(--navy); border-color:var(--navy); }
+  .card .lab{
+    font-family:'Montserrat', Arial, sans-serif; font-weight:600; font-size:10.5px;
+    letter-spacing:1.6px; text-transform:uppercase; color:#6B7780; margin-bottom:6px;
+  }
+  .card.navy .lab{ color:#9FC4DC; }
+  .card .val{ font-family:'Montserrat', Arial, sans-serif; font-weight:800; font-size:26px; color:var(--navy); }
+  .card.navy .val{ color:#fff; }
+  .card .sub{ font-size:12px; color:#7A8590; margin-top:4px; }
+  .card.navy .sub{ color:#BFD7E6; }
+
+  /* ---------- Chart ---------- */
+  .chartbox{ border:1px solid var(--line); border-radius:10px; padding:14px 14px 6px 14px; margin-bottom:20px; }
+  .legend{ font-size:12px; color:#5A6670; margin-bottom:4px; }
+  .legend span{ display:inline-block; margin-right:18px; }
+  .dot{ display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; vertical-align:-1px; }
+
+  /* ---------- Table ---------- */
+  .tablewrap{ overflow-x:auto; border:1px solid var(--line); border-radius:10px; margin-bottom:20px; }
+  table{ border-collapse:collapse; width:100%; min-width:900px; font-size:12px; }
+  thead th{
+    background:var(--navy); color:#fff; font-family:'Montserrat', Arial, sans-serif;
+    font-weight:600; font-size:9px; letter-spacing:.5px; text-transform:uppercase;
+    padding:9px 6px; text-align:right; white-space:normal; line-height:1.25; vertical-align:bottom;
+  }
+  thead th:first-child, thead th:nth-child(2){ text-align:center; }
+  tbody td{ padding:7px 6px; text-align:right; border-bottom:1px solid #EAEFF3; white-space:nowrap; }
+  tbody td:first-child, tbody td:nth-child(2){ text-align:center; color:#5A6670; }
+  tbody tr:nth-child(even){ background:#F7FAFC; }
+  tbody tr.iflag td{ background:#FBEAE7; }
+  tbody tr.iflag td.imark{ color:var(--red); font-weight:700; }
+  tfoot td{
+    padding:8px 6px; text-align:right; font-weight:700; background:var(--soft);
+    border-top:2px solid var(--navy); white-space:nowrap;
+  }
+  tfoot td:first-child{ text-align:left; font-family:'Montserrat', Arial, sans-serif; }
+  .pos{ color:var(--green); }
+
+  /* ---------- Observations ---------- */
+  .note{
+    background:var(--note-bg); border-left:4px solid var(--blue); border-radius:0 8px 8px 0;
+    padding:14px 16px; margin-bottom:20px; font-size:13.5px;
+  }
+  .note h3{
+    font-family:'Montserrat', Arial, sans-serif; font-weight:700; font-size:12px;
+    letter-spacing:1.4px; text-transform:uppercase; color:var(--navy); margin-bottom:8px;
+  }
+  .note p{ margin-bottom:7px; }
+  .note p:last-child{ margin-bottom:0; }
+  .warn{ color:var(--red); font-weight:600; }
+
+  /* ---------- CTA + footer ---------- */
+  .cta{
+    text-align:center; padding:20px 16px; background:var(--navy); border-radius:10px; margin-bottom:18px;
+  }
+  .cta p{ color:#BFD7E6; font-size:14px; margin-bottom:12px; }
+  .cta a{
+    display:inline-block; background:var(--blue); color:#fff; text-decoration:none;
+    font-family:'Montserrat', Arial, sans-serif; font-weight:700; font-size:14px;
+    padding:12px 26px; border-radius:6px;
+  }
+  .fine{ font-size:10.5px; color:#7A8590; line-height:1.55; }
+  .fine p{ margin-bottom:7px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hdr">
+    <div class="eyebrow">Jantz Wealth Solutions</div>
+    <h1>Multi-Year Roth Conversion Planner</h1>
+    <p>Model a year-by-year plan that moves a Traditional IRA into a Roth IRA using a fixed indexed annuity, with conversion taxes withheld from each year's free withdrawal allowance instead of paid out of pocket.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Your Inputs</h2>
+
+    <div class="seg" id="seg" role="tablist" aria-label="Conversion strategy">
+      <button type="button" data-mode="bracket" class="on">Fill the Tax Bracket</button>
+      <button type="button" data-mode="fixed">Fixed Dollar Amount</button>
+      <button type="button" data-mode="pct">Percent of Account Value</button>
+    </div>
+
+    <div class="grid">
+      <div class="field">
+        <label for="age">Current Age</label>
+        <input type="number" id="age" value="65" min="40" max="85" step="1">
+      </div>
+      <div class="field">
+        <label for="ira">Traditional IRA Balance</label>
+        <input type="text" id="ira" value="1,000,000" inputmode="numeric">
+      </div>
+      <div class="field">
+        <label for="bonus">Premium Bonus %<span class="hint">Credited at issue</span></label>
+        <input type="number" id="bonus" value="15" min="0" max="40" step="0.5">
+      </div>
+      <div class="field">
+        <label for="rate">Assumed Annual Credit %<span class="hint">Average index credit</span></label>
+        <input type="number" id="rate" value="5" min="0" max="15" step="0.01">
+      </div>
+      <div class="field">
+        <label for="fw">Free Withdrawal %<span class="hint">Greater of account value or original premium</span></label>
+        <input type="number" id="fw" value="10" min="0" max="20" step="1">
+      </div>
+      <div class="field">
+        <label for="tax">Tax Withholding Rate %<span class="hint" id="taxhint">Withheld from each gross conversion</span></label>
+        <input type="number" id="tax" value="24" min="0" max="50" step="1">
+      </div>
+
+      <div class="field">
+        <label for="irmaa">IRMAA Ceiling<span class="hint">Medicare surcharge threshold to stay below</span></label>
+        <select id="irmaa">
+          <option value="none" selected>No IRMAA limit</option>
+          <option value="0">Below the first surcharge</option>
+          <option value="1">Allow one tier</option>
+          <option value="2">Allow two tiers</option>
+          <option value="3">Allow three tiers</option>
+        </select>
+      </div>
+      <div class="field" id="f-pct" style="display:none;">
+        <label for="pct">Gross Conversion %<span class="hint">Of account value at the start of each year</span></label>
+        <input type="number" id="pct" value="25" min="1" max="100" step="1">
+      </div>
+      <div class="field" id="f-fixed" style="display:none;">
+        <label for="fixed">Gross Conversion $<span class="hint">Same amount each year</span></label>
+        <input type="text" id="fixed" value="250,000" inputmode="numeric">
+      </div>
+      <div class="field" id="f-status">
+        <label for="status">Filing Status</label>
+        <select id="status">
+          <option value="mfj">Married Filing Jointly</option>
+          <option value="single">Single</option>
+        </select>
+      </div>
+      <div class="field" id="f-income">
+        <label for="income">Other Income (MAGI)<span class="hint">Pensions, wages, Social Security, interest</span></label>
+        <input type="text" id="income" value="60,000" inputmode="numeric">
+      </div>
+      <div class="field" id="f-bracket">
+        <label for="bracket">Target Bracket Ceiling</label>
+        <select id="bracket">
+          <option value="12">Top of 12% bracket</option>
+          <option value="22">Top of 22% bracket</option>
+          <option value="24" selected>Top of 24% bracket</option>
+          <option value="32">Top of 32% bracket</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="toggles">
+      <label class="tg"><input type="checkbox" id="holdback" checked>No conversion in Year 1</label>
+      <label class="tg"><input type="checkbox" id="rmds" checked>Model RMDs beginning at age 73</label>
+      <label class="tg"><input type="checkbox" id="peryear">Enter index credits by year</label>
+    </div>
+    <div class="yrcredits" id="yrcredits">
+      <div class="yc-title">Index Credit by Year %</div>
+      <div class="ycgrid" id="ycgrid"></div>
+    </div>
+  </div>
+
+  <div class="results">
+    <h2>Your Projected Plan</h2>
+
+    <div class="cards">
+      <div class="card navy"><div class="in">
+        <div class="lab">Projected Roth IRA Value</div>
+        <div class="val" id="m-roth">$0</div>
+        <div class="sub" id="m-roth-sub"></div>
+      </div></div>
+      <div class="card"><div class="in">
+        <div class="lab">Total Taxes Withheld</div>
+        <div class="val" id="m-tax">$0</div>
+        <div class="sub" id="m-tax-sub"></div>
+      </div></div>
+      <div class="card"><div class="in">
+        <div class="lab">Traditional IRA Remaining</div>
+        <div class="val" id="m-ira">$0</div>
+        <div class="sub" id="m-ira-sub"></div>
+      </div></div>
+    </div>
+
+    <div class="chartbox">
+      <div class="legend">
+        <span><span class="dot" style="background:#0084D3;"></span>Roth IRA</span>
+        <span><span class="dot" style="background:#353E44;"></span>Traditional IRA</span>
+      </div>
+      <div id="chart"></div>
+    </div>
+
+    <div class="tablewrap">
+      <table id="tbl" aria-label="Year by year conversion schedule">
+        <thead>
+          <tr>
+            <th>Year</th><th>Age</th><th>Beginning IRA</th><th>Index Credit to IRA</th>
+            <th id="th-rmd">RMD</th><th>Gross Conversion</th><th>Tax Withheld</th>
+            <th>Net to Roth</th><th>Ending IRA</th><th>Index Credit to Roth</th><th>Roth Balance</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+        <tfoot><tr id="tfoot"></tr></tfoot>
+      </table>
+    </div>
+
+    <div class="note">
+      <h3>Plan Observations</h3>
+      <div id="obs"></div>
+    </div>
+
+    <div class="cta">
+      <p>This is a hypothetical model. A real plan starts with your tax return, your income, and your goals.</p>
+      <a href="https://www.jantzwealth.com" target="_blank" rel="noopener">Talk With Sean About Your Plan</a>
+    </div>
+
+    <div class="fine">
+      <p><strong>Assumptions and limitations.</strong> This calculator is a hypothetical illustration for educational purposes only. It does not represent any specific annuity product, and it is not a product illustration, an offer, or a recommendation. Index credits are assumed at a constant rate and are hypothetical; actual fixed indexed annuity credits vary by year, may be zero in some years, and are subject to caps, spreads, and participation rates. Premium bonuses are typically subject to vesting schedules and surrender charge periods. The free withdrawal modeled here assumes the greater of a percentage of account value or a percentage of original premium; provisions vary by product. Bracket calculations use 2026 federal tax brackets and the base standard deduction, held constant in all years, and exclude state income tax, the additional deduction for age 65 and older, the senior deduction and its phase-out, and the net investment income tax. IRMAA checks use 2026 MAGI thresholds, held constant in all years; the calculator flags or limits threshold crossings but does not estimate surcharge dollar amounts. Medicare premiums in any year are based on MAGI from two years prior. The Other Income field is treated as MAGI and, less the standard deduction, as taxable income; individual circumstances such as tax-exempt interest add-backs and the taxable portion of Social Security will differ. Required minimum distributions are estimated using the IRS Uniform Lifetime Table and are treated as taxable distributions, not conversions. Roth conversions are taxable events and cannot be undone. Consult a qualified tax professional before acting.</p>
+      <p>Investment advisory services offered through Brookstone Wealth Advisors, LLC (BWA), a registered investment advisor. BWA and Brookstone Capital Management, LLC are affiliated companies. BWA and Jantz Wealth Solutions are independent of each other. Insurance products and services are not offered through BWA but are offered and sold through individually licensed and appointed agents.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- constants ---------- */
+  var BRACKETS = {
+    mfj:    {12:100800, 22:211400, 24:403550, 32:512450},
+    single: {12:50400,  22:105700, 24:201775, 32:256225}
+  };
+  var STD_DED = { mfj:32200, single:16100 };
+  var IRMAA_T = { mfj:[218000,274000,342000,410000,750000],
+                  single:[109000,137000,171000,205000,500000] };
+  var IRMAA_AGE = 63; /* MAGI two years before Medicare at 65 */
+  var ULT = {73:26.5,74:25.5,75:24.6,76:23.7,77:22.9,78:22.0,79:21.1,80:20.2,
+             81:19.4,82:18.5,83:17.7,84:16.8,85:16.0,86:15.2,87:14.4,88:13.7,
+             89:12.9,90:12.2,91:11.5,92:10.8,93:10.1,94:9.5,95:8.9};
+
+  var mode = "bracket";
+  var YC_N = 10;
+
+  /* ---------- helpers ---------- */
+  function $(id){ return document.getElementById(id); }
+  function num(v){ var n = parseFloat(String(v).replace(/[^0-9.\-]/g,"")); return isNaN(n) ? 0 : n; }
+  function fmt(n){
+    var neg = n < 0; n = Math.round(Math.abs(n));
+    var s = String(n), out = "", c = 0, i;
+    for(i = s.length-1; i >= 0; i--){ out = s.charAt(i)+out; c++; if(c%3===0 && i>0) out = ","+out; }
+    return (neg?"-$":"$")+out;
+  }
+  function pct(n){ return (Math.round(n*100)/100)+"%"; }
+
+  /* ---------- model ---------- */
+  function run(){
+    var startAge   = Math.round(num($("age").value)) || 65;
+    var premium    = num($("ira").value);
+    var bonusPct   = num($("bonus").value)/100;
+    var rate       = num($("rate").value)/100;
+    var fwPct      = num($("fw").value)/100;
+    var taxRate    = num($("tax").value)/100;
+    var holdback   = $("holdback").checked;
+    var modelRmd   = $("rmds").checked;
+
+    var perYear = $("peryear").checked;
+    var yRates = [], yi;
+    for(yi = 1; yi <= YC_N; yi++){
+      var f = $("yc"+yi);
+      yRates.push(perYear && f ? num(f.value)/100 : rate);
+    }
+
+    var startAV = premium * (1 + bonusPct);
+    var convPct = num($("pct").value)/100;
+    var fixedAmt   = num($("fixed").value);
+    var status     = $("status").value;
+    var otherInc   = num($("income").value);
+    var bracketTop = BRACKETS[status][num($("bracket").value)] || BRACKETS[status][24];
+    var headroomBase = Math.max(0, bracketTop + STD_DED[status] - otherInc);
+    var irmaaSel = $("irmaa").value;
+    var irmaaOn  = (irmaaSel !== "none");
+    var irmaaThresh = irmaaOn ? IRMAA_T[status][parseInt(irmaaSel,10)] : 0;
+
+    var rows = [], obs = [];
+    var ira = startAV, roth = 0;
+    var totTax = 0, totGross = 0, totNet = 0, totRmd = 0, totRothCredit = 0;
+    var fwBound = false, depleteYear = 0, anyRmd = false;
+    var irmaaBound = false, flagYears = [];
+
+    for(var y = 1; y <= 10; y++){
+      var age = startAge + y - 1;
+      var begin = ira;
+
+      /* RMD first, inside the free withdrawal corridor */
+      var rmd = 0;
+      if(modelRmd && age >= 73 && begin > 0){
+        var div = ULT[Math.min(age, 95)];
+        if(div){ rmd = begin / div; anyRmd = true; }
+      }
+
+      /* free withdrawal allowance applies throughout the 10-year surrender period */
+      var allowance = Math.max(fwPct*begin, fwPct*premium);
+
+      /* target gross conversion */
+      var gross = 0;
+      if(y === 1 && holdback){
+        gross = 0;
+      } else {
+        if(mode === "pct")    gross = Math.max(0, begin - rmd) * convPct;
+        if(mode === "fixed")  gross = fixedAmt;
+        if(mode === "bracket"){
+          gross = Math.max(0, headroomBase - rmd);
+          /* hard cap: keep MAGI a dollar under the selected IRMAA threshold */
+          if(irmaaOn && age >= IRMAA_AGE){
+            var iCap = Math.max(0, (irmaaThresh - 1) - otherInc - rmd);
+            if(gross > iCap){ gross = iCap; irmaaBound = true; }
+          }
+        }
+        gross = Math.min(gross, Math.max(0, begin - rmd));
+        /* withholding plus RMD must fit inside the free withdrawal allowance */
+        var wh = gross * taxRate;
+        if(taxRate > 0 && (wh + rmd) > allowance + 0.01){
+          gross = Math.max(0, (allowance - rmd) / taxRate);
+          gross = Math.min(gross, Math.max(0, begin - rmd));
+          fwBound = true;
+        }
+      }
+
+      var taxW = gross * taxRate;
+      var net  = gross - taxW;
+
+      /* soft flag: MAGI crossing the selected threshold */
+      var iFlag = false;
+      if(irmaaOn && age >= IRMAA_AGE && gross > 0){
+        var magi = otherInc + rmd + gross;
+        if(magi >= irmaaThresh){ iFlag = true; flagYears.push(y); }
+      }
+
+      var yRate = (y <= YC_N) ? yRates[y-1] : rate;
+      var iraAfter  = Math.max(0, begin - rmd - gross);
+      var credit    = iraAfter * yRate;
+      var endIra    = iraAfter + credit;
+      var rothCredit = (roth + net) * yRate;
+      roth = roth + net + rothCredit;
+
+      totTax += taxW; totGross += gross; totNet += net; totRmd += rmd;
+      totRothCredit += rothCredit;
+
+      rows.push({y:y, age:age, begin:begin, credit:credit, rmd:rmd,
+                 gross:gross, tax:taxW, net:net, end:endIra, roth:roth,
+                 iflag:iFlag, rothCredit:rothCredit});
+
+      ira = endIra;
+      if(endIra <= 0.5 && !depleteYear) depleteYear = y;
+    }
+
+    render(rows, {
+      roth:roth, ira:ira, totTax:totTax, totGross:totGross, totNet:totNet, totRmd:totRmd,
+      totRothCredit:totRothCredit,
+      premium:premium, startAV:startAV, startAge:startAge, fwBound:fwBound,
+      depleteYear:depleteYear, holdback:holdback,
+      taxRate:taxRate, rate:rate, anyRmd:anyRmd, modelRmd:modelRmd,
+      bracketTop:bracketTop, headroomBase:headroomBase, status:status, fwPct:fwPct,
+      irmaaOn:irmaaOn, irmaaThresh:irmaaThresh, irmaaBound:irmaaBound,
+      flagYears:flagYears, otherInc:otherInc
+    });
+  }
+
+  /* ---------- render ---------- */
+  function render(rows, s){
+    var lastAge = rows.length ? rows[rows.length-1].age : s.startAge;
+
+    $("m-roth").innerHTML = fmt(s.roth);
+    $("m-roth-sub").innerHTML = "Tax-free at age " + lastAge + ", " +
+      pct(s.premium > 0 ? (s.roth/s.premium*100) : 0) + " of original premium";
+    $("m-tax").innerHTML = fmt(s.totTax);
+    $("m-tax-sub").innerHTML = "Withheld from conversions, " +
+      pct(s.totGross > 0 ? (s.totTax/s.totGross*100) : 0) + " of gross converted";
+    $("m-ira").innerHTML = fmt(s.ira);
+    $("m-ira-sub").innerHTML = s.ira <= 0.5
+      ? "IRA fully converted in Year " + s.depleteYear
+      : "Still pre-tax after Year " + rows.length;
+    /* rows always span the full horizon now */
+
+    /* table */
+    var showRmd = s.modelRmd && s.anyRmd;
+    $("th-rmd").style.display = showRmd ? "" : "none";
+    var html = "", i, r;
+    for(i = 0; i < rows.length; i++){
+      r = rows[i];
+      var cls = r.iflag ? "iflag" : "";
+      html += "<tr"+(cls?" class='"+cls.replace(/ $/,"")+"'":"")+"><td>"+r.y+"</td><td>"+r.age+"</td>"+
+        "<td>"+fmt(r.begin)+"</td>"+
+        "<td"+(r.credit>0.5?" class='pos'":"")+">"+(r.credit>0.5?fmt(r.credit):"\u2013")+"</td>"+
+        (showRmd ? "<td>"+(r.rmd>0?fmt(r.rmd):"\u2013")+"</td>" : "")+
+        "<td"+(r.iflag?" class='imark'":"")+">"+(r.gross>0?fmt(r.gross):"\u2013")+"</td>"+
+        "<td>"+(r.tax>0?fmt(r.tax):"\u2013")+"</td>"+
+        "<td>"+(r.net>0?fmt(r.net):"\u2013")+"</td>"+
+        "<td>"+fmt(r.end)+"</td>"+
+        "<td"+(r.rothCredit>0.5?" class='pos'":"")+">"+(r.rothCredit>0.5?fmt(r.rothCredit):"\u2013")+"</td>"+
+        "<td><strong>"+fmt(r.roth)+"</strong></td></tr>";
+    }
+    $("tbody").innerHTML = html;
+    $("tfoot").innerHTML = "<td colspan='"+(showRmd?5:4)+"'>Totals</td>"+
+      "<td>"+fmt(s.totGross)+"</td><td>"+fmt(s.totTax)+"</td><td>"+fmt(s.totNet)+"</td>"+
+      "<td>"+fmt(s.ira)+"</td><td class='pos'>"+fmt(s.totRothCredit)+"</td>"+
+      "<td class='pos'>"+fmt(s.roth)+"</td>";
+
+    drawChart(rows);
+
+    /* observations */
+    var o = "";
+    o += "<p>Starting from a "+fmt(s.premium)+" Traditional IRA, the premium bonus brings the Day 1 account value to <strong>"+fmt(s.startAV)+"</strong>. ";
+    o += s.holdback ? "Year 1 takes no conversion while the account establishes its first index credit. " : "";
+    o += "Conversions run through the 10-year schedule, with taxes withheld from each gross conversion so nothing is paid out of pocket.</p>";
+
+    if(mode === "bracket"){
+      o += "<p>The bracket strategy converts up to <strong>"+fmt(s.headroomBase)+"</strong> of headroom each year, based on the "+(s.status==="mfj"?"married filing jointly":"single")+" bracket ceiling of "+fmt(s.bracketTop)+" plus the standard deduction, minus your other income"+(s.anyRmd?" and any RMD":"")+".</p>";
+    }
+    if(s.irmaaOn){
+      o += "<p>The plan watches the IRMAA threshold of <strong>"+fmt(s.irmaaThresh)+"</strong> ("+(s.status==="mfj"?"married filing jointly":"single")+", 2026). Each year's MAGI sets Medicare premiums two years later, so a crossing in any year raises Part B and Part D premiums two years after it. Years before age "+IRMAA_AGE+" are not checked, since that income never reaches a Medicare premium.</p>";
+    }
+    if(s.irmaaBound){
+      o += "<p>In at least one year, the IRMAA ceiling, not the tax bracket, set the conversion size. The schedule converts to a MAGI one dollar under the threshold, the soft-max approach.</p>";
+    }
+    if(s.flagYears.length > 0){
+      o += "<p class='warn'>MAGI crosses the selected IRMAA threshold in Year"+(s.flagYears.length>1?"s ":" ")+s.flagYears.join(", ")+", shown in red above. Those years would trigger higher Medicare premiums two years later.</p>";
+    }
+    if(s.fwBound){
+      o += "<p class='warn'>The free withdrawal allowance capped at least one conversion year. The withholding needed for your target conversion exceeded "+pct(s.fwPct*100)+" of the greater of account value or original premium, so those years were scaled back automatically.</p>";
+    }
+    if(s.anyRmd){
+      o += "<p>Required minimum distributions begin at age 73 and are taken first inside the free withdrawal allowance. RMDs are taxable distributions that cannot be converted, totaling "+fmt(s.totRmd)+" over the plan.</p>";
+    }
+    if(s.ira <= 0.5){
+      o += "<p>The Traditional IRA is fully converted by Year "+s.depleteYear+". Every dollar of growth after that point compounds tax free, and future RMDs on this money are eliminated.</p>";
+    } else {
+      o += "<p><strong>"+fmt(s.ira)+"</strong> remains pre-tax at age "+lastAge+", after the 10-year surrender period ends. Options at that point include converting the remainder over one or more additional years with no withdrawal limits, or keeping the balance for RMD income. A large single-year conversion can push income through multiple brackets and IRMAA tiers, so the remainder is often best spread across two or three years.</p>";
+    }
+    $("obs").innerHTML = o;
+
+    postHeight();
+  }
+
+  /* ---------- chart ---------- */
+  function drawChart(rows){
+    var W = 920, H = 230, padL = 70, padR = 24, padT = 14, padB = 30;
+    var n = rows.length;
+    if(n < 2){ $("chart").innerHTML = ""; return; }
+    var maxV = 0, i;
+    for(i = 0; i < n; i++){
+      if(rows[i].end  > maxV) maxV = rows[i].end;
+      if(rows[i].roth > maxV) maxV = rows[i].roth;
+      if(rows[i].begin> maxV) maxV = rows[i].begin;
+    }
+    maxV = maxV * 1.08 || 1;
+    function axLab(v){ return v >= 1000000 ? "$"+(Math.round(v/10000)/100)+"M" : "$"+Math.round(v/1000)+"K"; }
+    function X(idx){ return padL + (W-padL-padR) * (idx/(n-1)); }
+    function Y(v){ return padT + (H-padT-padB) * (1 - v/maxV); }
+
+    var iraPts = "", rothPts = "", area = "";
+    for(i = 0; i < n; i++){
+      iraPts  += (i?" ":"") + X(i).toFixed(1) + "," + Y(rows[i].end).toFixed(1);
+      rothPts += (i?" ":"") + X(i).toFixed(1) + "," + Y(rows[i].roth).toFixed(1);
+    }
+    area = "M" + X(0).toFixed(1) + "," + Y(rows[0].roth).toFixed(1);
+    for(i = 1; i < n; i++) area += " L" + X(i).toFixed(1) + "," + Y(rows[i].roth).toFixed(1);
+    area += " L" + X(n-1).toFixed(1) + "," + (H-padB) + " L" + X(0).toFixed(1) + "," + (H-padB) + " Z";
+
+    var gl = "", k, gv, lbls = "";
+    for(k = 0; k <= 4; k++){
+      gv = maxV * k/4;
+      gl += "<line x1='"+padL+"' y1='"+Y(gv).toFixed(1)+"' x2='"+(W-padR)+"' y2='"+Y(gv).toFixed(1)+"' stroke='#EAEFF3' stroke-width='1'/>";
+      lbls += "<text x='"+(padL-8)+"' y='"+(Y(gv)+4).toFixed(1)+"' text-anchor='end' font-size='10' fill='#7A8590'>"+axLab(gv)+"</text>";
+    }
+    var xl = "";
+    for(i = 0; i < n; i++){
+      xl += "<text x='"+X(i).toFixed(1)+"' y='"+(H-10)+"' text-anchor='middle' font-size='10' fill='#7A8590'>Yr "+rows[i].y+"</text>";
+    }
+    var endDotR = "<circle cx='"+X(n-1).toFixed(1)+"' cy='"+Y(rows[n-1].roth).toFixed(1)+"' r='4.5' fill='#1F8A5B'/>";
+    var startDot = "<circle cx='"+X(0).toFixed(1)+"' cy='"+Y(rows[0].end).toFixed(1)+"' r='4.5' fill='#00446A'/>";
+
+    $("chart").innerHTML =
+      "<svg viewBox='0 0 "+W+" "+H+"' width='100%' height='auto' role='img' aria-label='Traditional IRA and Roth IRA balances by year'>"+
+      "<defs><linearGradient id='gfill' x1='0' y1='0' x2='0' y2='1'>"+
+      "<stop offset='0%' stop-color='#0084D3' stop-opacity='0.22'/>"+
+      "<stop offset='100%' stop-color='#0084D3' stop-opacity='0.02'/></linearGradient></defs>"+
+      gl + lbls + xl +
+      "<path d='"+area+"' fill='url(#gfill)'/>"+
+      "<polyline points='"+iraPts+"' fill='none' stroke='#353E44' stroke-width='2.5' stroke-linejoin='round'/>"+
+      "<polyline points='"+rothPts+"' fill='none' stroke='#0084D3' stroke-width='2.5' stroke-linejoin='round'/>"+
+      startDot + endDotR + "</svg>";
+  }
+
+  /* ---------- strategy switching ---------- */
+  function setMode(m){
+    mode = m;
+    var btns = $("seg").getElementsByTagName("button"), i;
+    for(i = 0; i < btns.length; i++){
+      btns[i].className = (btns[i].getAttribute("data-mode") === m) ? "on" : "";
+    }
+    $("f-pct").style.display     = (m === "pct")    ? "" : "none";
+    $("f-fixed").style.display   = (m === "fixed")  ? "" : "none";
+    $("f-bracket").style.display = (m === "bracket")? "" : "none";
+    syncVis();
+    syncTax();
+    run();
+  }
+
+  function syncTax(){
+    if(mode === "bracket"){
+      $("tax").value = num($("bracket").value);
+      $("taxhint").innerHTML = "Matches your target bracket. Adjust upward for state tax.";
+    } else {
+      $("taxhint").innerHTML = "Withheld from each gross conversion";
+    }
+  }
+
+  function syncVis(){
+    var show = (mode === "bracket" || $("irmaa").value !== "none");
+    $("f-status").style.display = show ? "" : "none";
+    $("f-income").style.display = show ? "" : "none";
+    irmaaLabels();
+  }
+
+  function irmaaLabels(){
+    var st = $("status").value, t = IRMAA_T[st], sel = $("irmaa"), i;
+    var names = ["No IRMAA limit",
+                 "Below the first surcharge ("+fmt(t[0])+")",
+                 "Allow one tier (below "+fmt(t[1])+")",
+                 "Allow two tiers (below "+fmt(t[2])+")",
+                 "Allow three tiers (below "+fmt(t[3])+")"];
+    for(i = 0; i < sel.options.length; i++){ sel.options[i].text = names[i]; }
+  }
+
+  /* ---------- Duda iframe height ---------- */
+  function postHeight(){
+    try{
+      var h = document.body.scrollHeight;
+      window.parent.postMessage({ type:"jws-widget-resize", height:h }, "*");
+    }catch(e){}
+  }
+
+  /* ---------- wire up ---------- */
+  var seg = $("seg");
+  seg.addEventListener("click", function(e){
+    var t = e.target;
+    if(t && t.getAttribute && t.getAttribute("data-mode")) setMode(t.getAttribute("data-mode"));
+  });
+
+  /* per-year credit inputs */
+  (function(){
+    var g = $("ycgrid"), h = "", j;
+    for(j = 1; j <= YC_N; j++){
+      h += "<div class='yc'><label for='yc"+j+"'>Yr "+j+"</label>"+
+           "<input type='number' id='yc"+j+"' value='5' min='0' max='100' step='0.01'></div>";
+    }
+    g.innerHTML = h;
+  })();
+  $("peryear").addEventListener("change", function(){
+    var on = this.checked, j;
+    $("yrcredits").className = on ? "yrcredits show" : "yrcredits";
+    if(on){
+      var flat = num($("rate").value);
+      for(j = 1; j <= YC_N; j++){ $("yc"+j).value = flat; }
+    }
+    postHeight();
+  });
+
+  $("irmaa").addEventListener("change", syncVis);
+  $("status").addEventListener("change", irmaaLabels);
+  $("bracket").addEventListener("change", syncTax);
+
+  var ids = ["age","ira","bonus","rate","fw","tax","pct","fixed","status","income","bracket","holdback","rmds","peryear","irmaa"];
+  var timer = null, i;
+  function queue(){ if(timer) clearTimeout(timer); timer = setTimeout(run, 250); }
+  for(i = 1; i <= YC_N; i++){ ids.push("yc"+i); }
+  for(i = 0; i < ids.length; i++){
+    var el = $(ids[i]);
+    el.addEventListener("input", queue);
+    el.addEventListener("change", queue);
+  }
+  /* thousands formatting on blur for currency fields */
+  function blurFmt(id){
+    $(id).addEventListener("blur", function(){
+      var v = num(this.value);
+      this.value = fmt(v).replace("$","");
+    });
+  }
+  blurFmt("ira"); blurFmt("fixed"); blurFmt("income");
+
+  window.addEventListener("resize", postHeight);
+  syncVis();
+  syncTax();
+  run();
+})();
+</script>
+</body>
+</html>
