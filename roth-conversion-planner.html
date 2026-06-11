@@ -73,6 +73,10 @@
   .seg button:focus-visible{ outline:2px solid var(--blue); outline-offset:-3px; }
 
   .toggles{ display:flex; flex-wrap:wrap; padding-top:4px; border-top:1px dashed var(--line); }
+  .empty{
+    border:2px dashed var(--line); border-radius:10px; padding:34px 20px;
+    text-align:center; color:#5A6670; font-size:14.5px; margin-bottom:20px;
+  }
   .reshead{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; }
   .copybtn{
     font-family:'Montserrat', Arial, sans-serif; font-weight:600; font-size:11px;
@@ -200,11 +204,11 @@
     <div class="grid">
       <div class="field">
         <label for="age">Current Age</label>
-        <input type="number" id="age" value="65" min="40" max="85" step="1">
+        <input type="number" id="age" value="0" min="40" max="85" step="1">
       </div>
       <div class="field">
         <label for="ira">Traditional IRA Balance</label>
-        <input type="text" id="ira" value="1,000,000" inputmode="numeric">
+        <input type="text" id="ira" value="0" inputmode="numeric">
       </div>
       <div class="field" id="f-status">
         <label for="status">Filing Status</label>
@@ -215,11 +219,11 @@
       </div>
       <div class="field" id="f-spouse">
         <label for="spouseage">Spouse Age<span class="hint">For the age 65 deduction addition</span></label>
-        <input type="number" id="spouseage" value="65" min="40" max="95" step="1">
+        <input type="number" id="spouseage" value="0" min="40" max="95" step="1">
       </div>
       <div class="field" id="f-income">
         <label for="income">Other Income (MAGI)<span class="hint">Pensions, wages, Social Security, interest</span></label>
-        <input type="text" id="income" value="60,000" inputmode="numeric">
+        <input type="text" id="income" value="0" inputmode="numeric">
       </div>
       <div class="field" id="f-bracket">
         <label for="bracket">Target Bracket Ceiling</label>
@@ -232,15 +236,15 @@
       </div>
       <div class="field" id="f-pct" style="display:none;">
         <label for="pct">Gross Conversion %<span class="hint">Of account value at the start of each year</span></label>
-        <input type="number" id="pct" value="25" min="1" max="100" step="1">
+        <input type="number" id="pct" value="0" min="1" max="100" step="1">
       </div>
       <div class="field" id="f-fixed" style="display:none;">
         <label for="fixed">Gross Conversion $<span class="hint">Same amount each year</span></label>
-        <input type="text" id="fixed" value="250,000" inputmode="numeric">
+        <input type="text" id="fixed" value="0" inputmode="numeric">
       </div>
       <div class="field">
         <label for="tax">Tax Withholding Rate %<span class="hint" id="taxhint">Withheld from each gross conversion</span></label>
-        <input type="number" id="tax" value="24" min="0" max="50" step="1">
+        <input type="number" id="tax" value="0" min="0" max="50" step="1">
       </div>
       <div class="field">
         <label for="irmaa">IRMAA Ceiling<span class="hint">Medicare surcharge threshold to stay below</span></label>
@@ -255,15 +259,15 @@
       </div>
       <div class="field">
         <label for="bonus">Premium Bonus %<span class="hint">Credited at issue</span></label>
-        <input type="number" id="bonus" value="15" min="0" max="40" step="0.5">
+        <input type="number" id="bonus" value="0" min="0" max="40" step="0.5">
       </div>
       <div class="field">
         <label for="rate">Assumed Annual Credit %<span class="hint">Average index credit</span></label>
-        <input type="number" id="rate" value="5" min="0" max="15" step="0.01">
+        <input type="number" id="rate" value="0" min="0" max="15" step="0.01">
       </div>
       <div class="field">
         <label for="fw">Free Withdrawal %<span class="hint">Greater of account value or original premium</span></label>
-        <input type="number" id="fw" value="10" min="0" max="20" step="1">
+        <input type="number" id="fw" value="0" min="0" max="20" step="1">
       </div>
       
     </div>
@@ -279,7 +283,7 @@
       <div class="grid">
         <div class="field" id="f-port">
         <label for="port">Do-Nothing Growth Rate %<span class="hint">Your current portfolio, if you never convert</span></label>
-        <input type="number" id="port" value="5" min="0" max="15" step="0.01">
+        <input type="number" id="port" value="7" min="0" max="15" step="0.01">
       </div>
         <div class="field" id="f-heir">
         <label for="heir">Heirs' Tax Rate %<span class="hint">Their marginal rate during the 10-year inheritance payout</span></label>
@@ -307,6 +311,11 @@
       <h2>Your Projected Plan</h2>
       <button type="button" class="copybtn" id="copylink">Copy link to this scenario</button>
     </div>
+
+    <div id="emptystate" class="empty">
+      Enter your Traditional IRA balance and assumptions above to build your year-by-year conversion plan.
+    </div>
+    <div id="resultsbody" style="display:none;">
 
     <div class="cards">
       <div class="card navy"><div class="in">
@@ -395,6 +404,8 @@
         <div id="cmpobs"></div>
       </div>
     </div>
+    </div>
+
     <div class="fine">
       <p><strong>Assumptions and limitations.</strong> This calculator is a hypothetical illustration for educational purposes only. It does not represent any specific annuity product, and it is not a product illustration, an offer, or a recommendation. Index credits are assumed at a constant rate and are hypothetical; actual fixed indexed annuity credits vary by year, may be zero in some years, and are subject to caps, spreads, and participation rates. Premium bonuses are typically subject to vesting schedules and surrender charge periods. The free withdrawal modeled here assumes the greater of a percentage of account value or a percentage of original premium; provisions vary by product. Bracket calculations use 2026 federal tax brackets and the standard deduction, held constant in all years, including the additional standard deduction for age 65 and older where ages qualify ($2,050 single, $1,650 per married spouse), and exclude state income tax, the temporary senior deduction and its phase-out, and the net investment income tax. IRMAA checks use 2026 MAGI thresholds, held constant in all years; the calculator flags or limits threshold crossings but does not estimate surcharge dollar amounts. Medicare premiums in any year are based on MAGI from two years prior. The Other Income field is treated as MAGI and, less the standard deduction, as taxable income; individual circumstances such as tax-exempt interest add-backs and the taxable portion of Social Security will differ. Required minimum distributions are estimated using the IRS Uniform Lifetime Table, beginning at age 73 for those born before 1960 and age 75 for those born in 1960 or later, and are treated as taxable distributions, not conversions. The do-nothing comparison, when enabled, grows the unconverted IRA at the rate you enter with no premium bonus, taxes RMDs at your withholding rate, reinvests the after-tax proceeds in a taxable account whose growth is reduced 15% for annual tax drag and which is assumed to pass to heirs with a stepped-up basis, and discounts all remaining pre-tax IRA dollars at your heirs' single entered rate under the 10-year inherited IRA rule. After the 10-year surrender period, the conversion path continues to grow at the assumed annual credit rate. Both paths use flat annual growth, which ignores sequence-of-returns risk in both directions, and the comparison runs to the age you select (85, 90, or 95). The premium bonus is included on the conversion side, so the comparison reflects the full strategy, not taxes alone. Roth conversions are taxable events and cannot be undone. Consult a qualified tax professional before acting.</p>
       <p>Investment advisory services offered through Brookstone Wealth Advisors, LLC (BWA), a registered investment advisor. BWA and Brookstone Capital Management, LLC are affiliated companies. BWA and Jantz Wealth Solutions are independent of each other. Insurance products and services are not offered through BWA but are offered and sold through individually licensed and appointed agents.</p>
@@ -454,6 +465,15 @@
     }
 
     var RMD_AGE = ((2026 - startAge) >= 1960) ? 75 : 73;
+
+    if(premium <= 0){
+      $("emptystate").style.display = "";
+      $("resultsbody").style.display = "none";
+      postHeight();
+      return;
+    }
+    $("emptystate").style.display = "none";
+    $("resultsbody").style.display = "";
 
     var startAV = premium * (1 + bonusPct);
     var convPct = num($("pct").value)/100;
@@ -1041,7 +1061,7 @@
     var g = $("ycgrid"), h = "", j;
     for(j = 1; j <= YC_N; j++){
       h += "<div class='yc'><label for='yc"+j+"'>Yr "+j+"</label>"+
-           "<input type='number' id='yc"+j+"' value='5' min='0' max='100' step='0.01'></div>";
+           "<input type='number' id='yc"+j+"' value='0' min='0' max='100' step='0.01'></div>";
     }
     g.innerHTML = h;
   })();
@@ -1072,7 +1092,6 @@
   $("compare").addEventListener("change", function(){
     var on = this.checked;
     $("cmpfields").className = on ? "cmpfields show" : "cmpfields";
-    if(on){ $("port").value = num($("rate").value); }
     postHeight();
   });
 
