@@ -19,7 +19,7 @@
     font-family:'Inter', Arial, sans-serif; color:var(--char);
     background:#FFFFFF; line-height:1.5; padding:8px 4px 24px 4px;
   }
-  .wrap{max-width:980px; margin:0 auto;}
+  .wrap{max-width:1280px; margin:0 auto;}
 
   /* ---------- Header ---------- */
   .hdr{ border-bottom:3px solid var(--navy); padding-bottom:14px; margin-bottom:20px; }
@@ -229,6 +229,10 @@
           <option value="single">Single</option>
         </select>
       </div>
+      <div class="field" id="f-spouse">
+        <label for="spouseage">Spouse Age<span class="hint">For the age 65 deduction addition</span></label>
+        <input type="number" id="spouseage" value="65" min="40" max="95" step="1">
+      </div>
       <div class="field" id="f-income">
         <label for="income">Other Income (MAGI)<span class="hint">Pensions, wages, Social Security, interest</span></label>
         <input type="text" id="income" value="60,000" inputmode="numeric">
@@ -309,7 +313,7 @@
     </div>
 
     <div class="fine">
-      <p><strong>Assumptions and limitations.</strong> This calculator is a hypothetical illustration for educational purposes only. It does not represent any specific annuity product, and it is not a product illustration, an offer, or a recommendation. Index credits are assumed at a constant rate and are hypothetical; actual fixed indexed annuity credits vary by year, may be zero in some years, and are subject to caps, spreads, and participation rates. Premium bonuses are typically subject to vesting schedules and surrender charge periods. The free withdrawal modeled here assumes the greater of a percentage of account value or a percentage of original premium; provisions vary by product. Bracket calculations use 2026 federal tax brackets and the base standard deduction, held constant in all years, and exclude state income tax, the additional deduction for age 65 and older, the senior deduction and its phase-out, and the net investment income tax. IRMAA checks use 2026 MAGI thresholds, held constant in all years; the calculator flags or limits threshold crossings but does not estimate surcharge dollar amounts. Medicare premiums in any year are based on MAGI from two years prior. The Other Income field is treated as MAGI and, less the standard deduction, as taxable income; individual circumstances such as tax-exempt interest add-backs and the taxable portion of Social Security will differ. Required minimum distributions are estimated using the IRS Uniform Lifetime Table and are treated as taxable distributions, not conversions. Roth conversions are taxable events and cannot be undone. Consult a qualified tax professional before acting.</p>
+      <p><strong>Assumptions and limitations.</strong> This calculator is a hypothetical illustration for educational purposes only. It does not represent any specific annuity product, and it is not a product illustration, an offer, or a recommendation. Index credits are assumed at a constant rate and are hypothetical; actual fixed indexed annuity credits vary by year, may be zero in some years, and are subject to caps, spreads, and participation rates. Premium bonuses are typically subject to vesting schedules and surrender charge periods. The free withdrawal modeled here assumes the greater of a percentage of account value or a percentage of original premium; provisions vary by product. Bracket calculations use 2026 federal tax brackets and the standard deduction, held constant in all years, including the additional standard deduction for age 65 and older where ages qualify ($2,050 single, $1,650 per married spouse), and exclude state income tax, the temporary senior deduction and its phase-out, and the net investment income tax. IRMAA checks use 2026 MAGI thresholds, held constant in all years; the calculator flags or limits threshold crossings but does not estimate surcharge dollar amounts. Medicare premiums in any year are based on MAGI from two years prior. The Other Income field is treated as MAGI and, less the standard deduction, as taxable income; individual circumstances such as tax-exempt interest add-backs and the taxable portion of Social Security will differ. Required minimum distributions are estimated using the IRS Uniform Lifetime Table and are treated as taxable distributions, not conversions. Roth conversions are taxable events and cannot be undone. Consult a qualified tax professional before acting.</p>
       <p>Investment advisory services offered through Brookstone Wealth Advisors, LLC (BWA), a registered investment advisor. BWA and Brookstone Capital Management, LLC are affiliated companies. BWA and Jantz Wealth Solutions are independent of each other. Insurance products and services are not offered through BWA but are offered and sold through individually licensed and appointed agents.</p>
     </div>
   </div>
@@ -326,6 +330,7 @@
     single: {12:50400,  22:105700, 24:201775, 32:256225}
   };
   var STD_DED = { mfj:32200, single:16100 };
+  var AGE65_ADD = { mfj:1650, single:2050 }; /* per qualifying person, 2026 */
   var IRMAA_T = { mfj:[218000,274000,342000,410000,750000],
                   single:[109000,137000,171000,205000,500000] };
   var IRMAA_AGE = 63; /* MAGI two years before Medicare at 65 */
@@ -371,7 +376,21 @@
     var status     = $("status").value;
     var otherInc   = num($("income").value);
     var bracketTop = BRACKETS[status][num($("bracket").value)] || BRACKETS[status][24];
-    var headroomBase = Math.max(0, bracketTop + STD_DED[status] - otherInc);
+    var spouseStart = Math.round(num($("spouseage").value)) || 65;
+    function stdDedAt(yr){
+      var d = STD_DED[status];
+      var a1 = startAge + yr - 1;
+      if(status === "single"){
+        if(a1 >= 65) d += AGE65_ADD.single;
+      } else {
+        if(a1 >= 65) d += AGE65_ADD.mfj;
+        if(spouseStart + yr - 1 >= 65) d += AGE65_ADD.mfj;
+      }
+      return d;
+    }
+    function headroomAt(yr){
+      return Math.max(0, bracketTop + stdDedAt(yr) - otherInc);
+    }
     var irmaaSel = $("irmaa").value;
     var irmaaOn  = (irmaaSel !== "none");
     var irmaaThresh = irmaaOn ? IRMAA_T[status][parseInt(irmaaSel,10)] : 0;
@@ -381,6 +400,7 @@
     var totTax = 0, totGross = 0, totNet = 0, totRmd = 0, totRothCredit = 0;
     var fwBound = false, depleteYear = 0, anyRmd = false;
     var irmaaBound = false, flagYears = [];
+    var hMin = Infinity, hMax = 0, anyAdd = false;
 
     for(var y = 1; y <= 10; y++){
       var age = startAge + y - 1;
@@ -404,7 +424,7 @@
         if(mode === "pct")    gross = Math.max(0, begin - rmd) * convPct;
         if(mode === "fixed")  gross = fixedAmt;
         if(mode === "bracket"){
-          gross = Math.max(0, headroomBase - rmd);
+          gross = Math.max(0, headroomAt(y) - rmd);
           /* hard cap: keep MAGI a dollar under the selected IRMAA threshold */
           if(irmaaOn && age >= IRMAA_AGE){
             var iCap = Math.max(0, (irmaaThresh - 1) - otherInc - rmd);
@@ -419,6 +439,13 @@
           gross = Math.min(gross, Math.max(0, begin - rmd));
           fwBound = true;
         }
+      }
+
+      if(mode === "bracket" && gross > 0){
+        var hNow = headroomAt(y);
+        if(hNow < hMin) hMin = hNow;
+        if(hNow > hMax) hMax = hNow;
+        if(stdDedAt(y) > STD_DED[status]) anyAdd = true;
       }
 
       var taxW = gross * taxRate;
@@ -455,7 +482,7 @@
       premium:premium, startAV:startAV, startAge:startAge, fwBound:fwBound,
       depleteYear:depleteYear, holdback:holdback,
       taxRate:taxRate, rate:rate, anyRmd:anyRmd, modelRmd:modelRmd,
-      bracketTop:bracketTop, headroomBase:headroomBase, status:status, fwPct:fwPct,
+      bracketTop:bracketTop, hMin:hMin, hMax:hMax, anyAdd:anyAdd, status:status, fwPct:fwPct,
       irmaaOn:irmaaOn, irmaaThresh:irmaaThresh, irmaaBound:irmaaBound,
       flagYears:flagYears, otherInc:otherInc
     });
@@ -509,8 +536,11 @@
     o += s.holdback ? "Year 1 takes no conversion while the account establishes its first index credit. " : "";
     o += "Conversions run through the 10-year schedule, with taxes withheld from each gross conversion so nothing is paid out of pocket.</p>";
 
-    if(mode === "bracket"){
-      o += "<p>The bracket strategy converts up to <strong>"+fmt(s.headroomBase)+"</strong> of headroom each year, based on the "+(s.status==="mfj"?"married filing jointly":"single")+" bracket ceiling of "+fmt(s.bracketTop)+" plus the standard deduction, minus your other income"+(s.anyRmd?" and any RMD":"")+".</p>";
+    if(mode === "bracket" && s.hMax > 0){
+      var hTxt = (s.hMin === s.hMax)
+        ? "up to <strong>"+fmt(s.hMax)+"</strong> of headroom each year"
+        : "up to <strong>"+fmt(s.hMin)+"</strong> of headroom, rising to <strong>"+fmt(s.hMax)+"</strong> once the age 65 deduction additions fully apply";
+      o += "<p>The bracket strategy converts "+hTxt+", based on the "+(s.status==="mfj"?"married filing jointly":"single")+" bracket ceiling of "+fmt(s.bracketTop)+" plus the standard deduction"+(s.anyAdd?" including the age 65 additional amounts":"")+", minus your other income"+(s.anyRmd?" and any RMD":"")+".</p>";
     }
     if(s.irmaaOn){
       o += "<p>The plan watches the IRMAA threshold of <strong>"+fmt(s.irmaaThresh)+"</strong> ("+(s.status==="mfj"?"married filing jointly":"single")+", 2026). Each year's MAGI sets Medicare premiums two years later, so a crossing in any year raises Part B and Part D premiums two years after it. Years before age "+IRMAA_AGE+" are not checked, since that income never reaches a Medicare premium.</p>";
@@ -615,6 +645,7 @@
     var show = (mode === "bracket" || $("irmaa").value !== "none");
     $("f-status").style.display = show ? "" : "none";
     $("f-income").style.display = show ? "" : "none";
+    $("f-spouse").style.display = (show && $("status").value === "mfj" && mode === "bracket") ? "" : "none";
     irmaaLabels();
   }
 
@@ -663,10 +694,10 @@
   });
 
   $("irmaa").addEventListener("change", syncVis);
-  $("status").addEventListener("change", irmaaLabels);
+  $("status").addEventListener("change", syncVis);
   $("bracket").addEventListener("change", syncTax);
 
-  var ids = ["age","ira","bonus","rate","fw","tax","pct","fixed","status","income","bracket","holdback","rmds","peryear","irmaa"];
+  var ids = ["age","ira","bonus","rate","fw","tax","pct","fixed","status","income","bracket","spouseage","holdback","rmds","peryear","irmaa"];
   var timer = null, i;
   function queue(){ if(timer) clearTimeout(timer); timer = setTimeout(run, 250); }
   for(i = 1; i <= YC_N; i++){ ids.push("yc"+i); }
