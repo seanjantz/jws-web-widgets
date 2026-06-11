@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Tax Brackets and IRMAA Tiers | Jantz Wealth Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#00446A; --blue:#0084D3; --char:#353E44;
+    --green:#1F8A5B; --red:#C0392B;
+    --note-bg:#E8F2FD; --line:#D8E0E6; --soft:#F4F8FB;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    font-family:'Inter', Arial, sans-serif; color:var(--char);
+    background:#FFFFFF; line-height:1.5; padding:8px 4px 24px 4px;
+  }
+  .wrap{max-width:1280px; margin:0 auto;}
+
+  .hdr{ border-bottom:3px solid var(--navy); padding-bottom:14px; margin-bottom:18px; }
+  .hdr .eyebrow{
+    font-family:'Montserrat', Arial, sans-serif; font-weight:600; font-size:11px;
+    letter-spacing:2.4px; text-transform:uppercase; color:var(--blue); margin-bottom:6px;
+  }
+  .hdr h1{
+    font-family:'Montserrat', Arial, sans-serif; font-weight:800; color:var(--navy);
+    font-size:26px; line-height:1.15;
+  }
+  .hdr p{ font-size:14px; color:#5A6670; margin-top:8px; max-width:72ch; }
+
+  .seg{ display:flex; border:1px solid var(--navy); border-radius:8px; overflow:hidden; margin-bottom:18px; max-width:440px; }
+  .seg button{
+    flex:1 1 auto; padding:11px 10px; border:none; background:#fff; cursor:pointer;
+    font-family:'Montserrat', Arial, sans-serif; font-weight:600; font-size:13px; color:var(--navy);
+    border-right:1px solid var(--navy);
+  }
+  .seg button:last-child{ border-right:none; }
+  .seg button.on{ background:var(--navy); color:#fff; }
+  .seg button:focus-visible{ outline:2px solid var(--blue); outline-offset:-3px; }
+
+  .controls{ display:flex; flex-wrap:wrap; align-items:center; margin-bottom:18px; }
+  .controls .seg{ margin:0 22px 8px 0; }
+  .tg{ display:flex; align-items:center; margin-bottom:8px; font-size:13.5px; cursor:pointer;
+       font-family:'Montserrat', Arial, sans-serif; font-weight:600; color:var(--char); }
+  .tg input{ width:17px; height:17px; margin-right:8px; accent-color:var(--navy); cursor:pointer; }
+  .cols{ display:flex; flex-wrap:wrap; margin:0 -8px; }
+  .col{ width:50%; padding:0 8px; margin-bottom:16px; }
+  @media (max-width:760px){ .col{ width:100%; } }
+
+  .cardbox{ border:1px solid var(--line); border-radius:10px; overflow:hidden; height:100%; }
+  .cardbox .head{
+    background:var(--soft); border-bottom:1px solid var(--line); padding:12px 14px;
+  }
+  .cardbox .head h2{
+    font-family:'Montserrat', Arial, sans-serif; font-weight:700; font-size:13px;
+    letter-spacing:1.4px; text-transform:uppercase; color:var(--navy);
+  }
+  .cardbox .head p{ font-size:11.5px; color:#7A8590; margin-top:2px; }
+
+  table{ border-collapse:collapse; width:100%; font-size:13px; }
+  thead th{
+    background:var(--navy); color:#fff; font-family:'Montserrat', Arial, sans-serif;
+    font-weight:600; font-size:9.5px; letter-spacing:.6px; text-transform:uppercase;
+    padding:9px 12px; text-align:left; line-height:1.25;
+  }
+  thead th.r, tbody td.r{ text-align:right; }
+  tbody td{ padding:9px 12px; border-bottom:1px solid #EAEFF3; }
+  tbody tr:last-child td{ border-bottom:none; }
+  tbody tr:nth-child(even){ background:#F7FAFC; }
+  td.rate{
+    font-family:'Montserrat', Arial, sans-serif; font-weight:700; color:var(--navy);
+    white-space:nowrap; width:72px;
+  }
+  tr.zero td{ background:#EAF6EF; }
+  tr.zero td.rate{ color:var(--green); }
+  tr.sweet td{ box-shadow:inset 3px 0 0 var(--blue); }
+  tr.cliff td{ box-shadow:inset 3px 0 0 var(--red); }
+  td.muted{ color:#7A8590; }
+  .tag{
+    display:inline-block; font-family:'Montserrat', Arial, sans-serif; font-weight:600;
+    font-size:9px; letter-spacing:.6px; text-transform:uppercase; color:var(--blue);
+    background:var(--note-bg); border-radius:4px; padding:2px 6px; margin-left:6px; vertical-align:1px;
+  }
+  .tag.red{ color:var(--red); background:#FBEAE7; }
+
+  .note{
+    background:var(--note-bg); border-left:4px solid var(--blue); border-radius:0 8px 8px 0;
+    padding:13px 16px; margin-bottom:16px; font-size:13.5px;
+  }
+  .note strong{ color:var(--navy); }
+
+  .fine{ font-size:10.5px; color:#7A8590; line-height:1.55; }
+  .fine p{ margin-bottom:7px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hdr">
+    <div class="eyebrow">Jantz Wealth Solutions</div>
+    <h1>2026 Tax Brackets and IRMAA Tiers</h1>
+    <p>The two sets of ceilings every Roth conversion plan works around. Federal brackets set the tax rate on each converted dollar. IRMAA tiers set your Medicare premiums two years later.</p>
+  </div>
+
+  <div class="controls">
+    <div class="seg" id="seg" role="tablist" aria-label="Filing status">
+      <button type="button" data-status="mfj" class="on">Married Filing Jointly</button>
+      <button type="button" data-status="single">Single</button>
+    </div>
+    <label class="tg"><input type="checkbox" id="age65">Age 65 or older</label>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <div class="cardbox">
+        <div class="head">
+          <h2>Federal Income Tax Brackets</h2>
+          <p>Applied to taxable income, after the standard deduction</p>
+        </div>
+        <table aria-label="2026 federal income tax brackets">
+          <thead><tr><th>Rate</th><th>Taxable Income</th></tr></thead>
+          <tbody id="btbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col">
+      <div class="cardbox">
+        <div class="head">
+          <h2>IRMAA Medicare Tiers</h2>
+          <p>Applied to MAGI from two years prior, per person per month</p>
+        </div>
+        <table aria-label="2026 IRMAA Medicare premium tiers">
+          <thead><tr><th>MAGI</th><th class="r">Part B</th><th class="r">Part D</th></tr></thead>
+          <tbody id="itbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>How to read these together.</strong> The brackets use taxable income, which is your income after the standard deduction of <span id="sd"></span>. IRMAA uses MAGI, which is measured before that deduction, and it is a cliff: crossing a tier by a single dollar triggers the full surcharge for both spouses on Medicare, two years later. Taxpayers 65 and older may also qualify for the temporary $6,000 per person senior deduction (2025 through 2028), which phases out above $75,000 single or $150,000 joint MAGI and is typically eliminated at common conversion income levels. Many conversion plans target the top of the 22% or 24% bracket while staying under an IRMAA threshold, and the planner below lets you model exactly that.
+  </div>
+
+  <div class="fine">
+    <p><strong>Sources and assumptions.</strong> Federal brackets, standard deductions, and age 65 additional amounts per IRS Revenue Procedure 2025-32 for tax year 2026; the age 65 figures shown assume both spouses qualify on a joint return. Medicare premiums and IRMAA thresholds per the Centers for Medicare and Medicaid Services for calendar year 2026; 2026 premiums are determined by 2024 MAGI. Part D amounts shown are the income-related surcharge added to your plan's premium. Figures are educational reference only and not tax, legal, or investment advice.</p>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var DATA = {
+    mfj: {
+      sd: 32200, add65: 3300, addNote: "$1,650 per spouse, both spouses 65+",
+      brackets: [
+        [10, 0, 24800], [12, 24800, 100800], [22, 100800, 211400],
+        [24, 211400, 403550], [32, 403550, 512450], [35, 512450, 768700],
+        [37, 768700, null]
+      ],
+      irmaa: [
+        [0, 218000], [218000, 274000], [274000, 342000],
+        [342000, 410000], [410000, 750000], [750000, null]
+      ]
+    },
+    single: {
+      sd: 16100, add65: 2050, addNote: "$2,050 age 65+ addition",
+      brackets: [
+        [10, 0, 12400], [12, 12400, 50400], [22, 50400, 105700],
+        [24, 105700, 201775], [32, 201775, 256225], [35, 256225, 640600],
+        [37, 640600, null]
+      ],
+      irmaa: [
+        [0, 109000], [109000, 137000], [137000, 171000],
+        [171000, 205000], [205000, 500000], [500000, null]
+      ]
+    }
+  };
+  var PARTB = ["$202.90", "$284.10", "$405.80", "$527.50", "$649.20", "$689.90"];
+  var PARTD = ["No add-on", "+$14.50", "+$37.50", "+$60.40", "+$83.30", "+$91.00"];
+
+  function $(id){ return document.getElementById(id); }
+  function fmt(n){
+    var s = String(Math.round(n)), out = "", c = 0, i;
+    for(i = s.length-1; i >= 0; i--){ out = s.charAt(i)+out; c++; if(c%3===0 && i>0) out = ","+out; }
+    return "$"+out;
+  }
+
+  var curStatus = "mfj";
+
+  function render(st){
+    curStatus = st;
+    var d = DATA[st], h = "", i, b;
+    var is65 = $("age65").checked;
+    var sd = d.sd + (is65 ? d.add65 : 0);
+
+    /* brackets: lead with the 0% standard deduction row */
+    h += "<tr class='zero'><td class='rate'>0%</td><td>First "+fmt(sd)+" of income <span class='tag'>"+
+         (is65 ? "Standard deduction + "+d.addNote : "Standard deduction")+"</span></td></tr>";
+    for(i = 0; i < d.brackets.length; i++){
+      b = d.brackets[i];
+      var cls = (b[0] === 22 || b[0] === 24) ? " class='sweet'" : "";
+      var range = (b[2] === null)
+        ? "Over "+fmt(b[1])
+        : (b[1] === 0 ? "Up to "+fmt(b[2]) : fmt(b[1]+1)+" to "+fmt(b[2]));
+      var tag = (b[0] === 22 || b[0] === 24) ? " <span class='tag'>Common conversion ceiling</span>" : "";
+      h += "<tr"+cls+"><td class='rate'>"+b[0]+"%</td><td>"+range+tag+"</td></tr>";
+    }
+    $("btbody").innerHTML = h;
+
+    /* IRMAA tiers */
+    h = "";
+    for(i = 0; i < d.irmaa.length; i++){
+      b = d.irmaa[i];
+      var range2 = (b[1] === null)
+        ? fmt(b[0])+" and above"
+        : (b[0] === 0 ? "Up to "+fmt(b[1]) : "Over "+fmt(b[0])+" to "+fmt(b[1]));
+      var cls2 = (i === 1) ? " class='cliff'" : "";
+      var tag2 = (i === 0) ? " <span class='tag'>Standard</span>"
+               : (i === 1) ? " <span class='tag red'>First surcharge cliff</span>" : "";
+      h += "<tr"+cls2+"><td>"+range2+tag2+"</td><td class='r'>"+PARTB[i]+"</td>"+
+           "<td class='r"+(i===0?" muted":"")+"'>"+PARTD[i]+"</td></tr>";
+    }
+    $("itbody").innerHTML = h;
+
+    $("sd").innerHTML = fmt(sd)+" ("+(st==="mfj"?"married filing jointly":"single")+(is65?", age 65+":"")+")";
+
+    var btns = $("seg").getElementsByTagName("button");
+    for(i = 0; i < btns.length; i++){
+      btns[i].className = (btns[i].getAttribute("data-status") === st) ? "on" : "";
+    }
+    postHeight();
+  }
+
+  function postHeight(){
+    try{
+      window.parent.postMessage({ type:"jws-widget-resize", height:document.body.scrollHeight }, "*");
+    }catch(e){}
+  }
+
+  $("seg").addEventListener("click", function(e){
+    var t = e.target;
+    if(t && t.getAttribute && t.getAttribute("data-status")) render(t.getAttribute("data-status"));
+  });
+  $("age65").addEventListener("change", function(){ render(curStatus); });
+  window.addEventListener("resize", postHeight);
+  render("mfj");
+})();
+</script>
+</body>
+</html>
