@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Multi-Year Roth Conversion Planner | Jantz Wealth Solutions</title>
+<title>Multi-Year Roth Conversion Calculator | Jantz Wealth Solutions</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -73,6 +73,34 @@
   .seg button:focus-visible{ outline:2px solid var(--blue); outline-offset:-3px; }
 
   .toggles{ display:flex; flex-wrap:wrap; padding-top:4px; border-top:1px dashed var(--line); }
+  .reshead{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; }
+  .copybtn{
+    font-family:'Montserrat', Arial, sans-serif; font-weight:600; font-size:11px;
+    color:var(--navy); background:#fff; border:1px solid var(--navy); border-radius:6px;
+    padding:7px 12px; cursor:pointer; margin-bottom:14px;
+  }
+  .copybtn.ok{ background:var(--green); border-color:var(--green); color:#fff; }
+  .cmpcaption{ font-size:13px; color:#5A6670; margin:-6px 0 14px 0; max-width:80ch; }
+  .cmphead{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; margin-bottom:6px; }
+  .miniseg{ display:flex; border:1px solid var(--navy); border-radius:6px; overflow:hidden; }
+  .miniseg button{
+    padding:6px 12px; border:none; background:#fff; cursor:pointer;
+    font-family:'Montserrat', Arial, sans-serif; font-weight:600; font-size:11px; color:var(--navy);
+    border-right:1px solid var(--navy);
+  }
+  .miniseg button:last-child{ border-right:none; }
+  .miniseg button.on{ background:var(--navy); color:#fff; }
+  .cmpfields{
+    display:none; background:#F8F3E7; border:1px solid #E8DFC9; border-radius:8px;
+    padding:12px 10px 0 10px; margin-top:12px;
+  }
+  .cmpfields.show{ display:block; }
+  .cmpfields .strip-title{
+    font-family:'Montserrat', Arial, sans-serif; font-weight:700; font-size:11px;
+    letter-spacing:1.6px; text-transform:uppercase; color:#8A6D2F; margin:0 8px 10px 8px;
+  }
+  .cmpfields .field{ width:33.33%; }
+  @media (max-width:640px){ .cmpfields .field{ width:100%; } }
   .yrcredits{ display:none; padding:10px 0 4px 0; border-top:1px dashed var(--line); }
   .yrcredits.show{ display:block; }
   .yrcredits .yc-title{
@@ -156,7 +184,7 @@
 <div class="wrap">
 
   <div class="hdr">
-    <h1>Multi-Year Roth Conversion Planner</h1>
+    <h1>Multi-Year Roth Conversion Calculator</h1>
     <p>Model a year-by-year plan that moves a Traditional IRA into a Roth IRA using a fixed indexed annuity, with conversion taxes withheld from each year's free withdrawal allowance instead of paid out of pocket.</p>
   </div>
 
@@ -237,22 +265,7 @@
         <label for="fw">Free Withdrawal %<span class="hint">Greater of account value or original premium</span></label>
         <input type="number" id="fw" value="10" min="0" max="20" step="1">
       </div>
-      <div class="field" id="f-port" style="display:none;">
-        <label for="port">Do-Nothing Growth Rate %<span class="hint">Your current portfolio, if you never convert</span></label>
-        <input type="number" id="port" value="5" min="0" max="15" step="0.01">
-      </div>
-      <div class="field" id="f-heir" style="display:none;">
-        <label for="heir">Heirs' Tax Rate %<span class="hint">Their marginal rate during the 10-year inheritance payout</span></label>
-        <input type="number" id="heir" value="32" min="0" max="50" step="1">
-      </div>
-      <div class="field" id="f-horizon" style="display:none;">
-        <label for="horizon">Compare Through Age</label>
-        <select id="horizon">
-          <option value="85">Age 85</option>
-          <option value="90" selected>Age 90</option>
-          <option value="95">Age 95</option>
-        </select>
-      </div>
+      
     </div>
 
     <div class="toggles">
@@ -261,6 +274,28 @@
       <label class="tg"><input type="checkbox" id="compare">Compare to doing nothing</label>
       <label class="tg"><input type="checkbox" id="peryear">Enter index credits by year</label>
     </div>
+    <div class="cmpfields" id="cmpfields">
+      <div class="strip-title">Do-Nothing Comparison Inputs</div>
+      <div class="grid">
+        <div class="field" id="f-port">
+        <label for="port">Do-Nothing Growth Rate %<span class="hint">Your current portfolio, if you never convert</span></label>
+        <input type="number" id="port" value="5" min="0" max="15" step="0.01">
+      </div>
+        <div class="field" id="f-heir">
+        <label for="heir">Heirs' Tax Rate %<span class="hint">Their marginal rate during the 10-year inheritance payout</span></label>
+        <input type="number" id="heir" value="32" min="0" max="50" step="1">
+      </div>
+        <div class="field" id="f-horizon">
+        <label for="horizon">Compare Through Age</label>
+        <select id="horizon">
+          <option value="85">Age 85</option>
+          <option value="90" selected>Age 90</option>
+          <option value="95">Age 95</option>
+        </select>
+      </div>
+      </div>
+    </div>
+
     <div class="yrcredits" id="yrcredits">
       <div class="yc-title">Index Credit by Year %</div>
       <div class="ycgrid" id="ycgrid"></div>
@@ -268,7 +303,10 @@
   </div>
 
   <div class="results">
-    <h2>Your Projected Plan</h2>
+    <div class="reshead">
+      <h2>Your Projected Plan</h2>
+      <button type="button" class="copybtn" id="copylink">Copy link to this scenario</button>
+    </div>
 
     <div class="cards">
       <div class="card navy"><div class="in">
@@ -317,6 +355,7 @@
 
     <div id="cmpsec" style="display:none;">
       <h2>If You Do Nothing</h2>
+      <p class="cmpcaption" id="cmpcaption">Both paths measured as after-tax family wealth by age: Roth and taxable dollars in full, pre-tax IRA dollars after your heirs' tax rate.</p>
 
       <div class="cards">
         <div class="card navy"><div class="in">
@@ -337,11 +376,16 @@
       </div>
 
       <div class="chartbox">
-        <div class="legend">
-          <span><span class="dot" style="background:#0084D3;"></span>Conversion plan</span>
-          <span><span class="dot" style="background:#353E44;"></span>Do nothing</span>
-          <span id="cmp-rmd-legend"><span class="dot" style="background:#C0392B;"></span>Forced RMDs if you do nothing</span>
-          <span style="color:#5A6670;">After-tax family wealth by age</span>
+        <div class="cmphead">
+          <div class="legend" style="margin-bottom:0;">
+            <span><span class="dot" style="background:#0084D3;"></span>Conversion plan</span>
+            <span><span class="dot" style="background:#353E44;"></span>Do nothing</span>
+            <span id="cmp-rmd-legend"><span class="dot" style="background:#C0392B;"></span>Forced RMDs if you do nothing</span>
+          </div>
+          <div class="miniseg" id="cmpview" role="tablist" aria-label="Chart view">
+            <button type="button" data-view="wealth" class="on">Family Wealth</button>
+            <button type="button" data-view="balance">Account Balances</button>
+          </div>
         </div>
         <div id="cmpchart"></div>
       </div>
@@ -351,8 +395,6 @@
         <div id="cmpobs"></div>
       </div>
     </div>
-
-
     <div class="fine">
       <p><strong>Assumptions and limitations.</strong> This calculator is a hypothetical illustration for educational purposes only. It does not represent any specific annuity product, and it is not a product illustration, an offer, or a recommendation. Index credits are assumed at a constant rate and are hypothetical; actual fixed indexed annuity credits vary by year, may be zero in some years, and are subject to caps, spreads, and participation rates. Premium bonuses are typically subject to vesting schedules and surrender charge periods. The free withdrawal modeled here assumes the greater of a percentage of account value or a percentage of original premium; provisions vary by product. Bracket calculations use 2026 federal tax brackets and the standard deduction, held constant in all years, including the additional standard deduction for age 65 and older where ages qualify ($2,050 single, $1,650 per married spouse), and exclude state income tax, the temporary senior deduction and its phase-out, and the net investment income tax. IRMAA checks use 2026 MAGI thresholds, held constant in all years; the calculator flags or limits threshold crossings but does not estimate surcharge dollar amounts. Medicare premiums in any year are based on MAGI from two years prior. The Other Income field is treated as MAGI and, less the standard deduction, as taxable income; individual circumstances such as tax-exempt interest add-backs and the taxable portion of Social Security will differ. Required minimum distributions are estimated using the IRS Uniform Lifetime Table, beginning at age 73 for those born before 1960 and age 75 for those born in 1960 or later, and are treated as taxable distributions, not conversions. The do-nothing comparison, when enabled, grows the unconverted IRA at the rate you enter with no premium bonus, taxes RMDs at your withholding rate, reinvests the after-tax proceeds in a taxable account whose growth is reduced 15% for annual tax drag and which is assumed to pass to heirs with a stepped-up basis, and discounts all remaining pre-tax IRA dollars at your heirs' single entered rate under the 10-year inherited IRA rule. After the 10-year surrender period, the conversion path continues to grow at the assumed annual credit rate. Both paths use flat annual growth, which ignores sequence-of-returns risk in both directions, and the comparison runs to the age you select (85, 90, or 95). The premium bonus is included on the conversion side, so the comparison reflects the full strategy, not taxes alone. Roth conversions are taxable events and cannot be undone. Consult a qualified tax professional before acting.</p>
       <p>Investment advisory services offered through Brookstone Wealth Advisors, LLC (BWA), a registered investment advisor. BWA and Brookstone Capital Management, LLC are affiliated companies. BWA and Jantz Wealth Solutions are independent of each other. Insurance products and services are not offered through BWA but are offered and sold through individually licensed and appointed agents.</p>
@@ -619,14 +661,26 @@
   }
 
   /* ---------- do-nothing comparison ---------- */
+  var cmpView = "wealth", cmpData = null;
   function divisor(a){ return ULT[Math.min(Math.max(a,73),95)]; }
+
+  function renderCmpChart(){
+    if(!cmpData) return;
+    if(cmpView === "wealth"){
+      $("cmpcaption").innerHTML = "Both paths measured as after-tax family wealth by age: Roth and taxable dollars in full, pre-tax IRA dollars after your heirs' tax rate.";
+      drawCmpChart(cmpData.ages, cmpData.fConv, cmpData.fDN, cmpData.crossIdx, cmpData.callouts);
+    } else {
+      $("cmpcaption").innerHTML = "Retirement account balances only: the conversion plan's Roth (plus any unconverted IRA) versus the do-nothing Traditional IRA. Taxable accounts holding after-tax RMD proceeds are not shown, and no heir discount is applied.";
+      drawCmpChart(cmpData.ages, cmpData.balConv, cmpData.balDN, -1, cmpData.callouts);
+    }
+  }
 
   function runCompare(rows, c){
     if(!$("compare").checked){ $("cmpsec").style.display = "none"; return; }
     $("cmpsec").style.display = "";
 
     var H = Math.max(parseInt($("horizon").value, 10) || 90, c.startAge + 10);
-    var ages = [], fConv = [], fDN = [];
+    var ages = [], fConv = [], fDN = [], balConv = [], balDN = [];
     var sideRateDN = c.portRate * 0.85;
     var sideRateCv = c.rate * 0.85;
     var i, a, begin, rmd;
@@ -636,6 +690,7 @@
     for(i = 0; i < rows.length; i++){
       ages.push(rows[i].age);
       fConv.push(rows[i].roth + rows[i].end * (1 - heir));
+      balConv.push(rows[i].roth + rows[i].end);
     }
     var cvIra = rows[rows.length-1].end, cvRoth = rows[rows.length-1].roth, cvSide = 0;
     for(a = ages[ages.length-1] + 1; a <= H; a++){
@@ -645,6 +700,7 @@
       cvRoth = cvRoth * (1 + c.rate);
       ages.push(a);
       fConv.push(cvRoth + cvSide + cvIra * (1 - heir));
+      balConv.push(cvRoth + cvIra);
     }
 
     /* do-nothing path over the same ages */
@@ -662,6 +718,7 @@
       dnSide = (dnSide + rmd * (1 - c.taxRate)) * (1 + sideRateDN);
       dnIra  = (begin - rmd) * (1 + c.portRate);
       fDN.push(dnIra * (1 - heir) + dnSide);
+      balDN.push(dnIra);
     }
 
     /* crossover */
@@ -687,7 +744,9 @@
       if(co[ci] <= H && rmdByAge[co[ci]] > 0) callouts.push({age:co[ci], rmd:rmdByAge[co[ci]]});
     }
     $("cmp-rmd-legend").style.display = callouts.length ? "" : "none";
-    drawCmpChart(ages, fConv, fDN, (diff >= 0 ? crossIdx : -1), callouts);
+    cmpData = { ages:ages, fConv:fConv, fDN:fDN, balConv:balConv, balDN:balDN,
+                crossIdx:(diff >= 0 ? crossIdx : -1), callouts:callouts };
+    renderCmpChart();
 
     /* observations */
     var o = "";
@@ -865,6 +924,103 @@
     for(i = 0; i < sel.options.length; i++){ sel.options[i].text = names[i]; }
   }
 
+  /* ---------- shareable scenario links ---------- */
+  var SHARE_BASE = "https://www.jantzwealth.com/roth-conversion-calculator";
+
+  function getParams(){
+    var q = window.location.search.replace(/^\?/, ""), out = {}, parts, kv, i;
+    if(!q) return out;
+    parts = q.split("&");
+    for(i = 0; i < parts.length; i++){
+      kv = parts[i].split("=");
+      if(kv[0]) out[decodeURIComponent(kv[0])] = decodeURIComponent((kv[1] || "").replace(/\+/g, " "));
+    }
+    return out;
+  }
+
+  function applyShared(P){
+    function sv(id, v){ if(v !== undefined && v !== "") $(id).value = v; }
+    function sc(id, v){ if(v !== undefined) $(id).checked = (v === "1"); }
+    if(P.mode === "pct" || P.mode === "fixed" || P.mode === "bracket"){
+      mode = P.mode;
+      var btns = $("seg").getElementsByTagName("button"), i;
+      for(i = 0; i < btns.length; i++){
+        btns[i].className = (btns[i].getAttribute("data-mode") === mode) ? "on" : "";
+      }
+      $("f-pct").style.display     = (mode === "pct")    ? "" : "none";
+      $("f-fixed").style.display   = (mode === "fixed")  ? "" : "none";
+      $("f-bracket").style.display = (mode === "bracket")? "" : "none";
+    }
+    sv("age", P.age); sv("ira", P.ira); sv("bonus", P.bonus); sv("rate", P.rate);
+    sv("fw", P.fw); sv("pct", P.pct); sv("fixed", P.fixed);
+    sv("status", P.status); sv("spouseage", P.spouse); sv("income", P.income);
+    sv("bracket", P.bracket); sv("irmaa", P.irmaa);
+    sc("holdback", P.noyr1); sc("rmds", P.rmds); sc("peryear", P.py); sc("compare", P.cmp);
+    if($("peryear").checked){
+      $("yrcredits").className = "yrcredits show";
+      if(P.yc){
+        var vals = P.yc.split(","), j;
+        for(j = 0; j < YC_N && j < vals.length; j++){ $("yc"+(j+1)).value = vals[j]; }
+      }
+    }
+    if($("compare").checked){
+      $("cmpfields").className = "cmpfields show";
+      sv("port", P.port); sv("heir", P.heir); sv("horizon", P.thru);
+    }
+    /* currency fields arrive unformatted in links */
+    var cf = ["ira","income","fixed"], k;
+    for(k = 0; k < cf.length; k++){
+      $(cf[k]).value = fmt(num($(cf[k]).value)).replace("$","");
+    }
+  }
+
+  function buildShareUrl(){
+    var p = [];
+    function add(k, v){ p.push(k + "=" + encodeURIComponent(v)); }
+    add("mode", mode);
+    add("age", num($("age").value)); add("ira", num($("ira").value));
+    add("bonus", num($("bonus").value)); add("rate", num($("rate").value));
+    add("fw", num($("fw").value)); add("tax", num($("tax").value));
+    add("status", $("status").value); add("spouse", num($("spouseage").value));
+    add("income", num($("income").value)); add("bracket", $("bracket").value);
+    add("irmaa", $("irmaa").value);
+    if(mode === "pct") add("pct", num($("pct").value));
+    if(mode === "fixed") add("fixed", num($("fixed").value));
+    add("noyr1", $("holdback").checked ? "1" : "0");
+    add("rmds", $("rmds").checked ? "1" : "0");
+    if($("peryear").checked){
+      add("py", "1");
+      var ycv = [], j;
+      for(j = 1; j <= YC_N; j++){ ycv.push(num($("yc"+j).value)); }
+      add("yc", ycv.join(","));
+    }
+    if($("compare").checked){
+      add("cmp", "1");
+      add("port", num($("port").value)); add("heir", num($("heir").value));
+      add("thru", $("horizon").value);
+    }
+    return SHARE_BASE + "?" + p.join("&");
+  }
+
+  function legacyCopy(t){
+    var ta = document.createElement("textarea");
+    ta.value = t; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); }catch(e){}
+    document.body.removeChild(ta);
+  }
+
+  $("copylink").addEventListener("click", function(){
+    var url = buildShareUrl(), btn = this;
+    function done(){
+      btn.innerHTML = "Link copied!"; btn.className = "copybtn ok";
+      setTimeout(function(){ btn.innerHTML = "Copy link to this scenario"; btn.className = "copybtn"; }, 2200);
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(done, function(){ legacyCopy(url); done(); });
+    } else { legacyCopy(url); done(); }
+  });
+
   /* ---------- Duda iframe height ---------- */
   function postHeight(){
     try{
@@ -902,12 +1058,22 @@
   $("irmaa").addEventListener("change", syncVis);
   $("status").addEventListener("change", syncVis);
   $("bracket").addEventListener("change", syncTax);
+  $("cmpview").addEventListener("click", function(e){
+    var t = e.target;
+    if(!t || !t.getAttribute || !t.getAttribute("data-view")) return;
+    cmpView = t.getAttribute("data-view");
+    var btns = $("cmpview").getElementsByTagName("button"), bi;
+    for(bi = 0; bi < btns.length; bi++){
+      btns[bi].className = (btns[bi].getAttribute("data-view") === cmpView) ? "on" : "";
+    }
+    renderCmpChart();
+  });
+
   $("compare").addEventListener("change", function(){
     var on = this.checked;
-    $("f-port").style.display = on ? "" : "none";
-    $("f-heir").style.display = on ? "" : "none";
-    $("f-horizon").style.display = on ? "" : "none";
+    $("cmpfields").className = on ? "cmpfields show" : "cmpfields";
     if(on){ $("port").value = num($("rate").value); }
+    postHeight();
   });
 
   var ids = ["age","ira","bonus","rate","fw","tax","pct","fixed","status","income","bracket","spouseage","holdback","rmds","peryear","irmaa","compare","port","heir","horizon"];
@@ -929,8 +1095,11 @@
   blurFmt("ira"); blurFmt("fixed"); blurFmt("income");
 
   window.addEventListener("resize", postHeight);
+  var SHARED = getParams();
+  applyShared(SHARED);
   syncVis();
   syncTax();
+  if(SHARED.tax !== undefined && SHARED.tax !== ""){ $("tax").value = SHARED.tax; }
   run();
 })();
 </script>
