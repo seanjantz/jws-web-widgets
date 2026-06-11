@@ -693,10 +693,11 @@
       $("cmpcaption").innerHTML = "Retirement account balances only: the conversion plan's Roth (plus any unconverted IRA) versus the do-nothing Traditional IRA. Taxable accounts holding after-tax RMD proceeds are not shown, and no heir discount is applied.";
       drawCmpChart(cmpData.ages, cmpData.balConv, cmpData.balDN, -1, cmpData.callouts);
     }
+    postHeight();
   }
 
   function runCompare(rows, c){
-    if(!$("compare").checked){ $("cmpsec").style.display = "none"; return; }
+    if(!$("compare").checked){ $("cmpsec").style.display = "none"; postHeight(); return; }
     $("cmpsec").style.display = "";
 
     var H = Math.max(parseInt($("horizon").value, 10) || 90, c.startAge + 10);
@@ -788,6 +789,7 @@
     }
     o += "<p>Doing nothing can also be the right call when heirs are in lower brackets than yours, when the IRA is headed to charity (qualified charitable distributions satisfy RMDs tax-free), or when you will never leave the 12% bracket. The point of this comparison is the honest math, not a foregone conclusion.</p>";
     $("cmpobs").innerHTML = o;
+    postHeight();
   }
 
   function drawCmpChart(ages, A, B, crossIdx, callouts){
@@ -1114,6 +1116,10 @@
   blurFmt("ira"); blurFmt("fixed"); blurFmt("income");
 
   window.addEventListener("resize", postHeight);
+  if(window.ResizeObserver){
+    try{ new ResizeObserver(function(){ postHeight(); }).observe(document.body); }catch(e){}
+  }
+  window.addEventListener("load", function(){ setTimeout(postHeight, 300); });
   var SHARED = getParams();
   applyShared(SHARED);
   syncVis();
