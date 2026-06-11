@@ -43,7 +43,8 @@
     letter-spacing:1.8px; text-transform:uppercase; color:var(--navy); margin-bottom:14px;
   }
   .grid{ display:flex; flex-wrap:wrap; margin:0 -8px; }
-  .field{ width:25%; padding:0 8px; margin-bottom:14px; }
+  .field{ width:25%; padding:0 8px; margin-bottom:14px; display:flex; flex-direction:column; }
+  .field input, .field select{ margin-top:auto; }
   .field.w33{ width:33.33%; }
   .field.w50{ width:50%; }
   @media (max-width:760px){ .field, .field.w33{ width:50%; } }
@@ -187,42 +188,6 @@
         <label for="ira">Traditional IRA Balance</label>
         <input type="text" id="ira" value="1,000,000" inputmode="numeric">
       </div>
-      <div class="field">
-        <label for="bonus">Premium Bonus %<span class="hint">Credited at issue</span></label>
-        <input type="number" id="bonus" value="15" min="0" max="40" step="0.5">
-      </div>
-      <div class="field">
-        <label for="rate">Assumed Annual Credit %<span class="hint">Average index credit</span></label>
-        <input type="number" id="rate" value="5" min="0" max="15" step="0.01">
-      </div>
-      <div class="field">
-        <label for="fw">Free Withdrawal %<span class="hint">Greater of account value or original premium</span></label>
-        <input type="number" id="fw" value="10" min="0" max="20" step="1">
-      </div>
-      <div class="field">
-        <label for="tax">Tax Withholding Rate %<span class="hint" id="taxhint">Withheld from each gross conversion</span></label>
-        <input type="number" id="tax" value="24" min="0" max="50" step="1">
-      </div>
-
-      <div class="field">
-        <label for="irmaa">IRMAA Ceiling<span class="hint">Medicare surcharge threshold to stay below</span></label>
-        <select id="irmaa">
-          <option value="none" selected>No IRMAA limit</option>
-          <option value="0">Below the first surcharge</option>
-          <option value="1">Allow one tier</option>
-          <option value="2">Allow two tiers</option>
-          <option value="3">Allow three tiers</option>
-          <option value="4">Allow four tiers</option>
-        </select>
-      </div>
-      <div class="field" id="f-pct" style="display:none;">
-        <label for="pct">Gross Conversion %<span class="hint">Of account value at the start of each year</span></label>
-        <input type="number" id="pct" value="25" min="1" max="100" step="1">
-      </div>
-      <div class="field" id="f-fixed" style="display:none;">
-        <label for="fixed">Gross Conversion $<span class="hint">Same amount each year</span></label>
-        <input type="text" id="fixed" value="250,000" inputmode="numeric">
-      </div>
       <div class="field" id="f-status">
         <label for="status">Filing Status</label>
         <select id="status">
@@ -246,6 +211,41 @@
           <option value="24" selected>Top of 24% bracket</option>
           <option value="32">Top of 32% bracket</option>
         </select>
+      </div>
+      <div class="field" id="f-pct" style="display:none;">
+        <label for="pct">Gross Conversion %<span class="hint">Of account value at the start of each year</span></label>
+        <input type="number" id="pct" value="25" min="1" max="100" step="1">
+      </div>
+      <div class="field" id="f-fixed" style="display:none;">
+        <label for="fixed">Gross Conversion $<span class="hint">Same amount each year</span></label>
+        <input type="text" id="fixed" value="250,000" inputmode="numeric">
+      </div>
+      <div class="field">
+        <label for="tax">Tax Withholding Rate %<span class="hint" id="taxhint">Withheld from each gross conversion</span></label>
+        <input type="number" id="tax" value="24" min="0" max="50" step="1">
+      </div>
+      <div class="field">
+        <label for="irmaa">IRMAA Ceiling<span class="hint">Medicare surcharge threshold to stay below</span></label>
+        <select id="irmaa">
+          <option value="none" selected>No IRMAA limit</option>
+          <option value="0">Below the first surcharge</option>
+          <option value="1">Allow one tier</option>
+          <option value="2">Allow two tiers</option>
+          <option value="3">Allow three tiers</option>
+          <option value="4">Allow four tiers</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="bonus">Premium Bonus %<span class="hint">Credited at issue</span></label>
+        <input type="number" id="bonus" value="15" min="0" max="40" step="0.5">
+      </div>
+      <div class="field">
+        <label for="rate">Assumed Annual Credit %<span class="hint">Average index credit</span></label>
+        <input type="number" id="rate" value="5" min="0" max="15" step="0.01">
+      </div>
+      <div class="field">
+        <label for="fw">Free Withdrawal %<span class="hint">Greater of account value or original premium</span></label>
+        <input type="number" id="fw" value="10" min="0" max="20" step="1">
       </div>
     </div>
 
