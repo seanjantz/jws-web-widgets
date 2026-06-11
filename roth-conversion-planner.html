@@ -212,6 +212,7 @@
           <option value="1">Allow one tier</option>
           <option value="2">Allow two tiers</option>
           <option value="3">Allow three tiers</option>
+          <option value="4">Allow four tiers</option>
         </select>
       </div>
       <div class="field" id="f-pct" style="display:none;">
@@ -655,7 +656,8 @@
                  "Below the first surcharge ("+fmt(t[0])+")",
                  "Allow one tier (below "+fmt(t[1])+")",
                  "Allow two tiers (below "+fmt(t[2])+")",
-                 "Allow three tiers (below "+fmt(t[3])+")"];
+                 "Allow three tiers (below "+fmt(t[3])+")",
+                 "Allow four tiers (below "+fmt(t[4])+")"];
     for(i = 0; i < sel.options.length; i++){ sel.options[i].text = names[i]; }
   }
 
