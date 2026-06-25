@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Compelling Alternative to Bonds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#00446A; --blue:#0084D3; --charcoal:#353E44;
+    --green:#1F8A5B; --red:#C0392B; --gray:#8A929A;
+    --cream:#EFE6CC; --rowalt:#EFF5FA; --zerotint:#E7F4EE;
+    --bg:#F4F7FA; --card:#FFFFFF; --line:#E2E8EF;
+    --display:"Montserrat",system-ui,sans-serif;
+    --body:"Inter",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:var(--body); color:var(--charcoal); background:var(--bg);
+    -webkit-font-smoothing:antialiased; line-height:1.45;
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:22px 18px 26px;}
+
+  /* header */
+  .topline{display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap;}
+  h1{font-family:var(--display); font-weight:800; color:var(--navy);
+     font-size:clamp(24px,4.2vw,34px); line-height:1.05; margin:0 0 .28rem;}
+  .lede{font-size:14.5px; max-width:760px; margin:0;}
+  .lede b{color:var(--navy); font-weight:700;}
+  .badges{display:flex; gap:10px;}
+  .badge{border-radius:11px; padding:10px 16px; min-width:104px; text-align:center; color:#fff;
+         box-shadow:0 3px 9px rgba(0,68,106,.16);}
+  .badge.cap{background:var(--navy);} .badge.floor{background:var(--green);}
+  .badgewrap{display:flex; flex-direction:column; flex:0 0 auto;}
+  .headtext{flex:1 1 340px; min-width:0;}
+  .feesnote{margin-top:9px; text-align:center; font-family:var(--display); font-weight:700;
+    color:var(--green); font-size:12px; letter-spacing:.07em; text-transform:uppercase;}
+  .badge .big{font-family:var(--display); font-weight:800; font-size:24px; line-height:1;}
+  .badge .lbl{font-size:8.5px; letter-spacing:.09em; text-transform:uppercase; margin-top:4px; opacity:.92;}
+
+  /* controls */
+  .controls{background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:18px 20px; margin:18px 0 20px; display:flex; flex-wrap:wrap; gap:20px 28px; align-items:flex-start;
+    box-shadow:0 4px 16px rgba(31,55,80,.06);}
+  .ctl{flex:0 1 210px;}
+  .ctl.capctl{flex:1 1 340px;}
+  .ctl.floorctl{flex:0 1 120px;}
+  .ctl label{display:block; font-family:var(--display); font-weight:700; color:var(--navy);
+    font-size:12px; letter-spacing:.04em; text-transform:uppercase; margin-bottom:8px;}
+  .caprow{display:flex; align-items:center; gap:12px;}
+  input[type=range]{flex:1; accent-color:var(--blue); height:4px;}
+  .numbox{display:inline-flex; align-items:center; gap:4px; border:1.5px solid var(--line);
+    border-radius:9px; padding:7px 10px; background:#fff; font-family:var(--display); font-weight:700; color:var(--navy);}
+  .numbox:focus-within{border-color:var(--blue);}
+  .numbox span{color:var(--gray); font-weight:600; font-family:var(--body); font-size:13px;}
+  .numbox input{border:0; outline:0; width:62px; font:inherit; color:inherit; text-align:right; background:transparent;
+    -moz-appearance:textfield; appearance:textfield;}
+  .numbox input::-webkit-outer-spin-button,
+  .numbox input::-webkit-inner-spin-button{-webkit-appearance:none; margin:0;}
+  .numbox.cap input{width:66px; font-size:18px;}
+  .numbox.prem input{width:112px; text-align:left;}
+  .chips{display:flex; gap:6px; margin-top:8px; flex-wrap:wrap;}
+  .chip{border:1px solid var(--line); background:#fff; border-radius:20px; padding:4px 11px;
+    font:600 12px var(--body); color:var(--charcoal); cursor:pointer;}
+  .chip:hover{border-color:var(--blue); color:var(--blue);}
+  .chip.on{background:var(--navy); border-color:var(--navy); color:#fff;}
+  .hint{font-size:11.5px; color:var(--gray); margin-top:7px;}
+
+  /* period cards */
+  .grid{display:flex; gap:18px; align-items:flex-start;}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 16px 14px;
+    flex:1 1 0; min-width:0;
+    box-shadow:0 4px 16px rgba(31,55,80,.06);}
+  .chead{display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:10px;}
+  .chead h2{font-family:var(--display); font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+    font-size:14.5px; margin:0;}
+  .chead .sub{font-size:11.5px; color:var(--charcoal); margin-top:3px;}
+  .strong h2{color:var(--green);} .chall h2{color:var(--navy);}
+  .annual{text-align:right; flex:none;}
+  .annual .v{font-family:var(--display); font-weight:800; font-size:28px; line-height:1;}
+  .strong .annual .v{color:var(--green);} .chall .annual .v{color:var(--navy);}
+  .annual .l{font-size:8.5px; color:var(--charcoal); text-transform:none; margin-top:3px;}
+
+  table{width:100%; border-collapse:collapse; font-size:11.5px;}
+  thead th{background:var(--navy); color:#fff; font-family:var(--body); font-weight:700; font-size:9px;
+    padding:7px 5px; vertical-align:middle; line-height:1.15;}
+  thead th:first-child{border-top-left-radius:7px; text-align:center;}
+  thead th.aggh{background:var(--cream); color:var(--navy); border-top-right-radius:7px;}
+  thead th.aggh span{display:block; font-weight:400; font-style:italic; color:var(--charcoal); font-size:8px; margin-top:1px;}
+  tbody td{padding:6px 5px; text-align:center; border-bottom:1px solid #EAF0F5; font-variant-numeric:tabular-nums;}
+  tbody tr:nth-child(even) td{background:var(--rowalt);}
+  tbody tr.zero td{background:var(--zerotint);}
+  td.period{color:var(--charcoal);}
+  tr.zero td.period{color:var(--navy);}
+  td.credit{font-weight:700; color:var(--green);}
+  tr.zero td.credit{color:var(--navy);}
+  td.value{color:var(--charcoal);}
+  tr.zero td.value{color:var(--navy); font-weight:700;}
+  .pos{color:var(--charcoal);} .neg{color:var(--red);} .zeroret{color:var(--gray);}
+  tfoot td{background:#fff; color:var(--navy); font-weight:700; padding:9px 5px; font-size:12px; border-top:2px solid var(--navy);}
+  tfoot td.avglabel{text-align:left; line-height:1.15; font-size:11px;}
+  tfoot td.avgval{font-size:13px; text-align:center;}
+  tfoot td.avgval.credit{color:var(--green);}
+
+  .takeaway{margin:18px 0 0; background:var(--navy); color:#fff; border-radius:12px;
+    padding:13px 18px; text-align:center; font-weight:600; font-size:13.5px;}
+  .disc{margin-top:16px; font-size:10px; line-height:1.5; color:var(--gray);}
+
+  @media (max-width:880px){
+    .grid{flex-direction:column;}
+    .badgewrap{width:100%;}
+    .ctl, .ctl.capctl, .ctl.floorctl{flex:1 1 100%;}
+    .tablescroll{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+    table{min-width:430px;}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topline">
+    <div class="headtext">
+      <h1>A Compelling Alternative to Bonds</h1>
+      <p class="lede"><b>Fixed Indexed Annuity.</b> Each year credits the S&amp;P 500 price return, limited by the cap you enter below and a 0% floor. Set a cap to see how the strategy would have performed across two market decades, next to the bond market year by year.</p>
+    </div>
+    <div class="badgewrap">
+      <div class="badges">
+        <div class="badge cap"><div class="big" id="capBadge">10%</div><div class="lbl">S&amp;P 500 Cap</div></div>
+        <div class="badge floor"><div class="big" id="floorBadge">0%</div><div class="lbl">Annual Floor</div></div>
+      </div>
+      <div class="feesnote">Zero Annual Fees</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="ctl capctl">
+      <label for="capNum">S&amp;P 500 Cap</label>
+      <div class="caprow">
+        <input type="range" id="capRange" min="2" max="16" step="0.05" value="10">
+        <span class="numbox cap"><input type="number" id="capNum" min="0.1" max="50" step="0.05" value="10"><span>%</span></span>
+      </div>
+      <div class="hint">Credited rate each year is the lesser of the S&amp;P 500 price return and your cap, never below 0%.</div>
+    </div>
+    <div class="ctl premctl">
+      <label for="premium">Starting Premium</label>
+      <span class="numbox prem"><span>$</span><input type="number" id="premium" min="0" step="1000" value="100000"></span>
+      <div class="chips" id="premChips">
+        <button class="chip" data-p="100000">$100k</button>
+        <button class="chip" data-p="250000">$250k</button>
+        <button class="chip" data-p="500000">$500k</button>
+      </div>
+    </div>
+    <div class="ctl floorctl">
+      <label for="floor">Floor</label>
+      <span class="numbox"><input type="number" id="floor" min="0" max="10" step="0.25" value="0" style="width:52px"><span>%</span></span>
+      <div class="hint">Standard is 0%.</div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card strong">
+      <div class="chead">
+        <div><h2>Strong Market Decade</h2><div class="sub">2016 to 2025. A favorable stretch for the S&amp;P 500.</div></div>
+        <div class="annual"><div class="v" id="annStrong">7.88%</div><div class="l">annualized credited rate</div></div>
+      </div>
+      <div class="tablescroll"><table id="tblStrong"></table></div>
+    </div>
+    <div class="card chall">
+      <div class="chead">
+        <div><h2>Challenging Market Decade</h2><div class="sub">2007 to 2016, including the 2008 downturn.</div></div>
+        <div class="annual"><div class="v" id="annChall">6.21%</div><div class="l">annualized credited rate</div></div>
+      </div>
+      <div class="tablescroll"><table id="tblChall"></table></div>
+    </div>
+  </div>
+
+  <div class="takeaway" id="takeaway">With no annual fees, a 0% crediting year (shaded) holds the account value perfectly flat. Nothing is deducted, and the floor turned every market downturn, including 2008, into a year of zero loss.</div>
+
+  <p class="disc" id="disc"></p>
+</div>
+
+<script>
+var SP = {2007:3.53,2008:-38.49,2009:23.45,2010:12.78,2011:0.00,2012:13.41,2013:29.60,2014:11.39,2015:-0.73,2016:9.54,2017:19.42,2018:-6.24,2019:28.88,2020:16.26,2021:26.89,2022:-19.44,2023:24.23,2024:23.31,2025:16.39};
+var AGG = {2007:6.97,2008:5.24,2009:5.93,2010:6.54,2011:7.84,2012:4.21,2013:-2.02,2014:5.97,2015:0.55,2016:2.65,2017:3.54,2018:0.01,2019:8.72,2020:7.51,2021:-1.54,2022:-13.01,2023:5.53,2024:1.25,2025:7.30};
+var STRONG = [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+var CHALL  = [2007,2008,2009,2010,2011,2012,2013,2014,2015,2016];
+
+var $ = function(id){return document.getElementById(id);};
+var clampCredit = function(sp,cap,floor){return Math.min(Math.max(sp,floor),cap);};
+var annualize = function(arr){var f=1; arr.forEach(function(r){f*=(1+r/100);}); return (Math.pow(f,1/arr.length)-1)*100;};
+var money = function(v){ var s = String(Math.round(v)); return '$' + s.replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
+var trimPct = function(v){ return parseFloat(v.toFixed(2)) + '%'; };
+function pctCell(v){
+  if (Math.abs(v) < 0.005) return '<td class="zeroret">0.00%</td>';
+  var cls = v<0 ? 'neg' : 'pos';
+  var s = (v>0?'+':'') + v.toFixed(2) + '%';
+  return '<td class="'+cls+'">'+s+'</td>';
+}
+
+function buildTable(years, cap, floor, premium){
+  var rows = '';
+  var val = premium;
+  years.forEach(function(y){
+    var sp = SP[y], agg = AGG[y];
+    var cr = clampCredit(sp, cap, floor);
+    val = val * (1 + cr/100);
+    var isZero = cr <= 0.00001;
+    rows += '<tr class="'+(isZero?'zero':'')+'">'
+      + '<td class="period">1/1/'+y+'-12/31/'+y+'</td>'
+      + pctCell(sp)
+      + '<td class="credit">'+cr.toFixed(2)+'%</td>'
+      + '<td class="value">'+money(val)+'</td>'
+      + pctCell(agg)
+      + '</tr>';
+  });
+  var aggAnn = annualize(years.map(function(y){return AGG[y];}));
+  var spAnn = annualize(years.map(function(y){return SP[y];}));
+  var creditAnn = annualize(years.map(function(y){return clampCredit(SP[y],cap,floor);}));
+  var sgn = function(v){return (v>=0?'+':'') + v.toFixed(2) + '%';};
+  var head = '<thead><tr>'
+    + '<th>1-Year Period</th>'
+    + '<th>S&amp;P 500<br>Price Return</th>'
+    + '<th>Credited Rate</th>'
+    + '<th>Account Value</th>'
+    + '<th class="aggh">Bloomberg U.S. Aggregate Bond Index<span>Total Return</span></th>'
+    + '</tr></thead>';
+  var foot = '<tfoot><tr>'
+    + '<td class="avglabel">Annualized<br>Credited Rate</td>'
+    + '<td class="avgval">'+sgn(spAnn)+'</td>'
+    + '<td class="avgval credit">'+creditAnn.toFixed(2)+'%</td>'
+    + '<td></td>'
+    + '<td class="avgval">'+sgn(aggAnn)+'</td>'
+    + '</tr></tfoot>';
+  return {html: head + '<tbody>'+rows+'</tbody>' + foot, end: val};
+}
+
+function render(){
+  var cap = parseFloat($('capNum').value);
+  if (isNaN(cap) || cap <= 0) cap = 10;
+  cap = Math.min(cap, 50);
+  var floor = parseFloat($('floor').value); if (isNaN(floor) || floor < 0) floor = 0;
+  var premium = parseFloat($('premium').value); if (isNaN(premium) || premium < 0) premium = 100000;
+
+  $('capRange').value = Math.min(Math.max(cap,2),16);
+  $('capBadge').textContent = trimPct(cap);
+  $('floorBadge').textContent = trimPct(floor);
+
+  var s = buildTable(STRONG, cap, floor, premium);
+  var c = buildTable(CHALL, cap, floor, premium);
+  $('tblStrong').innerHTML = s.html;
+  $('tblChall').innerHTML = c.html;
+  $('annStrong').textContent = annualize(STRONG.map(function(y){return clampCredit(SP[y],cap,floor);})).toFixed(2)+'%';
+  $('annChall').textContent  = annualize(CHALL.map(function(y){return clampCredit(SP[y],cap,floor);})).toFixed(2)+'%';
+
+  // active premium chip
+  var _chips = document.querySelectorAll('#premChips .chip');
+  for (var _i=0; _i<_chips.length; _i++){
+    _chips[_i].classList.toggle('on', parseFloat(_chips[_i].dataset.p)===premium);
+  }
+
+  $('disc').textContent =
+    'Hypothetical illustration of a fixed indexed annuity using a 1-year S&P 500 point-to-point crediting strategy. '
+    + 'The S&P 500 cap is entered by the user for illustration; actual caps vary by carrier and product, are set at the start of each crediting period, and are subject to change. '
+    + 'Each year credits the S&P 500 calendar-year price return (which does not include dividends), limited by the cap and a '+floor.toFixed(2)+'% floor, applied to a '+money(premium)+' initial premium. '
+    + 'This illustration assumes no annual product fees and reflects index crediting only; actual product features, fees, riders, and surrender charges vary by carrier and product. Values do not reflect rider charges, surrender charges, or withdrawals. '
+    + 'The Bloomberg U.S. Aggregate figures are the calendar-year total returns of the Bloomberg U.S. Aggregate Bond Index, an unmanaged index that cannot be invested in directly and does not reflect any fees; its 10-year figure is the annualized (compound) total return. '
+    + 'Past performance does not guarantee future results. Investment advisory services offered through Brookstone Wealth Advisors, LLC (BWA), a registered investment advisor. BWA and Brookstone Capital Management, LLC are affiliated companies. '
+    + 'BWA and Jantz Wealth Solutions are independent of each other. Insurance products and services are not offered through BWA but are offered and sold through individually licensed and appointed agents.';
+
+  postHeight();
+}
+
+// input wiring
+$('capRange').addEventListener('input', function(){ $('capNum').value = parseFloat(this.value).toFixed(2); render(); });
+$('capNum').addEventListener('input', render);
+$('floor').addEventListener('input', render);
+$('premium').addEventListener('input', render);
+var _cbtns = document.querySelectorAll('#premChips .chip');
+for (var _j=0; _j<_cbtns.length; _j++){
+  (function(b){ b.addEventListener('click', function(){ $('premium').value = b.dataset.p; render(); }); })(_cbtns[_j]);
+}
+
+// Duda iframe auto-resize
+function postHeight(){
+  var h = Math.ceil(document.body.getBoundingClientRect().height) + 8;
+  try{ window.parent.postMessage({type:'jws-widget-height', height:h}, '*'); }catch(e){}
+  try{ window.parent.postMessage(h, '*'); }catch(e){}
+}
+window.addEventListener('load', function(){ render(); postHeight(); });
+window.addEventListener('resize', postHeight);
+if (window.ResizeObserver){ new ResizeObserver(postHeight).observe(document.body); }
+render();
+</script>
+</body>
+</html>
