@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Design Profile | Jantz Wealth Solutions</title>
 <!--
-  The Design Profile Assessment v2.0 (Full-Screen Experience)
+  The Design Profile Assessment v2.1 (Full-Screen Experience)
   Jantz Wealth Solutions
   myRetirement Design / The Roles-Based Method
 
@@ -818,7 +818,7 @@
        ======================================================== -->
   <header class="brand-header">
     <a href="https://jantzwealth.com" target="_top" class="brand-logo-link" aria-label="myRetirement Design home">
-      <img src="https://seanjantz.github.io/jws-web-widgets/myretirement-design-logo.png" alt="myRetirement Design — Clarity for the road ahead" class="brand-logo">
+      <img src="https://seanjantz.github.io/jws-web-widgets/myretirement-design-logo.png" alt="myRetirement Design" class="brand-logo">
     </a>
   </header>
 
@@ -1011,7 +1011,7 @@
 
 <script>
 //=============================================================================
-// THE DESIGN PROFILE ASSESSMENT v2.0
+// THE DESIGN PROFILE ASSESSMENT v2.1
 // Jantz Wealth Solutions / myRetirement Design / The Roles-Based Method
 //=============================================================================
 
@@ -1386,7 +1386,9 @@ function computeProfile() {
     resultKey = blendPair.join('_');
   } else {
     resultType = 'blend';
-    resultKey = primary[0] + '_' + secondary[0];
+    // Also ordered alphabetically so every pairing resolves to a defined blend key
+    const blendPair = [primary[0], secondary[0]].sort();
+    resultKey = blendPair.join('_');
   }
 
   return {
@@ -1437,14 +1439,14 @@ const pureProfiles = {
   paycheck: {
     name: 'The Paycheck Planner',
     description: "Paycheck Planners design retirement to feel like the paycheck era. For forty years, you worked at companies that went up and down, in economies that went up and down, but the paycheck showed up every two weeks regardless. That predictability is what you want from retirement. Not the same amount necessarily, but the same <em>reliability</em>. You'd rather give up some growth potential in exchange for knowing the essentials will be covered no matter what markets do. That's not caution. It's a clear-eyed design choice with decades of academic support behind it.",
-    stack: "A Paycheck Planner's Stack is built from the bottom up, starting with the most reliable income source available, which is Social Security, and stacking guaranteed income on top until essential expenses are fully covered. Your Foundation is optimized; you likely benefit from delayed claiming, which can mean substantially more inflation-adjusted lifetime income. Your Guaranteed Income Floor is meaningfully larger than the average retiree's, often using pensions, income annuities, or fixed indexed annuities with lifetime income riders. Your Growth Engine still exists. It funds discretionary spending, inflation protection, and any legacy goals, but it isn't bearing the burden of essentials. Your Reserves are robust because once the floor is set, the portfolio doesn't need to be touched at the wrong time.",
+    stack: "A Paycheck Planner's Stack is built from the bottom up, starting with the most reliable income source available, which is Social Security, and stacking guaranteed income on top until essential expenses are fully covered. Your Foundation is optimized; you likely benefit from delayed claiming, which can mean substantially more inflation-adjusted lifetime income. Your Guaranteed Income Floor is meaningfully larger than the average retiree's, often using pensions, income annuities, or fixed indexed annuities with lifetime income riders. Your Growth Engine still exists. It funds discretionary spending, inflation protection, and any legacy goals, but it isn't bearing the burden of essentials. And because the floor is set, your portfolio never has to be touched at the wrong time.",
     considerations: "Inflation protection on the income floor. Are your guarantees keeping up with rising costs? Survivor income. Does the floor continue if your spouse outlives you? Diversification of guarantee providers, so no single insurer carries too much of your floor. And the question most Paycheck Planners underweight: how much <em>growth</em> do you actually need to protect against a 30-year retirement's inflation drag? Income certainty is essential, but so is purchasing power."
   },
   market: {
     name: 'The Market Investor',
     description: "Market Investors design retirement around continued market participation. You've lived through enough cycles to believe markets work over long horizons, and you don't see why that should change when you retire. You're comfortable making decisions, you understand drawdowns are temporary, and you'd rather have flexibility and upside than guaranteed income that costs you in long-run wealth. You have the temperament for an all-portfolio approach. And the temperament is the part most retirees don't have. The math says retirees who can stay invested and disciplined often build more lifetime wealth and more legacy than retirees who heavily annuitize. The key word is <em>disciplined</em>, and you have that.",
-    stack: "A Market Investor's Stack is concentrated in the Growth Engine. Your Foundation is still optimized. Social Security claiming strategy matters because it's a guaranteed inflation-adjusted return that's hard to beat anywhere else. But your Guaranteed Income Floor is minimal beyond Social Security. You may not add any voluntary guaranteed income at all. Your Growth Engine is the dominant layer. It's a diversified portfolio with a disciplined withdrawal approach, often using dynamic spending rules or guardrails strategies that adjust based on market conditions. You may use growth annuities for tax deferral or downside protection on a portion of the portfolio. Your Reserves are deliberately substantial, typically 18 to 36 months of expenses, because reserves are what make the all-portfolio approach work.",
-    considerations: "Withdrawal discipline. Your design only works if you actually follow the guardrails when markets drop. Reserve sizing and replenishment timing. Tax-efficient withdrawal sequencing, where you have more degrees of freedom than other Profiles and probably more optimization opportunity. Your Roth conversion strategy is likely the highest-leverage tax move available to you. And the question most Market Investors underweight: <em>what's the plan when you no longer want to make decisions?</em> An all-portfolio strategy requires active engagement."
+    stack: "A Market Investor's Stack is concentrated in the Growth Engine. Your Foundation is still optimized. Social Security claiming strategy matters because it's a guaranteed inflation-adjusted return that's hard to beat anywhere else. But your Guaranteed Income Floor is minimal beyond Social Security. You may not add any voluntary guaranteed income at all. Your Growth Engine is the dominant layer. It's a diversified portfolio with a disciplined withdrawal approach, often using dynamic spending rules or guardrails strategies that adjust based on market conditions. You may use growth annuities for tax deferral or downside protection on a portion of the portfolio. Your Growth Engine also carries a deliberate cash cushion, typically 18 to 36 months of expenses, because that cushion is what makes the all-portfolio approach work.",
+    considerations: "Withdrawal discipline. Your design only works if you actually follow the guardrails when markets drop. Cash cushion sizing and replenishment timing. Tax-efficient withdrawal sequencing, where you have more degrees of freedom than other Profiles and probably more optimization opportunity. Your Roth conversion strategy is likely the highest-leverage tax move available to you. And the question most Market Investors underweight: <em>what's the plan when you no longer want to make decisions?</em> An all-portfolio strategy requires active engagement."
   },
   legacy: {
     name: 'The Legacy Architect',
@@ -1455,7 +1457,7 @@ const pureProfiles = {
   simplicity: {
     name: 'The Simplicity Seeker',
     description: "Simplicity Seekers design retirement to require minimal ongoing management. Not because you're disengaged. It's because you've decided life is better spent on things other than rebalancing portfolios, optimizing withdrawal sequences, and reading prospectuses. You have a clear preference for fewer accounts, fewer decisions, automatic systems, and clean structures. You'd rather have a slightly less optimal plan that runs itself than a maximally optimal plan that demands constant attention. You may be highly sophisticated about money. You've just decided the marginal benefit of complexity isn't worth the marginal cost in time and mental energy. Your preference is legitimate, it's underserved by most advisors, and the behavioral finance research is clear: simpler plans that <em>get executed</em> outperform sophisticated plans that <em>don't</em>.",
-    stack: "A Simplicity Seeker's Stack is intentionally streamlined. Your Foundation is optimized through a one-time claiming decision and then left alone. Your Guaranteed Income Floor is usually a single instrument, often one FIA with a lifetime income rider, or a single SPIA, sized to cover essentials and chosen for its hands-off operation. Your Growth Engine is a single diversified portfolio with a simple withdrawal rule rather than an actively managed multi-fund design. Your Legacy Layer is structurally simple: clean beneficiary designations, possibly a Roth IRA, a basic will or simple trust. Tax strategy exists but it's executed through periodic check-ins, not constant optimization. Reserves are simple cash, not laddered or optimized for marginal yield.",
+    stack: "A Simplicity Seeker's Stack is intentionally streamlined. Your Foundation is optimized through a one-time claiming decision and then left alone. Your Guaranteed Income Floor is usually a single instrument, often one FIA with a lifetime income rider, or a single SPIA, sized to cover essentials and chosen for its hands-off operation. Your Growth Engine is a single diversified portfolio with a simple withdrawal rule rather than an actively managed multi-fund design. Your Legacy Layer is structurally simple: clean beneficiary designations, possibly a Roth IRA, a basic will or simple trust. Tax strategy exists but it's executed through periodic check-ins, not constant optimization. Your cash buffer is simple, not laddered or optimized for marginal yield.",
     considerations: "The right level of simplicity for <em>you</em>. Finding the boundary where additional complexity stops being worth its cost. Automatic systems wherever possible. Clear documentation so that a spouse, adult child, or future advisor can step in if needed. Periodic review, once a year is usually enough, to make sure the simple plan is still the right plan as life changes. And the question most Simplicity Seekers underweight: <em>what happens when something non-simple comes up?</em> A surprise inheritance, a serious illness, an unexpected tax change. The Simplicity Seeker needs a trusted advisor relationship precisely so that when complexity arrives, someone is there to handle it."
   }
 };
@@ -1482,12 +1484,12 @@ const blendOutputs = {
   'market_simplicity': {
     title: 'A Blend: Market Investor + Simplicity Seeker',
     description: "Your responses place you between two Profiles. You're a blend of Market Investor and Simplicity Seeker. That means you believe in markets and want to stay invested, <em>and</em> you want the design to run without constant attention. You're often a retiree who had a successful investing career, has confidence in your approach, and now wants to keep the philosophy without the daily management.",
-    stack: "A Market Investor + Simplicity Seeker Stack is a portfolio-led design with deliberate simplicity. Social Security optimized once. Minimal or no voluntary guaranteed income. You trust the portfolio. Your Growth Engine is a single diversified portfolio, often a target-date-style allocation or a clean 60/40 structure that rebalances automatically. Your withdrawal approach is rule-based and largely automatic, like a percentage of beginning-of-year balance, or a fixed inflation-adjusted withdrawal with a simple guardrail. Reserves are healthy because they're what make a hands-off portfolio strategy survive bad markets. Tax strategy exists but it's executed at predictable annual checkpoints, not as a constant optimization project.",
+    stack: "A Market Investor + Simplicity Seeker Stack is a portfolio-led design with deliberate simplicity. Social Security optimized once. Minimal or no voluntary guaranteed income. You trust the portfolio. Your Growth Engine is a single diversified portfolio, often a target-date-style allocation or a clean 60/40 structure that rebalances automatically. Your withdrawal approach is rule-based and largely automatic, like a percentage of beginning-of-year balance, or a fixed inflation-adjusted withdrawal with a simple guardrail. A healthy cash cushion sits inside the design because it's what makes a hands-off portfolio strategy survive bad markets. Tax strategy exists but it's executed at predictable annual checkpoints, not as a constant optimization project.",
     considerations: "Discipline during drawdowns. Your design works because you don't fiddle with it. But that requires you to stay disciplined during years when other retirees are panic-selling or chasing performance. The simple version of an all-portfolio strategy is also the most vulnerable to behavioral mistakes if the simplicity becomes inattention. Periodic check-ins are non-negotiable, even though 'simplicity' might suggest otherwise."
   },
   'market_paycheck': {
     title: 'A Balanced Design: Paycheck Planner + Market Investor',
-    description: "Your responses point to a balanced retirement design. You scored highly on Paycheck Planner preferences (income certainty, stability, predictability) <em>and</em> Market Investor preferences (growth, flexibility, market participation). Some frameworks treat these as opposing commitments, where you have to pick one. We don't. For retirees who want both peace of mind <em>and</em> long-term growth, this is one of the most common designs we help clients build. There's strong academic support behind it, and decades of practical experience to back it up.",
+    description: "Your responses point to a balanced retirement design. You scored highly on Paycheck Planner preferences (income certainty, stability, predictability) <em>and</em> Market Investor preferences (growth, flexibility, market participation). Some frameworks treat these as opposing commitments, where you have to pick one. We don't. For retirees who want both peace of mind <em>and</em> long-term growth, this is the design most often recommended at Jantz Wealth Solutions. There's strong academic support behind it, and decades of practical experience to back it up.",
     stack: "A Paycheck Planner + Market Investor Stack is the deliberate balanced retirement. Your Foundation is optimized through Social Security claiming strategy. Your Guaranteed Income Floor uses a portion of your portfolio, often a fixed indexed annuity with a lifetime income rider or an income annuity, sized to cover essential expenses with certainty. The remaining portfolio stays invested in a diversified market allocation, working as an inflation hedge and a source of upside, with a disciplined withdrawal approach for discretionary spending. The two halves work together: the Floor lets the Growth Engine ride out market volatility without you panicking, and the Growth Engine protects your purchasing power over a 25 to 30 year retirement.",
     considerations: "How much of your portfolio to commit to the income Floor. That's the central design decision, and it depends on your essential expenses, your other guaranteed income sources like Social Security and any pensions, and how much portfolio you want left working in markets. Inflation protection on the income side, since fixed payments lose purchasing power over a long retirement. Withdrawal discipline on the portfolio side, since the design only works if you follow the rules when markets drop. And tax sequencing across both, because coordinating distributions from guaranteed income and the portfolio is where real optimization happens."
   },
@@ -1572,15 +1574,12 @@ function renderPersonalizedStack(profileResult) {
     { y: foundationY + foundationH/2 - 10, h: 20 }
   ].map(b => `<rect x="${startX + layerWidths}" y="${b.y}" width="20" height="${b.h}" fill="#C28D3D" fill-opacity="0.35"/>`).join('');
 
-  const reservesY = growthY;
-  const reservesH = Math.min(70, growthH);
-
   return `
-  <svg width="100%" viewBox="0 0 880 ${totalSvgHeight}" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto;">
-    ${layer(startX, legacyY, layerWidths, legacyH, '#B85C7A', 'Legacy Layer', 'Roth, life insurance, transfer')}
-    ${layer(startX, growthY, layerWidths, growthH, '#5B4B8A', 'Growth Engine', 'Market portfolio + growth annuity')}
-    ${layer(startX, floorY, layerWidths, floorH, '#2B7A78', 'Guaranteed Income Floor', 'Pensions and income annuity')}
-    ${layer(startX, foundationY, layerWidths, foundationH, '#00446A', 'Foundation', 'Social Security, optimized')}
+  <svg width="100%" viewBox="0 0 660 ${totalSvgHeight}" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto;">
+    ${layer(startX, legacyY, layerWidths, legacyH, '#B85C7A', 'Legacy Layer', 'Assets positioned for transfer')}
+    ${layer(startX, growthY, layerWidths, growthH, '#5B4B8A', 'Growth Engine', 'Investment portfolio + growth annuities')}
+    ${layer(startX, floorY, layerWidths, floorH, '#2B7A78', 'Guaranteed Income Floor', 'Lifetime income annuities')}
+    ${layer(startX, foundationY, layerWidths, foundationH, '#00446A', 'Foundation', 'Social Security and pensions')}
 
     ${bridges}
 
@@ -1591,10 +1590,6 @@ function renderPersonalizedStack(profileResult) {
     <text x="${taxX + taxW/2}" y="${taxBandY + 108}" font-family="Inter, sans-serif" font-size="12" fill="#555" text-anchor="middle">Asset location</text>
     <text x="${taxX + taxW/2}" y="${taxBandY + 128}" font-family="Inter, sans-serif" font-size="12" fill="#555" text-anchor="middle">Withdrawal order</text>
     <text x="${taxX + taxW/2}" y="${taxBandY + 148}" font-family="Inter, sans-serif" font-size="12" fill="#555" text-anchor="middle">IRMAA, QCDs</text>
-
-    <rect x="${taxX + taxW + 20}" y="${reservesY}" width="120" height="${reservesH}" rx="8" fill="#8C8B85" fill-opacity="0.15" stroke="#8C8B85" stroke-width="1.5"/>
-    <text x="${taxX + taxW + 20 + 60}" y="${reservesY + reservesH/2 - 4}" font-family="Montserrat, sans-serif" font-size="15" font-weight="600" fill="#353E44" text-anchor="middle">Reserves</text>
-    <text x="${taxX + taxW + 20 + 60}" y="${reservesY + reservesH/2 + 14}" font-family="Inter, sans-serif" font-size="12" fill="#555" text-anchor="middle">Cash buffer</text>
   </svg>
   `;
 }
@@ -1646,7 +1641,7 @@ function showResults(precomputedResult) {
       </div>
     `;
   } else {
-    const blend = blendOutputs[result.key] || blendOutputs[result.primary + '_' + result.secondary];
+    const blend = blendOutputs[result.key] || blendOutputs[[result.primary, result.secondary].sort().join('_')];
 
     if (blend) {
       html = `
