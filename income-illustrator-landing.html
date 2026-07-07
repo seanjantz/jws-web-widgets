@@ -256,15 +256,42 @@
 </footer>
 
 <script>
-  // Auto-resize the calculator iframe using the widget's postMessage pattern
   (function () {
     var frame = document.getElementById('jws-income-calc');
+
+    // Notify the parent page (Duda embed) of this page's full height
+    function notifyParent() {
+      try {
+        parent.postMessage({ type: 'jws-widget-resize', height: document.documentElement.scrollHeight }, '*');
+      } catch (e) {}
+    }
+
+    // Auto-resize the calculator iframe using the widget's postMessage pattern,
+    // then re-broadcast this page's own height upward. Exact height with a small
+    // threshold prevents grow-loop feedback between the frames.
     window.addEventListener('message', function (e) {
-      if (e.data && e.data.type === 'jws-widget-resize' && typeof e.data.height === 'number') {
-        frame.style.height = (e.data.height + 20) + 'px';
-        frame.style.minHeight = '0';
+      if (e.data && e.data.type === 'jws-widget-resize' && typeof e.data.height === 'number' && e.source === frame.contentWindow) {
+        var cur = parseInt(frame.style.height, 10) || 0;
+        if (Math.abs(e.data.height - cur) > 8) {
+          frame.style.height = e.data.height + 'px';
+          frame.style.minHeight = '0';
+          setTimeout(notifyParent, 50);
+        }
       }
     });
+
+    window.addEventListener('load', function () { notifyParent(); setTimeout(notifyParent, 400); });
+    window.addEventListener('resize', notifyParent);
+    if (window.ResizeObserver) {
+      new ResizeObserver(notifyParent).observe(document.body);
+    }
+    // Re-announce height periodically at first, in case the parent page
+    // attaches its listener after our initial messages have already fired
+    var announceStart = Date.now();
+    var announceTimer = setInterval(function () {
+      notifyParent();
+      if (Date.now() - announceStart > 12000) clearInterval(announceTimer);
+    }, 800);
   })();
 </script>
 
