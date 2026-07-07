@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retirement Income Illustrator | Jantz Wealth Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #00446A;
+    --blue: #0084D3;
+    --charcoal: #353E44;
+    --green: #1F8A5B;
+    --red: #C0392B;
+    --amber: #C9A227;
+    --bg: #FFFFFF;
+    --panel: #F5F8FA;
+    --line: #DDE6EC;
+    --muted: #6B7A85;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--charcoal);
+    line-height: 1.5;
+    padding: 8px 4px;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; }
+
+  .head { margin-bottom: 20px; }
+  .eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 6px;
+  }
+  h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .sub { font-size: 14px; color: var(--muted); max-width: 640px; }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 16px;
+  }
+  .inputs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 720px) { .inputs-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 420px) { .inputs-grid { grid-template-columns: 1fr; } }
+
+  label.fld {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 5px;
+  }
+  input[type="number"], select {
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--charcoal);
+    background: #fff;
+  }
+  input:focus-visible, select:focus-visible, button:focus-visible, input[type="range"]:focus-visible {
+    outline: 3px solid rgba(0,132,211,0.4);
+    outline-offset: 1px;
+  }
+
+  .toggles { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 14px; }
+  .toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13.5px; font-weight: 500; }
+  .toggle input { width: 18px; height: 18px; accent-color: var(--navy); cursor: pointer; }
+  .toggle .hint { color: var(--muted); font-weight: 400; }
+  .seg { display: inline-flex; border: 1.5px solid var(--navy); border-radius: 7px; overflow: hidden; }
+  .seg button {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border: none;
+    background: #fff;
+    color: var(--navy);
+    cursor: pointer;
+  }
+  .seg button.on { background: var(--navy); color: #fff; }
+
+  /* Income slider */
+  .income-block {
+    background: var(--navy);
+    border-radius: 10px;
+    padding: 20px 18px;
+    margin-bottom: 16px;
+    color: #fff;
+  }
+  .income-top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+  .income-label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #9FCBE8;
+  }
+  .income-value {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 30px;
+  }
+  .income-value small { font-size: 14px; font-weight: 600; color: #9FCBE8; }
+  input[type="range"] {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: linear-gradient(to right, var(--blue) 0%, var(--blue) var(--fill,30%), rgba(255,255,255,0.25) var(--fill,30%));
+    cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: #fff;
+    border: 4px solid var(--blue);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+    cursor: grab;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: #fff;
+    border: 4px solid var(--blue);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+    cursor: grab;
+  }
+  .status {
+    margin-top: 14px;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .status .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .status.ok { background: rgba(31,138,91,0.22); color: #C9EEDC; }
+  .status.ok .dot { background: #4CC98F; }
+  .status.mid { background: rgba(201,162,39,0.22); color: #F0E3B8; }
+  .status.mid .dot { background: #E3C34D; }
+  .status.warn { background: rgba(192,57,43,0.25); color: #F6CFC9; }
+  .status.warn .dot { background: #E8705F; }
+  .status .detail { font-weight: 400; opacity: 0.85; }
+
+  /* Anchor cards */
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+  .card {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px;
+    background: #fff;
+  }
+  .card.g { border-top: 4px solid var(--green); }
+  .card.n { border-top: 4px solid var(--blue); }
+  .card h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .card .big {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    color: var(--navy);
+  }
+  .card .big small { font-size: 13px; font-weight: 600; color: var(--muted); }
+  .card p { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+  .card button {
+    margin-top: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    background: #fff;
+    border: 1.5px solid var(--navy);
+    border-radius: 7px;
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .card button:hover { background: var(--navy); color: #fff; }
+
+  /* Chart */
+  .chart-panel { border: 1px solid var(--line); border-radius: 10px; padding: 16px 12px 8px; margin-bottom: 16px; background: #fff; }
+  .chart-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; padding: 0 6px 8px; }
+  .chart-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 15px; color: var(--navy); }
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch { width: 18px; height: 0; border-top-width: 3px; border-top-style: solid; display: inline-block; }
+  .sw-exp { border-color: var(--navy); }
+  .sw-str { border-color: var(--blue); border-top-style: dashed; }
+  .sw-con { border-color: #8A99A3; border-top-style: dashed; }
+  svg { display: block; width: 100%; height: auto; }
+  .scen-note { font-size: 12px; color: var(--muted); padding: 6px 6px 8px; }
+  .bars-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 6px 8px;
+    border-top: 1px solid var(--line);
+    margin-top: 4px;
+  }
+  .cume { font-size: 13px; color: var(--muted); }
+  .cume b { color: var(--navy); font-size: 15px; }
+  .cume .miss { color: var(--red); font-weight: 600; }
+  .bars-wrap { position: relative; }
+  .bar-tip {
+    position: absolute;
+    display: none;
+    pointer-events: none;
+    background: var(--navy);
+    color: #fff;
+    padding: 7px 11px;
+    border-radius: 7px;
+    font-size: 12.5px;
+    line-height: 1.45;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    white-space: nowrap;
+    z-index: 5;
+  }
+  .bar-tip b { font-family: 'Montserrat', sans-serif; font-size: 14px; }
+  .bar-tip .tip-sub { color: #9FCBE8; }
+  .bar-tip .tip-miss { color: #F0A79B; }
+  .bar-tip .tip-bal { color: #A9E5C6; }
+
+  /* Assumptions + disclosures */
+  details.assump { border: 1px solid var(--line); border-radius: 10px; padding: 0; margin-bottom: 16px; background: var(--panel); }
+  details.assump summary {
+    cursor: pointer;
+    padding: 12px 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--navy);
+  }
+  details.assump .body { padding: 0 16px 14px; font-size: 13px; color: var(--charcoal); }
+  details.assump ul { margin: 6px 0 0 18px; }
+  details.assump li { margin-bottom: 4px; }
+
+  .disclosure {
+    border-top: 2px solid var(--line);
+    padding-top: 14px;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .copy-row { display: flex; justify-content: flex-end; margin: -6px 0 16px; }
+  .copy-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .copy-btn:hover { color: var(--navy); border-color: var(--navy); }
+  .copy-btn.copied { color: var(--green); border-color: var(--green); }
+  .disclosure p { margin-bottom: 8px; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .card .big, .income-value { transition: opacity 0.12s; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <div class="eyebrow">Jantz Wealth Solutions</div>
+    <h1>Retirement Income Illustrator</h1>
+    <p class="sub">Explore how much annual income a Global Core portfolio could support. Adjust the income amount to see when the portfolio sustains itself indefinitely and where it would run out.</p>
+  </div>
+
+  <div class="panel">
+    <div class="inputs-grid">
+      <div>
+        <label class="fld" for="balance">Starting balance</label>
+        <input type="number" id="balance" value="500000" min="10000" step="10000">
+      </div>
+      <div>
+        <label class="fld" for="portfolio">Portfolio</label>
+        <select id="portfolio">
+          <option value="clv">Global Core Conservative Low Volatility</option>
+          <option value="con">Global Core Conservative</option>
+          <option value="mod" selected>Global Core Moderate</option>
+          <option value="agg">Global Core Aggressive</option>
+        </select>
+      </div>
+      <div>
+        <label class="fld" for="curAge">Current age</label>
+        <input type="number" id="curAge" value="60" min="40" max="90" step="1">
+      </div>
+      <div>
+        <label class="fld" for="startAge">Income start age</label>
+        <input type="number" id="startAge" value="65" min="40" max="95" step="1">
+      </div>
+    </div>
+    <div class="toggles">
+      <label class="toggle" style="gap:10px;">
+        <span style="font-weight:500;">Show income as</span>
+        <span class="seg" role="group" aria-label="Income display mode">
+          <button type="button" id="segAnnual" class="on" aria-pressed="true">Annual</button>
+          <button type="button" id="segMonthly" aria-pressed="false">Monthly</button>
+        </span>
+      </label>
+      <label class="toggle">
+        <input type="checkbox" id="cola" checked>
+        <span>Inflation adjusted income <span class="hint">(2.5% annual increase)</span></span>
+      </label>
+      <span style="flex-basis:100%; height:0;"></span>
+      <label class="toggle">
+        <span style="font-weight:500;">Plan to age</span>
+        <select id="targetAge" style="width:auto; padding:6px 8px;">
+          <option value="90">90</option>
+          <option value="95" selected>95</option>
+          <option value="100">100</option>
+        </select>
+      </label>
+      <label class="toggle">
+        <input type="checkbox" id="stress">
+        <span>Stress test <span class="hint">(market drops 15% and 8% in the first two income years)</span></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="income-block">
+    <div class="income-top">
+      <div class="income-label" id="incomeLabel">Annual income from portfolio</div>
+      <div class="income-value"><span id="incomeVal">$30,000</span> <small id="incomePct">(6.0% of balance)</small></div>
+    </div>
+    <input type="range" id="income" min="0" max="60000" step="500" value="30000" aria-label="Annual income amount">
+    <div class="status ok" id="statusBar">
+      <span class="dot"></span><span id="statusText"></span>
+    </div>
+  </div>
+
+  <div class="cards">
+    <div class="card g">
+      <h3>Income that never runs out</h3>
+      <div class="big" id="perpVal">$0</div>
+      <p>At or below this amount, the portfolio is projected to sustain itself indefinitely under the Expected scenario.</p>
+      <button id="applyPerp" type="button">Show this income</button>
+    </div>
+    <div class="card n">
+      <h3>Maximum income to age <span id="maxAgeLabel">95</span></h3>
+      <div class="big" id="maxVal">$0</div>
+      <p>The highest starting income where the portfolio lasts to age <span id="maxAgeLabel2">95</span> under the Expected scenario.</p>
+      <button id="applyMax" type="button">Show this income</button>
+    </div>
+  </div>
+
+  <div class="chart-panel">
+    <div class="chart-head">
+      <div class="chart-title">Projected portfolio balance by age</div>
+      <div class="legend">
+        <span><i class="swatch sw-exp"></i> Expected <b id="lgExp"></b></span>
+        <span><i class="swatch sw-str"></i> Strong <b id="lgStr"></b></span>
+        <span><i class="swatch sw-con"></i> Conservative <b id="lgCon"></b></span>
+      </div>
+    </div>
+    <div id="chart"></div>
+    <div class="scen-note" id="scenNote"></div>
+    <div class="bars-head">
+      <div class="chart-title">Annual income withdrawn</div>
+      <div class="cume" id="cumeStat"></div>
+    </div>
+    <div class="bars-wrap">
+      <div id="barsChart"></div>
+      <div class="bar-tip" id="barTip" role="tooltip"></div>
+    </div>
+    <div class="scen-note" id="barsNote"></div>
+  </div>
+
+  <details class="assump">
+    <summary>Assumptions used in this illustration</summary>
+    <div class="body" id="assumpBody"></div>
+  </details>
+
+  <div class="copy-row">
+    <button id="copySummary" type="button" class="copy-btn">Copy summary for advisor</button>
+  </div>
+
+  <div class="disclosure">
+    <p><strong>This is a hypothetical illustration, not a projection of the performance of any specific investment and not a guarantee of future results.</strong> Assumed rates of return are hypothetical planning assumptions, are net of advisory fees, do not represent the past or expected performance of any Global Core portfolio, and are not based on backtested or actual results. Actual returns will vary from year to year and may be negative. Investing involves risk, including the potential loss of principal. Withdrawal sustainability depends on actual returns, the sequence of those returns, inflation, taxes, and fees. This tool does not account for taxes. It is intended as a conversation aid, not investment advice or a recommendation.</p>
+    <p>Investment advisory services offered through Brookstone Wealth Advisors, LLC (BWA), a registered investment advisor. BWA and Brookstone Capital Management, LLC are affiliated companies. BWA and Jantz Wealth Solutions are independent of each other. Insurance products and services are not offered through BWA but are offered and sold through individually licensed and appointed agents.</p>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // Forward-looking planning assumptions, net of advisory fees (hypothetical).
+  var PORTFOLIOS = {
+    clv: { name: 'Global Core Conservative Low Volatility', cons: 0.035, exp: 0.045, strong: 0.055 },
+    con: { name: 'Global Core Conservative',                cons: 0.040, exp: 0.050, strong: 0.060 },
+    mod: { name: 'Global Core Moderate',                    cons: 0.045, exp: 0.060, strong: 0.075 },
+    agg: { name: 'Global Core Aggressive',                  cons: 0.050, exp: 0.065, strong: 0.080 }
+  };
+  var INFLATION = 0.025;
+  var END_AGE = 100;
+  var STRESS_RETURNS = [-0.15, -0.08];
+
+  var els = {
+    balance: document.getElementById('balance'),
+    portfolio: document.getElementById('portfolio'),
+    curAge: document.getElementById('curAge'),
+    startAge: document.getElementById('startAge'),
+    cola: document.getElementById('cola'),
+    stress: document.getElementById('stress'),
+    targetAge: document.getElementById('targetAge'),
+    income: document.getElementById('income'),
+    incomeVal: document.getElementById('incomeVal'),
+    incomePct: document.getElementById('incomePct'),
+    incomeLabel: document.getElementById('incomeLabel'),
+    segAnnual: document.getElementById('segAnnual'),
+    segMonthly: document.getElementById('segMonthly'),
+    statusBar: document.getElementById('statusBar'),
+    statusText: document.getElementById('statusText'),
+    perpVal: document.getElementById('perpVal'),
+    maxVal: document.getElementById('maxVal'),
+    applyPerp: document.getElementById('applyPerp'),
+    applyMax: document.getElementById('applyMax'),
+    maxAgeLabel: document.getElementById('maxAgeLabel'),
+    maxAgeLabel2: document.getElementById('maxAgeLabel2'),
+    chart: document.getElementById('chart'),
+    scenNote: document.getElementById('scenNote'),
+    cumeStat: document.getElementById('cumeStat'),
+    barsChart: document.getElementById('barsChart'),
+    barsNote: document.getElementById('barsNote'),
+    assumpBody: document.getElementById('assumpBody'),
+    lgExp: document.getElementById('lgExp'),
+    lgStr: document.getElementById('lgStr'),
+    lgCon: document.getElementById('lgCon')
+  };
+
+  var fmt0 = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+  function money(v) { return fmt0.format(Math.max(0, Math.round(v))); }
+  function pct(v) { return (v * 100).toFixed(v * 100 % 1 === 0 ? 0 : 2).replace(/\.?0+$/, '') + '%'; }
+
+  function readInputs() {
+    var curAge = clampInt(els.curAge.value, 40, 90, 60);
+    var startAge = clampInt(els.startAge.value, curAge, 95, Math.max(curAge, 65));
+    return {
+      balance: Math.max(10000, Number(els.balance.value) || 500000),
+      p: PORTFOLIOS[els.portfolio.value],
+      curAge: curAge,
+      startAge: startAge,
+      cola: els.cola.checked,
+      stress: els.stress.checked,
+      targetAge: Number(els.targetAge.value),
+      income: Number(els.income.value)
+    };
+  }
+  function clampInt(v, lo, hi, dflt) {
+    v = parseInt(v, 10);
+    if (isNaN(v)) v = dflt;
+    return Math.min(hi, Math.max(lo, v));
+  }
+
+  // Simulate year by year. Withdrawal at the start of each year (capped at the
+  // available balance), then growth.
+  // Returns { series: [{age, bal}], withdrawals: [{age, w, planned}], depleteAge, endBal }
+  function simulate(s, rate, income) {
+    var bal = s.balance;
+    var series = [{ age: s.curAge, bal: bal }];
+    var withdrawals = [];
+    var depleteAge = null;
+    var wdYear = 0;
+    for (var age = s.curAge; age < END_AGE; age++) {
+      var planned = 0, w = 0;
+      if (age >= s.startAge) {
+        planned = s.cola ? income * Math.pow(1 + INFLATION, wdYear) : income;
+        w = Math.min(planned, bal);
+        wdYear++;
+        withdrawals.push({ age: age, w: w, planned: planned });
+      }
+      var r = rate;
+      if (s.stress && age >= s.startAge && (age - s.startAge) < STRESS_RETURNS.length) {
+        r = STRESS_RETURNS[age - s.startAge];
+      }
+      bal = (bal - w) * (1 + r);
+      if (bal <= 0.005) {
+        bal = 0;
+        if (depleteAge === null) depleteAge = age + 1;
+      }
+      series.push({ age: age + 1, bal: bal });
+    }
+    return { series: series, withdrawals: withdrawals, depleteAge: depleteAge, endBal: bal };
+  }
+
+  // Balance projected forward to income start age at a given rate (no stress before income begins).
+  function balanceAtStart(s, rate) {
+    return s.balance * Math.pow(1 + rate, s.startAge - s.curAge);
+  }
+
+  // Perpetual sustainable income under the Expected rate.
+  // Beginning-of-year withdrawal: (B - W)(1+r) = B(1+g) where g = inflation if COLA else 0.
+  function perpetualIncome(s) {
+    var r = s.p.exp;
+    var g = s.cola ? INFLATION : 0;
+    var B = balanceAtStart(s, r);
+    var W = B * (1 - (1 + g) / (1 + r));
+    return Math.max(0, W);
+  }
+
+  // Max starting income such that money lasts to targetAge (Expected rate, honoring toggles).
+  function maxIncomeToTarget(s) {
+    var lo = 0, hi = s.balance; // generous upper bound
+    for (var i = 0; i < 60; i++) {
+      var mid = (lo + hi) / 2;
+      var sim = simulate(s, s.p.exp, mid);
+      var lasts = sim.depleteAge === null || sim.depleteAge >= s.targetAge;
+      if (lasts) lo = mid; else hi = mid;
+    }
+    return lo;
+  }
+
+  function updateSliderRange(s) {
+    var max = Math.max(10000, Math.round(s.balance * 0.12 / 500) * 500);
+    if (Number(els.income.max) !== max) {
+      var cur = Number(els.income.value);
+      els.income.max = max;
+      if (cur > max) els.income.value = max;
+    }
+  }
+
+  var displayMode = 'annual';
+
+  function render() {
+    var s = readInputs();
+    els.startAge.value = s.startAge;
+    els.curAge.value = s.curAge;
+    updateSliderRange(s);
+    var isMo = displayMode === 'monthly';
+    els.income.step = isMo ? 600 : 500; // $50/mo or $500/yr increments
+    s.income = Number(els.income.value);
+
+    // slider fill
+    var fill = (s.income / Number(els.income.max)) * 100;
+    els.income.style.setProperty('--fill', fill + '%');
+
+    els.incomeLabel.textContent = (isMo ? 'Monthly' : 'Annual') + ' income from portfolio';
+    els.incomeVal.textContent = money(isMo ? s.income / 12 : s.income);
+    var startBal = balanceAtStart(s, s.p.exp);
+    var pctTxt = (s.income / startBal * 100).toFixed(1) + '% of projected balance at age ' + s.startAge;
+    els.incomePct.textContent = '(' + (isMo ? money(s.income) + ' per year, ' : '') + pctTxt + ')';
+
+    // anchor numbers
+    var perp = perpetualIncome(s);
+    var maxInc = maxIncomeToTarget(s);
+    var unit = isMo ? ' <small>per month</small>' : ' <small>per year</small>';
+    els.perpVal.innerHTML = money(isMo ? perp / 12 : perp) + unit;
+    els.maxVal.innerHTML = money(isMo ? maxInc / 12 : maxInc) + unit;
+    els.maxAgeLabel.textContent = s.targetAge;
+    els.maxAgeLabel2.textContent = s.targetAge;
+    var step = Number(els.income.step);
+    els.applyPerp.dataset.v = Math.floor(perp / step) * step;
+    els.applyMax.dataset.v = Math.floor(maxInc / step) * step;
+
+    // simulations
+    var simExp = simulate(s, s.p.exp, s.income);
+    var simStr = simulate(s, s.p.strong, s.income);
+    var simCon = simulate(s, s.p.cons, s.income);
+
+    // status: keyed to the Plan to age selection
+    var detail = ' <span class="detail">Expected scenario' + (s.stress ? ', with stress test' : '') + '.</span>';
+    var sustains = s.income <= perp && simExp.depleteAge === null;
+    if (simExp.depleteAge === null) {
+      els.statusBar.className = 'status ok';
+      var tail = sustains ? 'The portfolio is projected to sustain this income indefinitely.' :
+        'The portfolio lasts beyond age ' + END_AGE + ', though the balance declines over time.';
+      els.statusText.innerHTML = tail + detail;
+    } else if (simExp.depleteAge >= s.targetAge) {
+      els.statusBar.className = 'status mid';
+      els.statusText.innerHTML = 'This income meets your plan to age ' + s.targetAge + '. The portfolio is projected to run out at age <b>' + simExp.depleteAge + '</b>.' + detail;
+    } else {
+      els.statusBar.className = 'status warn';
+      els.statusText.innerHTML = 'This income falls short of your plan to age ' + s.targetAge + '. The portfolio is projected to run out at age <b>' + simExp.depleteAge + '</b>.' + detail;
+    }
+
+    // legend rates
+    els.lgExp.textContent = pct(s.p.exp);
+    els.lgStr.textContent = pct(s.p.strong);
+    els.lgCon.textContent = pct(s.p.cons);
+
+    drawChart(s, simExp, simStr, simCon);
+
+    // cumulative income + annual income bars (Expected scenario)
+    var received = 0, missed = 0;
+    simExp.withdrawals.forEach(function (row) {
+      if (row.age < s.targetAge) {
+        received += row.w;
+        missed += Math.max(0, row.planned - row.w);
+      }
+    });
+    var cume = 'Total received by age ' + s.targetAge + ': <b>' + money(received) + '</b>';
+    if (missed > 500) cume += ' &nbsp;|&nbsp; <span class="miss">Not received: ' + money(missed) + '</span>';
+    els.cumeStat.innerHTML = cume;
+
+    drawBars(s, simExp);
+    hideBarTip();
+    els.barsNote.textContent = 'Solid bars show annual income under the Expected scenario' +
+      (s.cola ? ', increasing ' + pct(INFLATION) + ' per year for inflation' : '') +
+      '. Outlined bars show planned income not received after the portfolio runs out, through age ' + s.targetAge + '.';
+
+    els.scenNote.textContent = 'Depletion age by scenario: Strong ' + depTxt(simStr) + ' | Expected ' + depTxt(simExp) + ' | Conservative ' + depTxt(simCon) + (s.stress ? '. Stress test on: returns of -15% and -8% in the first two income years, all scenarios.' : '.');
+
+    renderAssumptions(s);
+    sendResize();
+  }
+  function depTxt(sim) { return sim.depleteAge === null ? 'never (by age ' + END_AGE + ')' : 'age ' + sim.depleteAge; }
+
+  function drawChart(s, simExp, simStr, simCon) {
+    var W = 800, H = 380, L = 74, R = 20, T = 20, B = 44;
+    var iw = W - L - R, ih = H - T - B;
+    var minAge = s.curAge, maxAge = END_AGE;
+    var maxBal = 0;
+    [simExp, simStr, simCon].forEach(function (sim) {
+      sim.series.forEach(function (pt) { if (pt.bal > maxBal) maxBal = pt.bal; });
+    });
+    maxBal = niceCeil(maxBal * 1.05);
+
+    function x(age) { return L + (age - minAge) / (maxAge - minAge) * iw; }
+    function y(bal) { return T + ih - (bal / maxBal) * ih; }
+
+    var svg = [];
+    svg.push('<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Projected portfolio balance by age under three return scenarios">');
+
+    // y gridlines + labels
+    var ySteps = 5;
+    for (var i = 0; i <= ySteps; i++) {
+      var v = maxBal / ySteps * i;
+      var yy = y(v);
+      svg.push('<line x1="' + L + '" y1="' + yy + '" x2="' + (W - R) + '" y2="' + yy + '" stroke="#E6EDF2" stroke-width="1"/>');
+      svg.push('<text x="' + (L - 8) + '" y="' + (yy + 4) + '" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#6B7A85">' + shortMoney(v) + '</text>');
+    }
+    // x ticks every 5 yrs
+    for (var age = Math.ceil(minAge / 5) * 5; age <= maxAge; age += 5) {
+      var xx = x(age);
+      svg.push('<line x1="' + xx + '" y1="' + (T + ih) + '" x2="' + xx + '" y2="' + (T + ih + 5) + '" stroke="#B9C6CF" stroke-width="1"/>');
+      svg.push('<text x="' + xx + '" y="' + (T + ih + 20) + '" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#6B7A85">' + age + '</text>');
+    }
+    svg.push('<text x="' + (L + iw / 2) + '" y="' + (H - 6) + '" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#8A99A3">AGE</text>');
+
+    // income start marker
+    if (s.startAge > s.curAge) {
+      var xs = x(s.startAge);
+      svg.push('<line x1="' + xs + '" y1="' + T + '" x2="' + xs + '" y2="' + (T + ih) + '" stroke="#B9C6CF" stroke-width="1" stroke-dasharray="3,4"/>');
+      svg.push('<text x="' + (xs + 5) + '" y="' + (T + 12) + '" font-family="Inter,sans-serif" font-size="10.5" fill="#6B7A85">Income begins</text>');
+    }
+
+    // area under expected
+    svg.push('<path d="' + areaPath(simExp.series, x, y, T + ih) + '" fill="rgba(0,68,106,0.08)"/>');
+
+    // lines
+    svg.push('<path d="' + linePath(simCon.series, x, y) + '" fill="none" stroke="#8A99A3" stroke-width="2" stroke-dasharray="5,5"/>');
+    svg.push('<path d="' + linePath(simStr.series, x, y) + '" fill="none" stroke="#0084D3" stroke-width="2" stroke-dasharray="5,5"/>');
+    svg.push('<path d="' + linePath(simExp.series, x, y) + '" fill="none" stroke="#00446A" stroke-width="3"/>');
+
+    // depletion markers
+    [[simCon, '#8A99A3'], [simStr, '#0084D3'], [simExp, '#C0392B']].forEach(function (pair) {
+      var sim = pair[0];
+      if (sim.depleteAge !== null && sim.depleteAge <= maxAge) {
+        var dx = x(sim.depleteAge), dy = y(0);
+        svg.push('<circle cx="' + dx + '" cy="' + dy + '" r="5" fill="' + pair[1] + '"/>');
+        if (sim === simExp) {
+          svg.push('<text x="' + dx + '" y="' + (dy - 10) + '" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="700" font-size="12" fill="#C0392B">Age ' + sim.depleteAge + '</text>');
+        }
+      }
+    });
+
+    svg.push('</svg>');
+    els.chart.innerHTML = svg.join('');
+  }
+
+  function drawBars(s, simExp) {
+    if (s.income <= 0 || !simExp.withdrawals.length) {
+      els.barsChart.innerHTML = '';
+      els.barsNote.textContent = '';
+      return;
+    }
+    var W = 800, H = 150, L = 74, R = 20, T = 16, B = 30;
+    var iw = W - L - R, ih = H - T - B;
+    var minAge = s.curAge, maxAge = END_AGE;
+
+    // Build bar rows: actual withdrawals, plus ghost (planned, not received) through targetAge
+    var rows = {};
+    simExp.withdrawals.forEach(function (r) { rows[r.age] = { w: r.w, planned: r.planned }; });
+    var balByAge = {};
+    simExp.series.forEach(function (pt) { balByAge[pt.age] = pt.bal; });
+    var maxW = 0;
+    Object.keys(rows).forEach(function (age) {
+      var r = rows[age];
+      var top = (Number(age) < s.targetAge) ? Math.max(r.w, r.planned) : r.w;
+      if (top > maxW) maxW = top;
+    });
+    if (maxW <= 0) { els.barsChart.innerHTML = ''; return; }
+    maxW = niceCeil(maxW * 1.08);
+
+    function x(age) { return L + (age - minAge) / (maxAge - minAge) * iw; }
+    function y(v) { return T + ih - (v / maxW) * ih; }
+    var slot = iw / (maxAge - minAge);
+    var bw = Math.max(2, slot * 0.62);
+
+    var svg = [];
+    svg.push('<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Annual income withdrawn by age under the Expected scenario">');
+
+    // gridlines: 0, half, max
+    [0, maxW / 2, maxW].forEach(function (v) {
+      var yy = y(v);
+      svg.push('<line x1="' + L + '" y1="' + yy + '" x2="' + (W - R) + '" y2="' + yy + '" stroke="#E6EDF2" stroke-width="1"/>');
+      svg.push('<text x="' + (L - 8) + '" y="' + (yy + 4) + '" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#6B7A85">' + shortMoney(v) + '</text>');
+    });
+    // x ticks every 5 yrs (aligned with the balance chart)
+    for (var age5 = Math.ceil(minAge / 5) * 5; age5 <= maxAge; age5 += 5) {
+      var xx = x(age5);
+      svg.push('<text x="' + xx + '" y="' + (T + ih + 18) + '" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#6B7A85">' + age5 + '</text>');
+    }
+
+    var cumeSoFar = 0;
+    var hits = [];
+    for (var age = s.startAge; age < END_AGE; age++) {
+      var r = rows[age];
+      if (!r) continue;
+      cumeSoFar += r.w;
+      var eoyBal = balByAge[age + 1] || 0; // balance at the end of that year
+      var cx = x(age) + (slot - bw) / 2;
+      if (r.w > 0.5) {
+        svg.push('<rect data-bar="' + age + '" x="' + cx.toFixed(1) + '" y="' + y(r.w).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + (y(0) - y(r.w)).toFixed(1) + '" fill="#0084D3" rx="1"/>');
+      }
+      // ghost: planned income not received, shown through plan age
+      if (age < s.targetAge && r.planned - r.w > 0.5) {
+        svg.push('<rect x="' + cx.toFixed(1) + '" y="' + y(r.planned).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + (y(Math.min(r.w, r.planned)) - y(r.planned)).toFixed(1) + '" fill="none" stroke="#C0392B" stroke-width="1.2" stroke-dasharray="3,2" rx="1"/>');
+      }
+      // invisible full-height hit zone for hover and touch
+      hits.push('<rect data-hit="' + age + '" data-w="' + Math.round(r.w) + '" data-planned="' + Math.round(r.planned) + '" data-cume="' + Math.round(cumeSoFar) + '" data-bal="' + Math.round(eoyBal) + '" x="' + x(age).toFixed(1) + '" y="' + T + '" width="' + slot.toFixed(1) + '" height="' + ih + '" fill="transparent"/>');
+    }
+    svg = svg.concat(hits);
+
+    svg.push('</svg>');
+    els.barsChart.innerHTML = svg.join('');
+  }
+
+  // --- Bar hover tooltip (delegated; works for mouse and touch) ---
+  function showBarTip(hit) {
+    var age = hit.getAttribute('data-hit');
+    var w = Number(hit.getAttribute('data-w'));
+    var planned = Number(hit.getAttribute('data-planned'));
+    var cume = Number(hit.getAttribute('data-cume'));
+    var bal = Number(hit.getAttribute('data-bal'));
+    var balLine = bal > 0.5
+      ? '<span class="tip-bal">Account balance: ' + money(bal) + '</span>'
+      : '<span class="tip-miss">Account balance: $0</span>';
+    var html;
+    if (w < 1 && planned > 0) {
+      html = '<b>Age ' + age + '</b><br><span class="tip-miss">' + money(planned) + ' planned, not received</span><br>' + balLine;
+    } else if (planned - w > 1) {
+      html = '<b>Age ' + age + ': ' + money(w) + '</b><br><span class="tip-miss">of ' + money(planned) + ' planned</span><br><span class="tip-sub">Received so far: ' + money(cume) + '</span><br>' + balLine;
+    } else {
+      html = '<b>Age ' + age + ': ' + money(w) + '</b><br><span class="tip-sub">Received so far: ' + money(cume) + '</span><br>' + balLine;
+    }
+    var tip = document.getElementById('barTip');
+    tip.innerHTML = html;
+    tip.style.display = 'block';
+
+    // highlight the bar
+    clearBarHighlight();
+    var bar = els.barsChart.querySelector('[data-bar="' + age + '"]');
+    if (bar) { bar.setAttribute('fill', '#00446A'); bar.setAttribute('data-hl', '1'); }
+
+    // position above the bar, clamped to the wrapper
+    var wrap = els.barsChart.parentElement;
+    var wrapBox = wrap.getBoundingClientRect();
+    var hitBox = hit.getBoundingClientRect();
+    var left = hitBox.left - wrapBox.left + hitBox.width / 2 - tip.offsetWidth / 2;
+    left = Math.max(4, Math.min(left, wrapBox.width - tip.offsetWidth - 4));
+    var top = hitBox.top - wrapBox.top - tip.offsetHeight - 6;
+    if (top < 0) top = 4;
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+  function clearBarHighlight() {
+    var hl = els.barsChart.querySelector('[data-hl]');
+    if (hl) { hl.setAttribute('fill', '#0084D3'); hl.removeAttribute('data-hl'); }
+  }
+  function hideBarTip() {
+    document.getElementById('barTip').style.display = 'none';
+    clearBarHighlight();
+  }
+  function initBarTip() {
+    var wrap = document.getElementById('barsChart');
+    wrap.addEventListener('pointerover', function (e) {
+      var hit = e.target.closest && e.target.closest('[data-hit]');
+      if (hit) showBarTip(hit); else hideBarTip();
+    });
+    wrap.addEventListener('pointerdown', function (e) {
+      var hit = e.target.closest && e.target.closest('[data-hit]');
+      if (hit) showBarTip(hit);
+    });
+    wrap.addEventListener('pointerleave', hideBarTip);
+  }
+
+  function linePath(series, x, y) {
+    var d = '';
+    for (var i = 0; i < series.length; i++) {
+      d += (i === 0 ? 'M' : 'L') + x(series[i].age).toFixed(1) + ' ' + y(series[i].bal).toFixed(1) + ' ';
+      if (series[i].bal === 0) break; // stop at depletion
+    }
+    return d;
+  }
+  function areaPath(series, x, y, baseY) {
+    var pts = [];
+    for (var i = 0; i < series.length; i++) {
+      pts.push([x(series[i].age), y(series[i].bal)]);
+      if (series[i].bal === 0) break;
+    }
+    if (!pts.length) return '';
+    var d = 'M' + pts[0][0].toFixed(1) + ' ' + baseY + ' ';
+    pts.forEach(function (p) { d += 'L' + p[0].toFixed(1) + ' ' + p[1].toFixed(1) + ' '; });
+    d += 'L' + pts[pts.length - 1][0].toFixed(1) + ' ' + baseY + ' Z';
+    return d;
+  }
+  function niceCeil(v) {
+    if (v <= 0) return 100000;
+    var mag = Math.pow(10, Math.floor(Math.log10(v)));
+    var n = v / mag;
+    var nice = n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10;
+    return nice * mag;
+  }
+  function shortMoney(v) {
+    if (v >= 1000000) return '$' + (v / 1000000).toFixed(v % 1000000 === 0 ? 0 : 1) + 'M';
+    if (v >= 1000) return '$' + Math.round(v / 1000) + 'K';
+    return '$' + Math.round(v);
+  }
+
+  function renderAssumptions(s) {
+    els.assumpBody.innerHTML =
+      '<ul>' +
+      '<li><b>' + s.p.name + '</b> hypothetical annual return assumptions, net of advisory fees: Conservative ' + pct(s.p.cons) + ', Expected ' + pct(s.p.exp) + ', Strong ' + pct(s.p.strong) + '. These are planning assumptions, not projections of portfolio performance.</li>' +
+      '<li>Income is withdrawn at the beginning of each year, then the remaining balance grows at the assumed rate.</li>' +
+      '<li>Inflation adjustment, when on, increases the withdrawal by ' + pct(INFLATION) + ' each year.</li>' +
+      '<li>Stress test, when on, replaces the assumed return with -15% and -8% in the first two income years for all scenarios.</li>' +
+      '<li>"Income that never runs out" is the withdrawal level where the balance keeps pace with ' + (s.cola ? 'inflation' : 'itself') + ' under the Expected scenario.</li>' +
+      '<li>Projection runs to age ' + END_AGE + '. Taxes are not reflected.</li>' +
+      '</ul>';
+  }
+
+  // Duda iframe auto-resize
+  function sendResize() {
+    try {
+      parent.postMessage({ type: 'jws-widget-resize', height: document.documentElement.scrollHeight }, '*');
+    } catch (e) {}
+  }
+
+  // events
+  ['input', 'change'].forEach(function (evt) {
+    [els.balance, els.portfolio, els.curAge, els.startAge, els.cola, els.stress, els.targetAge, els.income].forEach(function (el) {
+      el.addEventListener(evt, render);
+    });
+  });
+  els.applyPerp.addEventListener('click', function () { els.income.value = this.dataset.v; render(); });
+  els.applyMax.addEventListener('click', function () { els.income.value = this.dataset.v; render(); });
+  function setMode(mode) {
+    displayMode = mode;
+    els.segAnnual.classList.toggle('on', mode === 'annual');
+    els.segMonthly.classList.toggle('on', mode === 'monthly');
+    els.segAnnual.setAttribute('aria-pressed', mode === 'annual');
+    els.segMonthly.setAttribute('aria-pressed', mode === 'monthly');
+    render();
+  }
+  els.segAnnual.addEventListener('click', function () { setMode('annual'); });
+  els.segMonthly.addEventListener('click', function () { setMode('monthly'); });
+
+  // Copy Summary: one-line state string for generating client one-pagers
+  document.getElementById('copySummary').addEventListener('click', function () {
+    var s = readInputs();
+    var perp = perpetualIncome(s);
+    var maxInc = maxIncomeToTarget(s);
+    var simExp = simulate(s, s.p.exp, s.income);
+    var txt = 'JWS Income Illustration | Client: ____ | Balance: ' + money(s.balance) +
+      ' | Portfolio: ' + s.p.name +
+      ' | Current age: ' + s.curAge +
+      ' | Income start age: ' + s.startAge +
+      ' | Income: ' + money(s.income) + '/yr' +
+      ' | Plan to age: ' + s.targetAge +
+      ' | Inflation adjusted: ' + (s.cola ? 'on' : 'off') +
+      ' | Stress test: ' + (s.stress ? 'on' : 'off') +
+      ' | Results: Perpetual ' + money(perp) + '/yr, Max to ' + s.targetAge + ' ' + money(maxInc) + '/yr, Depletes: ' + (simExp.depleteAge === null ? 'never (by 100)' : 'age ' + simExp.depleteAge);
+    var btn = this;
+    function done() {
+      btn.textContent = 'Copied';
+      btn.classList.add('copied');
+      setTimeout(function () { btn.textContent = 'Copy summary for advisor'; btn.classList.remove('copied'); }, 1800);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(done, function () { fallbackCopy(txt); done(); });
+    } else {
+      fallbackCopy(txt); done();
+    }
+  });
+  function fallbackCopy(txt) {
+    var ta = document.createElement('textarea');
+    ta.value = txt;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+  window.addEventListener('resize', sendResize);
+  window.addEventListener('load', function () { render(); setTimeout(sendResize, 300); });
+
+  initBarTip();
+  render();
+})();
+</script>
+</body>
+</html>
