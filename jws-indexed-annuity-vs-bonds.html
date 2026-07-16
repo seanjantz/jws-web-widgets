@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A Compelling Alternative to Bonds</title>
+<title>How Indexed Crediting Works, Year by Year</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
@@ -48,6 +48,7 @@
   .ctl{flex:0 1 210px;}
   .ctl.capctl{flex:1 1 340px;}
   .ctl.floorctl{flex:0 1 120px;}
+  .ctl.bondctl{flex:0 1 170px;}
   .ctl label{display:block; font-family:var(--display); font-weight:700; color:var(--navy);
     font-size:12px; letter-spacing:.04em; text-transform:uppercase; margin-bottom:8px;}
   .caprow{display:flex; align-items:center; gap:12px;}
@@ -69,6 +70,18 @@
   .chip.on{background:var(--navy); border-color:var(--navy); color:#fff;}
   .hint{font-size:11.5px; color:var(--gray); margin-top:7px;}
 
+  /* bond comparison toggle */
+  .switchrow{display:flex; align-items:center; gap:10px;}
+  .switch{position:relative; display:inline-block; width:46px; height:26px; flex:none;}
+  .switch input{opacity:0; width:0; height:0; position:absolute;}
+  .slider{position:absolute; cursor:pointer; inset:0; background:#CBD5DE; border-radius:26px; transition:background .18s;}
+  .slider:before{content:""; position:absolute; height:20px; width:20px; left:3px; top:3px;
+    background:#fff; border-radius:50%; transition:transform .18s; box-shadow:0 1px 3px rgba(31,55,80,.3);}
+  .switch input:checked + .slider{background:var(--navy);}
+  .switch input:checked + .slider:before{transform:translateX(20px);}
+  .switch input:focus-visible + .slider{outline:2px solid var(--blue); outline-offset:2px;}
+  .switchlbl{font:600 13px var(--body); color:var(--charcoal);}
+
   /* period cards */
   .grid{display:flex; gap:18px; align-items:flex-start;}
   .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 16px 14px;
@@ -88,7 +101,8 @@
   thead th{background:var(--navy); color:#fff; font-family:var(--body); font-weight:700; font-size:9px;
     padding:7px 5px; vertical-align:middle; line-height:1.15;}
   thead th:first-child{border-top-left-radius:7px; text-align:center;}
-  thead th.aggh{background:var(--cream); color:var(--navy); border-top-right-radius:7px;}
+  thead th:last-child{border-top-right-radius:7px;}
+  thead th.aggh{background:var(--cream); color:var(--navy);}
   thead th.aggh span{display:block; font-weight:400; font-style:italic; color:var(--charcoal); font-size:8px; margin-top:1px;}
   tbody td{padding:6px 5px; text-align:center; border-bottom:1px solid #EAF0F5; font-variant-numeric:tabular-nums;}
   tbody tr:nth-child(even) td{background:var(--rowalt);}
@@ -112,9 +126,10 @@
   @media (max-width:880px){
     .grid{flex-direction:column;}
     .badgewrap{width:100%;}
-    .ctl, .ctl.capctl, .ctl.floorctl{flex:1 1 100%;}
+    .ctl, .ctl.capctl, .ctl.floorctl, .ctl.bondctl{flex:1 1 100%;}
     .tablescroll{overflow-x:auto; -webkit-overflow-scrolling:touch;}
-    table{min-width:430px;}
+    table{min-width:340px;}
+    body.bonds table{min-width:430px;}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
 </style>
@@ -124,8 +139,8 @@
 
   <div class="topline">
     <div class="headtext">
-      <h1>A Compelling Alternative to Bonds</h1>
-      <p class="lede"><b>Fixed Indexed Annuity.</b> Each year credits the S&amp;P 500 price return, limited by the cap you enter below and a 0% floor. Set a cap to see how the strategy would have performed across two market decades, next to the bond market year by year.</p>
+      <h1>How Indexed Crediting Works, Year by Year</h1>
+      <p class="lede"><b>Fixed Indexed Annuity.</b> Each year credits the S&amp;P 500 price return, limited by the cap you enter below and a 0% floor. Set a cap to see how the strategy would have performed across two market decades. For context, turn on the bond comparison to see the bond market year by year alongside it.</p>
     </div>
     <div class="badgewrap">
       <div class="badges">
@@ -158,6 +173,17 @@
       <label for="floor">Floor</label>
       <span class="numbox"><input type="number" id="floor" min="0" max="10" step="0.25" value="0" style="width:52px"><span>%</span></span>
       <div class="hint">Standard is 0%.</div>
+    </div>
+    <div class="ctl bondctl">
+      <label for="bondToggle">Bond Comparison</label>
+      <div class="switchrow">
+        <label class="switch">
+          <input type="checkbox" id="bondToggle">
+          <span class="slider"></span>
+        </label>
+        <span class="switchlbl" id="bondState">Off</span>
+      </div>
+      <div class="hint">Show the Bloomberg U.S. Aggregate Bond Index year by year.</div>
     </div>
   </div>
 
@@ -201,7 +227,7 @@ function pctCell(v){
   return '<td class="'+cls+'">'+s+'</td>';
 }
 
-function buildTable(years, cap, floor, premium){
+function buildTable(years, cap, floor, premium, showBonds){
   var rows = '';
   var val = premium;
   years.forEach(function(y){
@@ -214,7 +240,7 @@ function buildTable(years, cap, floor, premium){
       + pctCell(sp)
       + '<td class="credit">'+cr.toFixed(2)+'%</td>'
       + '<td class="value">'+money(val)+'</td>'
-      + pctCell(agg)
+      + (showBonds ? pctCell(agg) : '')
       + '</tr>';
   });
   var aggAnn = annualize(years.map(function(y){return AGG[y];}));
@@ -226,14 +252,14 @@ function buildTable(years, cap, floor, premium){
     + '<th>S&amp;P 500<br>Price Return</th>'
     + '<th>Credited Rate</th>'
     + '<th>Account Value</th>'
-    + '<th class="aggh">Bloomberg U.S. Aggregate Bond Index<span>Total Return</span></th>'
+    + (showBonds ? '<th class="aggh">Bloomberg U.S. Aggregate Bond Index<span>Total Return</span></th>' : '')
     + '</tr></thead>';
   var foot = '<tfoot><tr>'
     + '<td class="avglabel">Annualized<br>Credited Rate</td>'
     + '<td class="avgval">'+sgn(spAnn)+'</td>'
     + '<td class="avgval credit">'+creditAnn.toFixed(2)+'%</td>'
     + '<td></td>'
-    + '<td class="avgval">'+sgn(aggAnn)+'</td>'
+    + (showBonds ? '<td class="avgval">'+sgn(aggAnn)+'</td>' : '')
     + '</tr></tfoot>';
   return {html: head + '<tbody>'+rows+'</tbody>' + foot, end: val};
 }
@@ -244,13 +270,17 @@ function render(){
   cap = Math.min(cap, 50);
   var floor = parseFloat($('floor').value); if (isNaN(floor) || floor < 0) floor = 0;
   var premium = parseFloat($('premium').value); if (isNaN(premium) || premium < 0) premium = 100000;
+  var showBonds = $('bondToggle').checked;
+
+  document.body.classList.toggle('bonds', showBonds);
+  $('bondState').textContent = showBonds ? 'On' : 'Off';
 
   $('capRange').value = Math.min(Math.max(cap,2),16);
   $('capBadge').textContent = trimPct(cap);
   $('floorBadge').textContent = trimPct(floor);
 
-  var s = buildTable(STRONG, cap, floor, premium);
-  var c = buildTable(CHALL, cap, floor, premium);
+  var s = buildTable(STRONG, cap, floor, premium, showBonds);
+  var c = buildTable(CHALL, cap, floor, premium, showBonds);
   $('tblStrong').innerHTML = s.html;
   $('tblChall').innerHTML = c.html;
   $('annStrong').textContent = annualize(STRONG.map(function(y){return clampCredit(SP[y],cap,floor);})).toFixed(2)+'%';
@@ -262,12 +292,16 @@ function render(){
     _chips[_i].classList.toggle('on', parseFloat(_chips[_i].dataset.p)===premium);
   }
 
+  var bondDisc = showBonds
+    ? 'The Bloomberg U.S. Aggregate figures are the calendar-year total returns of the Bloomberg U.S. Aggregate Bond Index, an unmanaged index that cannot be invested in directly and does not reflect any fees; its 10-year figure is the annualized (compound) total return. '
+    : '';
+
   $('disc').textContent =
     'Hypothetical illustration of a fixed indexed annuity using a 1-year S&P 500 point-to-point crediting strategy. '
     + 'The S&P 500 cap is entered by the user for illustration; actual caps vary by carrier and product, are set at the start of each crediting period, and are subject to change. '
     + 'Each year credits the S&P 500 calendar-year price return (which does not include dividends), limited by the cap and a '+floor.toFixed(2)+'% floor, applied to a '+money(premium)+' initial premium. '
     + 'This illustration assumes no annual product fees and reflects index crediting only; actual product features, fees, riders, and surrender charges vary by carrier and product. Values do not reflect rider charges, surrender charges, or withdrawals. '
-    + 'The Bloomberg U.S. Aggregate figures are the calendar-year total returns of the Bloomberg U.S. Aggregate Bond Index, an unmanaged index that cannot be invested in directly and does not reflect any fees; its 10-year figure is the annualized (compound) total return. '
+    + bondDisc
     + 'Past performance does not guarantee future results. Investment advisory services offered through Brookstone Wealth Advisors, LLC (BWA), a registered investment advisor. BWA and Brookstone Capital Management, LLC are affiliated companies. '
     + 'BWA and Jantz Wealth Solutions are independent of each other. Insurance products and services are not offered through BWA but are offered and sold through individually licensed and appointed agents.';
 
@@ -279,6 +313,7 @@ $('capRange').addEventListener('input', function(){ $('capNum').value = parseFlo
 $('capNum').addEventListener('input', render);
 $('floor').addEventListener('input', render);
 $('premium').addEventListener('input', render);
+$('bondToggle').addEventListener('change', render);
 var _cbtns = document.querySelectorAll('#premChips .chip');
 for (var _j=0; _j<_cbtns.length; _j++){
   (function(b){ b.addEventListener('click', function(){ $('premium').value = b.dataset.p; render(); }); })(_cbtns[_j]);
