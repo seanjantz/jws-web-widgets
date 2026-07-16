@@ -278,17 +278,57 @@
   }
   .date-banner .times span { white-space: nowrap; }
 
+  .countdown {
+    margin-top: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px 14px;
+    flex-wrap: wrap;
+  }
+  .count-unit { min-width: 76px; }
+  .count-num {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: clamp(34px, 5vw, 48px);
+    line-height: 1;
+    color: var(--mint);
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(94,234,176,0.35);
+    border-radius: 12px;
+    padding: 14px 8px;
+    font-variant-numeric: tabular-nums;
+  }
+  .count-label {
+    margin-top: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mint-soft);
+  }
+  .count-sep {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: clamp(28px, 4vw, 40px);
+    color: rgba(255,255,255,0.45);
+    padding-top: 16px;
+  }
+  .count-live {
+    margin-top: 26px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: clamp(20px, 3vw, 26px);
+    color: var(--mint);
+  }
+  @media (max-width: 480px) {
+    .count-sep { display: none; }
+    .count-unit { min-width: 64px; }
+  }
+
   /* Register */
   .register { text-align: center; }
-  .register-box {
-    background: var(--white);
-    border: 2px dashed #BFD7CB;
-    border-radius: var(--radius);
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 48px 30px;
-    color: var(--slate);
-  }
 
   /* Footer */
   footer {
@@ -405,6 +445,16 @@
         <span>11:00am CT</span>
         <span>12:00pm ET</span>
       </div>
+      <div class="countdown" id="countdown" aria-live="polite">
+        <div class="count-unit"><div class="count-num" id="cd-days">0</div><div class="count-label">Days</div></div>
+        <div class="count-sep">:</div>
+        <div class="count-unit"><div class="count-num" id="cd-hours">00</div><div class="count-label">Hours</div></div>
+        <div class="count-sep">:</div>
+        <div class="count-unit"><div class="count-num" id="cd-mins">00</div><div class="count-label">Minutes</div></div>
+        <div class="count-sep">:</div>
+        <div class="count-unit"><div class="count-num" id="cd-secs">00</div><div class="count-label">Seconds</div></div>
+      </div>
+      <div class="count-live" id="cd-live" hidden>The Annuity Academy is live!</div>
     </div>
   </div>
 </section>
@@ -414,10 +464,7 @@
   <div class="wrap">
     <h2 class="section-title">Save Your Seat</h2>
     <p class="section-sub">Registration takes less than a minute. You will receive the webinar link by email.</p>
-    <!-- REGISTRATION FORM GOES HERE: replace the register-box div below with your form embed code -->
-    <div class="register-box">
-      Registration form placeholder. Paste your form embed here.
-    </div>
+    <!-- REGISTRATION FORM GOES HERE: paste your form embed code below this comment -->
   </div>
 </section>
 
@@ -428,6 +475,36 @@
     <p>For financial professional use only. Not for use with the general public.</p>
   </div>
 </footer>
+
+<!-- Countdown to Wednesday, July 22, 2026, 9:00am PT (16:00 UTC) -->
+<script>
+  (function () {
+    var target = new Date('2026-07-22T16:00:00Z').getTime();
+    var days = document.getElementById('cd-days');
+    var hours = document.getElementById('cd-hours');
+    var mins = document.getElementById('cd-mins');
+    var secs = document.getElementById('cd-secs');
+    var wrap = document.getElementById('countdown');
+    var live = document.getElementById('cd-live');
+    var pad = function (n) { return String(n).padStart(2, '0'); };
+
+    function tick() {
+      var diff = target - Date.now();
+      if (diff <= 0) {
+        wrap.hidden = true;
+        live.hidden = false;
+        clearInterval(timer);
+        return;
+      }
+      days.textContent = Math.floor(diff / 86400000);
+      hours.textContent = pad(Math.floor(diff / 3600000) % 24);
+      mins.textContent = pad(Math.floor(diff / 60000) % 60);
+      secs.textContent = pad(Math.floor(diff / 1000) % 60);
+    }
+    tick();
+    var timer = setInterval(tick, 1000);
+  })();
+</script>
 
 <!-- Duda iframe auto-resize (standard JWS postMessage pattern; harmless if page is standalone) -->
 <script>
