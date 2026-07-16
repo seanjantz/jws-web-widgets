@@ -476,6 +476,25 @@
   </div>
 </footer>
 
+<!-- Anchor links: scroll parent page when embedded in an iframe, normal smooth scroll when standalone -->
+<script>
+  (function () {
+    document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        var target = document.querySelector(link.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        if (window.parent !== window) {
+          var offset = target.getBoundingClientRect().top + window.pageYOffset;
+          parent.postMessage({ type: 'scroll-to', offset: offset }, '*');
+        } else {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  })();
+</script>
+
 <!-- Countdown to Wednesday, July 22, 2026, 9:00am PT (16:00 UTC) -->
 <script>
   (function () {
