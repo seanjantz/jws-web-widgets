@@ -572,10 +572,14 @@
 
   var displayMode = 'annual';
 
-  function render() {
+  function render(e) {
     var s = readInputs();
-    els.startAge.value = s.startAge;
-    els.curAge.value = s.curAge;
+    // Only push clamped values back into the fields on commit (change/blur/
+    // programmatic calls), never mid-keystroke, or the user can't type freely.
+    if (!e || e.type !== 'input') {
+      els.startAge.value = s.startAge;
+      els.curAge.value = s.curAge;
+    }
     updateSliderRange(s);
     var isMo = displayMode === 'monthly';
     els.income.step = isMo ? 600 : 500; // $50/mo or $500/yr increments
