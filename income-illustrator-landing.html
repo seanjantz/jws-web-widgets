@@ -280,6 +280,26 @@
       }
     });
 
+    // In-page anchor links (e.g. the hero's "Try the calculator" button) can't
+    // scroll when this page is embedded with auto-height, because the inner
+    // document has no scrollbar. Ask the parent page to scroll instead. When
+    // viewed directly on GitHub Pages, fall back to a normal smooth scroll.
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a[href^="#"]');
+      if (!link) return;
+      var target = document.querySelector(link.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      var offset = target.getBoundingClientRect().top + (window.pageYOffset || 0);
+      if (window.parent !== window) {
+        try {
+          parent.postMessage({ type: 'jws-widget-scroll', offset: offset }, '*');
+        } catch (err) {}
+      } else {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
     window.addEventListener('load', function () { notifyParent(); setTimeout(notifyParent, 400); });
     window.addEventListener('resize', notifyParent);
     if (window.ResizeObserver) {
