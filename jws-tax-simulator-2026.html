@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JWS Tax Scenario Simulator | Tax Year 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#00446A; --blue:#0084D3; --charcoal:#353E44; --amber:#C28D3D;
+  --green:#1F8A5B; --red:#C0392B; --bg:#EEF3F7; --card:#FFFFFF;
+  --line:#D7E1EA; --line-soft:#E6EDF3; --note:#E8F2FD; --muted:#5E6B75;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--charcoal);font-size:14px;line-height:1.45}
+h1,h2,h3,.mont{font-family:'Montserrat',sans-serif}
+.num{font-variant-numeric:tabular-nums}
+
+/* Top bar */
+.topbar{background:var(--navy);color:#fff;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:20;box-shadow:0 2px 10px rgba(0,30,50,.18)}
+.brand{display:flex;align-items:center;gap:16px}
+.wordmark{font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;letter-spacing:.14em}
+.wordmark small{display:block;font-weight:500;font-size:9px;letter-spacing:.32em;color:#9CC7E4;margin-top:2px}
+.tb-div{width:1px;height:34px;background:rgba(255,255,255,.28)}
+.tool-title{font-family:'Montserrat',sans-serif;font-weight:600;font-size:13px;letter-spacing:.06em}
+.tool-title span{color:#9CC7E4;font-weight:500}
+.badge{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;border:1px solid rgba(255,255,255,.45);padding:6px 12px;border-radius:3px;color:#D9ECF9;white-space:nowrap}
+
+/* Layout */
+.wrap{max-width:1440px;margin:0 auto;padding:22px 28px 40px;display:grid;grid-template-columns:376px 1fr;gap:22px;align-items:start}
+@media(max-width:1020px){.wrap{grid-template-columns:1fr}}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;margin-bottom:16px;overflow:hidden}
+.card-h{padding:11px 16px;border-bottom:1px solid var(--line-soft);display:flex;align-items:center;justify-content:space-between}
+.card-h h2{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--navy);text-transform:uppercase}
+.card-b{padding:14px 16px}
+
+/* Inputs */
+label.f{display:block;font-size:11px;font-weight:600;color:var(--muted);margin:0 0 4px;letter-spacing:.02em}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fgroup{margin-bottom:10px}
+input[type=text],input[type=number],select{width:100%;border:1px solid var(--line);border-radius:5px;padding:7px 9px;font:500 13.5px 'Inter',sans-serif;color:var(--charcoal);background:#fff}
+input:focus,select:focus{outline:2px solid var(--blue);outline-offset:0;border-color:var(--blue)}
+input.money{text-align:right}
+.seg{display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{flex:1;border:0;background:#F6F9FB;padding:8px 4px;font:600 11.5px 'Montserrat',sans-serif;letter-spacing:.04em;color:var(--muted);cursor:pointer;border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button.on{background:var(--navy);color:#fff}
+.chk{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:500;color:var(--charcoal);cursor:pointer}
+.chk input{accent-color:var(--blue);width:15px;height:15px}
+.statenote{background:var(--note);border-radius:5px;padding:9px 11px;font-size:11.5px;color:#204A66;line-height:1.5;margin-top:10px}
+.statenote b{font-weight:700}
+
+/* Strategy card accent */
+.card.strategy{border-left:4px solid var(--blue)}
+.card.strategy .card-h{background:linear-gradient(90deg,#F2F9FE, #fff)}
+.slider{width:100%;accent-color:var(--blue);margin-top:6px}
+.reset{border:0;background:none;color:var(--blue);font:600 11px 'Montserrat',sans-serif;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.reset:hover{text-decoration:underline}
+
+/* Results */
+.res-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+.res-title h1{font-size:19px;font-weight:700;color:var(--navy);letter-spacing:.01em}
+.res-title p{font-size:12px;color:var(--muted);margin-top:3px}
+.copybtn{background:var(--navy);color:#fff;border:0;border-radius:5px;padding:9px 16px;font:700 11px 'Montserrat',sans-serif;letter-spacing:.12em;cursor:pointer}
+.copybtn:hover{background:#035583}
+.copybtn.copied{background:var(--green)}
+
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+@media(max-width:760px){.metrics{grid-template-columns:1fr}}
+.metric{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px 16px}
+.metric .lab{font:600 10px 'Montserrat',sans-serif;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.metric .val{font-size:24px;font-weight:700;margin-top:6px;color:var(--charcoal)}
+.metric .sub{font-size:11.5px;color:var(--muted);margin-top:3px}
+.metric.hero{background:var(--navy);border-color:var(--navy)}
+.metric.hero .lab{color:#9CC7E4}
+.metric.hero .val{color:#fff}
+.metric.hero .sub{color:#BBD9EE}
+.delta-up{color:var(--red)} .delta-down{color:var(--green)}
+
+/* Comparison table */
+table.cmp{width:100%;border-collapse:collapse}
+.cmp th{font:700 10px 'Montserrat',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:right;padding:8px 14px;border-bottom:2px solid var(--navy)}
+.cmp th:first-child{text-align:left}
+.cmp td{padding:7px 14px;border-bottom:1px solid var(--line-soft);text-align:right;font-weight:500}
+.cmp td:first-child{text-align:left;color:var(--muted);font-weight:500}
+.cmp tr.sect td{background:#F4F8FB;font:700 10.5px 'Montserrat',sans-serif;letter-spacing:.1em;color:var(--navy);text-transform:uppercase;padding:6px 14px}
+.cmp tr.total td{font-weight:700;font-size:15px;border-top:2px solid var(--navy);border-bottom:0;padding-top:10px}
+.cmp td.d{font-weight:600}
+
+/* Bracket map */
+.mapwrap{padding:16px}
+.rail{margin-bottom:22px}
+.rail:last-child{margin-bottom:6px}
+.rail-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.rail-h .t{font:700 11px 'Montserrat',sans-serif;letter-spacing:.1em;color:var(--navy);text-transform:uppercase}
+.rail-h .room{font-size:12px;color:var(--charcoal)}
+.rail-h .room b{color:var(--blue)}
+.bar{position:relative;height:46px;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#FAFCFE;display:flex}
+.segm{position:relative;height:100%;border-right:1px dashed #C3D2DE;display:flex;align-items:flex-start;justify-content:flex-start}
+.segm:last-child{border-right:0}
+.segm .sl{font:700 10px 'Montserrat',sans-serif;color:#8CA0AF;padding:4px 0 0 6px;letter-spacing:.04em;white-space:nowrap}
+.fillA{position:absolute;left:0;bottom:0;height:18px;background:var(--blue);opacity:.85;border-radius:0 3px 3px 0}
+.fillB{position:absolute;bottom:0;height:18px;background:repeating-linear-gradient(45deg,var(--amber),var(--amber) 5px,#D8AE6C 5px,#D8AE6C 10px);border-radius:0 3px 3px 0}
+.tickline{position:absolute;top:0;bottom:0;width:2px;background:var(--charcoal);opacity:.55}
+.tick-sd{position:absolute;top:0;bottom:0;width:0;border-left:2px dotted var(--amber)}
+.axis{display:flex;justify-content:space-between;font-size:10px;color:#8CA0AF;margin-top:4px}
+.legend{display:flex;gap:18px;margin-top:10px;font-size:11.5px;color:var(--muted);flex-wrap:wrap}
+.legend .sw{display:inline-block;width:14px;height:10px;border-radius:2px;vertical-align:-1px;margin-right:5px}
+.sw.a{background:var(--blue)} 
+.sw.b{background:repeating-linear-gradient(45deg,var(--amber),var(--amber) 4px,#D8AE6C 4px,#D8AE6C 8px)}
+.sw.sd{border-left:2px dotted var(--amber);width:2px;height:12px;border-radius:0}
+
+/* Detail grid */
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+@media(max-width:900px){.detail-grid{grid-template-columns:1fr}}
+.kv{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--line-soft);font-size:12.5px}
+.kv:last-child{border-bottom:0}
+.kv .k{color:var(--muted)}
+.kv .v{font-weight:600}
+.flag{border-radius:6px;padding:10px 12px;font-size:12px;line-height:1.55;margin-top:10px}
+.flag.warn{background:#FBF3E6;border:1px solid #E8D3AE;color:#6E4E1C}
+.flag.ok{background:#EAF5EF;border:1px solid #C5E2D2;color:#1E5C40}
+.simp{display:inline-block;font:700 9px 'Montserrat',sans-serif;letter-spacing:.12em;background:var(--amber);color:#fff;border-radius:3px;padding:3px 7px;vertical-align:1px}
+details.math{border-top:1px solid var(--line-soft)}
+details.math summary{cursor:pointer;padding:10px 16px;font:700 10.5px 'Montserrat',sans-serif;letter-spacing:.12em;color:var(--blue);text-transform:uppercase;list-style:none}
+details.math summary::before{content:'+';margin-right:8px;font-size:13px}
+details.math[open] summary::before{content:'\2212'}
+details.math .mbody{padding:0 16px 14px;font-size:12.5px}
+.mline{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px dashed var(--line-soft)}
+.mline .k{color:var(--muted)} .mline .v{font-weight:600}
+.mline.strong .k,.mline.strong .v{font-weight:700;color:var(--navy)}
+
+/* Footer */
+.assump{background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px 18px;font-size:11.5px;color:var(--muted);line-height:1.65}
+.assump h3{font:700 10.5px 'Montserrat',sans-serif;letter-spacing:.14em;color:var(--navy);text-transform:uppercase;margin-bottom:8px}
+.assump p{margin-bottom:8px}
+.foot{max-width:1440px;margin:0 auto;padding:0 28px 34px;text-align:center;font-size:11px;color:#7C8994}
+.foot b{color:var(--navy);font-family:'Montserrat',sans-serif;letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="wordmark">JANTZ WEALTH SOLUTIONS<small>RETIREMENT &amp; INVESTMENT PLANNING</small></div>
+    <div class="tb-div"></div>
+    <div class="tool-title">FEDERAL &amp; STATE TAX SIMULATOR <span>&middot; TAX YEAR 2026</span></div>
+  </div>
+  <div class="badge">ADVISOR USE ONLY</div>
+</div>
+
+<div class="wrap">
+  <!-- ============ LEFT: INPUTS ============ -->
+  <div class="inputs">
+
+    <div class="card">
+      <div class="card-h"><h2>Household</h2></div>
+      <div class="card-b">
+        <div class="fgroup">
+          <label class="f">Filing status</label>
+          <div class="seg" id="fsSeg">
+            <button data-fs="mfj" class="on">Married joint</button>
+            <button data-fs="single">Single</button>
+            <button data-fs="hoh">Head of hh</button>
+          </div>
+        </div>
+        <div class="fgroup row2">
+          <label class="chk"><input type="checkbox" id="a65a" checked> Client is 65+</label>
+          <label class="chk" id="a65bWrap"><input type="checkbox" id="a65b" checked> Spouse is 65+</label>
+        </div>
+        <div class="fgroup row2">
+          <div>
+            <label class="f">State of residence</label>
+            <select id="state"></select>
+          </div>
+          <div>
+            <label class="f">Local income tax %</label>
+            <input type="number" id="localRate" class="money" value="0" step="0.1" min="0">
+          </div>
+        </div>
+        <div class="fgroup">
+          <label class="f">State-specific subtractions (pension exclusions, age deductions)</label>
+          <input type="text" id="stateSub" class="money" value="0">
+        </div>
+        <div class="statenote" id="stateNote"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><h2>Income (annual)</h2></div>
+      <div class="card-b">
+        <div class="row2 fgroup">
+          <div><label class="f">Wages</label><input type="text" class="money inc" id="wages" value="0"></div>
+          <div><label class="f">Social Security (total)</label><input type="text" class="money inc" id="ss" value="0"></div>
+        </div>
+        <div class="row2 fgroup">
+          <div><label class="f">IRA / 401(k) withdrawals</label><input type="text" class="money inc" id="ira" value="0"></div>
+          <div><label class="f">Roth conversion</label><input type="text" class="money inc" id="conv" value="0"></div>
+        </div>
+        <div class="row2 fgroup">
+          <div><label class="f">Pension / annuity</label><input type="text" class="money inc" id="pension" value="0"></div>
+          <div><label class="f">Taxable interest</label><input type="text" class="money inc" id="interest" value="0"></div>
+        </div>
+        <div class="row2 fgroup">
+          <div><label class="f">Tax-exempt interest</label><input type="text" class="money inc" id="tei" value="0"></div>
+          <div><label class="f">Non-qualified dividends</label><input type="text" class="money inc" id="nqd" value="0"></div>
+        </div>
+        <div class="row2 fgroup">
+          <div><label class="f">Qualified dividends</label><input type="text" class="money inc" id="qd" value="0"></div>
+          <div><label class="f">Short-term cap gains</label><input type="text" class="money inc" id="stg" value="0"></div>
+        </div>
+        <div class="row2 fgroup">
+          <div><label class="f">Long-term cap gains</label><input type="text" class="money inc" id="ltg" value="0"></div>
+          <div><label class="f">Other ordinary income</label><input type="text" class="money inc" id="other" value="0"></div>
+        </div>
+        <div class="row2 fgroup">
+          <div><label class="f">Above-line adjustments</label><input type="text" class="money inc" id="adj" value="0"></div>
+          <div><label class="f">Itemized (blank = standard)</label><input type="text" class="money inc" id="itemized" value="0"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card strategy">
+      <div class="card-h"><h2>Strategy overlay</h2><button class="reset" id="resetStrat">Reset</button></div>
+      <div class="card-b">
+        <div class="fgroup">
+          <label class="f">Additional Roth conversion</label>
+          <input type="text" class="money strat" id="sConv" value="0">
+          <input type="range" class="slider" id="sConvSlider" min="0" max="200000" step="1000" value="0">
+        </div>
+        <div class="row2 fgroup">
+          <div><label class="f">Additional LT gains realized</label><input type="text" class="money strat" id="sLtg" value="0"></div>
+          <div><label class="f">Other added income</label><input type="text" class="money strat" id="sOther" value="0"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RIGHT: RESULTS ============ -->
+  <div class="results">
+    <div class="res-top">
+      <div class="res-title">
+        <h1>Scenario Comparison</h1>
+        <p id="scenarioLine"></p>
+      </div>
+      <button class="copybtn" id="copyBtn">Copy Meeting Summary</button>
+    </div>
+
+    <div class="metrics" id="metrics"></div>
+
+    <div class="card">
+      <div class="card-h"><h2>Bracket &amp; Threshold Map</h2></div>
+      <div class="mapwrap">
+        <div class="rail">
+          <div class="rail-h"><span class="t">Ordinary taxable income vs 2026 federal brackets</span><span class="room" id="ordRoom"></span></div>
+          <div class="bar" id="ordBar"></div>
+          <div class="axis" id="ordAxis"></div>
+        </div>
+        <div class="rail">
+          <div class="rail-h"><span class="t">MAGI vs IRMAA tiers (sets 2028 Medicare premiums)</span><span class="room" id="irmaaRoomLbl"></span></div>
+          <div class="bar" id="irmaaBar"></div>
+          <div class="axis" id="irmaaAxis"></div>
+        </div>
+        <div class="legend">
+          <span><span class="sw a"></span>Baseline</span>
+          <span><span class="sw b"></span>Strategy addition</span>
+          <span id="sdLegend"><span class="sw sd"></span>Senior deduction phaseout begins</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><h2>Baseline vs Strategy</h2></div>
+      <table class="cmp">
+        <thead><tr><th>Line</th><th>Baseline</th><th>Strategy</th><th>Difference</th></tr></thead>
+        <tbody id="cmpBody"></tbody>
+      </table>
+      <details class="math">
+        <summary>Social Security taxation math</summary>
+        <div class="mbody" id="ssMath"></div>
+      </details>
+      <details class="math">
+        <summary>Deduction stack</summary>
+        <div class="mbody" id="dedMath"></div>
+      </details>
+    </div>
+
+    <div class="detail-grid">
+      <div class="card" style="margin:0">
+        <div class="card-h"><h2>Medicare IRMAA flag</h2></div>
+        <div class="card-b" id="irmaaCard"></div>
+      </div>
+      <div class="card" style="margin:0">
+        <div class="card-h"><h2>State treatment</h2></div>
+        <div class="card-b" id="stateCard"></div>
+      </div>
+    </div>
+
+    <div class="assump">
+      <h3>Modeled and not modeled</h3>
+      <p><b>Federal, modeled:</b> 2026 brackets and standard deduction (Rev. Proc. 2025-32), age 65+ additional deduction, OBBBA $6,000 senior deduction with 6% MAGI phaseout, Social Security taxation via provisional income, capital gains and qualified dividend stacking at 0/15/20%, simplified capital loss netting with the $3,000 limit, 3.8% NIIT, 0.9% additional Medicare tax on wages, IRMAA tier placement on current-year MAGI.</p>
+      <p><b>Federal, not modeled:</b> AMT, QBI deduction, tax credits, dependents, SALT cap detail inside itemized amounts, tips and overtime deductions, self-employment tax.</p>
+      <p><b>State:</b> 2026 rates, brackets, standard deductions, and exemptions per Tax Foundation (Feb 2026). Social Security auto-excluded where exempt; the eight states still taxing benefits use simplified threshold rules. Retirement income is auto-excluded in IL, PA, MS, and IA (55+). Missouri capital gains exclusion, Washington capital gains excise, Montana reduced LTCG rates, and the Maryland capital gains surtax are modeled. Other state retirement exclusions, credits, itemized deductions, phaseouts, and recapture provisions are not; use the manual subtraction field and the per-state note. Local taxes only via the manual local rate. Head of household uses single-filer state figures.</p>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <b>JANTZ WEALTH SOLUTIONS</b> &nbsp;&middot;&nbsp; www.jantzwealth.com<br><br>
+  For advisor use only. Hypothetical planning estimates, not tax, legal, or accounting advice. Figures are simplified and rounded; verify outcomes with a qualified tax professional before acting. Any output shared with clients requires compliance review before use. Investment advisory services offered through Brookstone Wealth Advisors, LLC (BWA), a registered investment advisor. BWA and Brookstone Capital Management, LLC are affiliated companies. BWA and Jantz Wealth Solutions are independent of each other. Insurance products and services are not offered through BWA but are offered and sold through individually licensed and appointed agents.
+</div>
+
+<script>
+/* JWS Tax Scenario Simulator - Engine (Tax Year 2026)
+   Sources: IRS Rev. Proc. 2025-32; Tax Foundation state tables (Feb 2026); CMS 2026 premiums.
+   Simplified planning model. Not tax advice. */
+
+const FED = {
+  year: 2026,
+  std: { single: 16100, mfj: 32200, hoh: 24150 },
+  addl65: { single: 2050, mfj: 1650, hoh: 2050 }, // per qualifying person
+  seniorDed: { amt: 6000, thresh: { single: 75000, mfj: 150000, hoh: 75000 }, rate: 0.06 },
+  brackets: {
+    single: [[0,.10],[12400,.12],[50400,.22],[105700,.24],[201775,.32],[256225,.35],[640600,.37]],
+    mfj:    [[0,.10],[24800,.12],[100800,.22],[211400,.24],[403550,.32],[512450,.35],[768700,.37]],
+    hoh:    [[0,.10],[17700,.12],[67450,.22],[105700,.24],[201775,.32],[256200,.35],[640600,.37]]
+  },
+  ltcg: {
+    single: [49450, 545500], mfj: [98900, 613700], hoh: [66200, 579600] // 0% up to first, 15% to second, 20% above
+  },
+  ssBase:  { single: 25000, mfj: 32000, hoh: 25000 },
+  ssUpper: { single: 34000, mfj: 44000, hoh: 34000 },
+  niitThresh: { single: 200000, mfj: 250000, hoh: 200000 },
+  addlMedicareThresh: { single: 200000, mfj: 250000, hoh: 200000 }
+};
+
+const IRMAA = {
+  // 2026 tiers (based on MAGI two years prior). partB = total monthly Part B; partD = monthly Part D add-on (approx.)
+  thresh: { single: [109000, 137000, 171000, 205000, 500000], mfj: [218000, 274000, 342000, 410000, 750000] },
+  partB: [202.90, 284.10, 405.80, 527.50, 649.30, 689.90],
+  partD: [0, 14.50, 37.50, 60.40, 83.30, 91.00]
+};
+
+/* STATES
+   type: 'none' | 'flat' | 'brackets' | 'wa_cg'
+   b / bMfj: [[min, rate], ...] rate applies above min. HoH uses single-filer state figures.
+   std: [single, mfj]; ex: {s, m, kind:'ded'|'credit'}
+   ss: 'exempt' | 'federal' | rule key handled in code
+   retExempt: true -> pension + IRA/401k + conversions auto-excluded
+   note: senior/caveat one-liner shown in UI
+*/
+const STATES = {
+  AL: { name:'Alabama', type:'brackets', b:[[0,.02],[500,.04],[3000,.05]], bMfj:[[0,.02],[1000,.04],[6000,.05]], std:[3000,8500], ex:{s:1500,m:3000,kind:'ded'}, ss:'exempt', note:'Defined-benefit pensions fully exempt; 65+ can exclude first $6,000 of IRA/401(k) distributions. Local occupational taxes excluded.' },
+  AK: { name:'Alaska', type:'none' },
+  AZ: { name:'Arizona', type:'flat', rate:.025, std:[8350,16700], ss:'exempt', note:'Std deduction reflects pre-OBBBA federal conformity ($8,350/$16,700) as of Feb 2026; watch for a conformity update.' },
+  AR: { name:'Arkansas', type:'brackets', b:[[0,.02],[4600,.039]], bMfj:[[0,.02],[4600,.039]], std:[2470,4940], ex:{s:29,m:58,kind:'credit'}, ss:'exempt', note:'Up to $6,000 employer pension/IRA exclusion. Separate low-income rate table not modeled.' },
+  CA: { name:'California', type:'brackets',
+    b:[[0,.01],[11079,.02],[26264,.04],[41452,.06],[57542,.08],[72724,.093],[371479,.103],[445771,.113],[742953,.123],[1000000,.133]],
+    bMfj:[[0,.01],[22158,.02],[52528,.04],[82904,.06],[115084,.08],[145448,.093],[742958,.103],[891542,.113],[1000000,.123],[1485906,.133]],
+    std:[5540,11080], ex:{s:153,m:306,kind:'credit'}, ss:'exempt', note:'No retirement income exclusion; capital gains taxed as ordinary income. Top rates include 1% mental health tax. Exemption credit phaseout not modeled.' },
+  CO: { name:'Colorado', type:'flat', rate:.044, std:[16100,32200], ss:'CO', note:'65+ fully deduct federally taxed Social Security; 55-64 simplified to a $20,000 pension/annuity subtraction here. $20k-$24k pension subtraction also applies to other retirement income (use manual subtraction).' },
+  CT: { name:'Connecticut', type:'brackets',
+    b:[[0,.02],[10000,.045],[50000,.055],[100000,.06],[200000,.065],[250000,.069],[500000,.0699]],
+    bMfj:[[0,.02],[20000,.045],[100000,.055],[200000,.06],[400000,.065],[500000,.0699],[1000000,.0699]],
+    std:[0,0], ex:{s:15000,m:24000,kind:'ded'}, ss:'CT', note:'Simplified: 3% recapture provisions and exemption/credit phaseouts not modeled. Pension/IRA income exempt below AGI thresholds (use manual subtraction).' },
+  DE: { name:'Delaware', type:'brackets', b:[[2000,.022],[5000,.039],[10000,.048],[20000,.052],[25000,.0555],[60000,.066]], bMfj:[[2000,.022],[5000,.039],[10000,.048],[20000,.052],[25000,.0555],[60000,.066]], std:[3250,6500], ex:{s:110,m:220,kind:'credit'}, ss:'exempt', note:'60+ can exclude up to $12,500 of pension and eligible retirement income per person (use manual subtraction).' },
+  FL: { name:'Florida', type:'none' },
+  GA: { name:'Georgia', type:'flat', rate:.0519, std:[12000,24000], ss:'exempt', note:'Retirement income exclusion: $35,000 per person ages 62-64, $65,000 per person 65+ (use manual subtraction). Rate may drop further on revenue triggers.' },
+  HI: { name:'Hawaii', type:'brackets',
+    b:[[0,.014],[9600,.032],[14400,.055],[19200,.064],[24000,.068],[36000,.072],[48000,.076],[125000,.079],[175000,.0825],[225000,.09],[275000,.10],[325000,.11]],
+    bMfj:[[0,.014],[19200,.032],[28800,.055],[38400,.064],[48000,.068],[72000,.072],[96000,.076],[250000,.079],[350000,.0825],[450000,.09],[550000,.10],[650000,.11]],
+    std:[4400,8800], ex:{s:1144,m:2288,kind:'ded'}, ss:'exempt', note:'Employer-funded pension income fully exempt (use manual subtraction for pension amounts). IRA/401(k) taxable.' },
+  ID: { name:'Idaho', type:'brackets', b:[[0,0],[4811,.053]], bMfj:[[0,0],[9622,.053]], std:[16100,32200], ss:'exempt', note:'Flat 5.3% above the zero bracket. Civil service/military/police/fire pension deduction available for 65+ (or 62+ disabled); reduced by Social Security received.' },
+  IL: { name:'Illinois', type:'flat', rate:.0495, std:[0,0], ex:{s:2925,m:5850,kind:'ded'}, ss:'exempt', retExempt:true, note:'Retirement income fully exempt: pensions, IRA/401(k) withdrawals, and Roth conversions are auto-excluded here.' },
+  IN: { name:'Indiana', type:'flat', rate:.0295, std:[0,0], ex:{s:1000,m:2000,kind:'ded'}, ss:'exempt', note:'Rate fell to 2.95% for 2026 (2.9% scheduled for 2027). County income taxes excluded (avg ~0.35%; add as local rate).' },
+  IA: { name:'Iowa', type:'flat', rate:.038, std:[16100,32200], ex:{s:40,m:80,kind:'credit'}, ss:'exempt', retExempt:true, note:'Retirement income (pension, IRA/401(k), conversions) fully exempt for taxpayers 55+. Auto-excluded here; assumes client is 55 or older.' },
+  KS: { name:'Kansas', type:'brackets', b:[[0,.052],[23000,.0558]], bMfj:[[0,.052],[46000,.0558]], std:[3605,8240], ex:{s:9160,m:18320,kind:'ded'}, ss:'exempt', note:'Social Security fully exempt since 2024. Public pensions (KPERS) exempt; private pensions and IRA/401(k) taxable.' },
+  KY: { name:'Kentucky', type:'flat', rate:.035, std:[3360,3360], ss:'exempt', note:'Rate fell to 3.5% for 2026. Up to $31,110 per person of pension/IRA/401(k) income excluded (use manual subtraction). Std deduction is not doubled for MFJ. Local occupational taxes excluded (avg ~0.93%).' },
+  LA: { name:'Louisiana', type:'flat', rate:.03, std:[12875,25750], ss:'exempt', note:'Public pensions exempt; $6,000 per person 65+ annual retirement income exclusion (use manual subtraction).' },
+  ME: { name:'Maine', type:'brackets', b:[[0,.058],[27399,.0675],[64849,.0715]], bMfj:[[0,.058],[54849,.0675],[129749,.0715]], std:[8350,16700], ex:{s:5300,m:10600,kind:'ded'}, ss:'exempt', note:'Pension/IRA deduction up to ~$45,864 per person (2025 figure), reduced by Social Security received (use manual subtraction). Pre-OBBBA std deduction conformity.' },
+  MD: { name:'Maryland', type:'brackets',
+    b:[[0,.02],[1000,.03],[2000,.04],[3000,.0475],[100000,.05],[125000,.0525],[150000,.055],[250000,.0575],[500000,.0625],[1000000,.065]],
+    bMfj:[[0,.02],[1000,.03],[2000,.04],[3000,.0475],[150000,.05],[175000,.0525],[225000,.055],[300000,.0575],[600000,.0625],[1200000,.065]],
+    std:[3350,6700], ex:{s:3200,m:6400,kind:'ded'}, ss:'exempt', mdSurtax:true, note:'County income taxes NOT included (avg ~2.4%; add as local rate). 2% surtax on capital gains when AGI > $350,000 is modeled. Pension exclusion up to ~$39,500 for 65+ (use manual subtraction).' },
+  MA: { name:'Massachusetts', type:'brackets', b:[[0,.05],[1083150,.09]], bMfj:[[0,.05],[1083150,.09]], std:[0,0], ex:{s:4400,m:8800,kind:'ded'}, ss:'exempt', note:'4% millionaire surtax included above $1,083,150 (threshold not doubled for MFJ). Government pensions exempt; IRA/401(k) taxable. Short-term gains actually taxed at 8.5% (modeled at standard rates here).' },
+  MI: { name:'Michigan', type:'flat', rate:.0425, std:[0,0], ex:{s:5900,m:11800,kind:'ded'}, ss:'exempt', note:'2026 completes the phase-in of the restored retirement subtraction; most pension/IRA income is deductible up to caps (use manual subtraction). City income taxes excluded.' },
+  MN: { name:'Minnesota', type:'brackets',
+    b:[[0,.0535],[33310,.068],[109430,.0785],[203150,.0985]], bMfj:[[0,.0535],[48700,.068],[193480,.0785],[337930,.0985]],
+    std:[15300,30600], ss:'MN', note:'Simplified Social Security subtraction: fully exempt below ~$88k single / ~$113k MFJ AGI, phasing out over the next $40k. Std deduction phaseout for high AGI not modeled.' },
+  MS: { name:'Mississippi', type:'brackets', b:[[10000,.04]], bMfj:[[10000,.04]], std:[2300,4600], ex:{s:6000,m:12000,kind:'ded'}, ss:'exempt', retExempt:true, note:'Qualified retirement income (pensions, normal-age IRA/401(k) distributions, conversions) fully exempt and auto-excluded here. Early withdrawals are taxable. Rate phasing down (3.75% in 2027).' },
+  MO: { name:'Missouri', type:'brackets',
+    b:[[1348,.02],[2696,.025],[4044,.03],[5392,.035],[6740,.04],[8088,.045],[9436,.047]], bMfj:[[1348,.02],[2696,.025],[4044,.03],[5392,.035],[6740,.04],[8088,.045],[9436,.047]],
+    std:[16100,32200], ss:'exempt', moCapGains:true, note:'Capital gains are 100% deductible (auto-excluded here). Social Security and public pensions exempt. Local earnings taxes (KC, St. Louis) excluded.' },
+  MT: { name:'Montana', type:'brackets', b:[[0,.047],[47500,.0565]], bMfj:[[0,.047],[95000,.0565]], std:[16100,32200], ss:'federal', mtLtcg:true, note:'Taxes the federally taxable portion of Social Security. Net long-term gains taxed at reduced 3.0%/4.1% rates (modeled).' },
+  NE: { name:'Nebraska', type:'brackets', b:[[0,.0246],[4130,.0351],[24760,.0455]], bMfj:[[0,.0246],[8250,.0351],[49530,.0455]], std:[8850,17700], ex:{s:176,m:352,kind:'credit'}, ss:'exempt', note:'Social Security fully exempt since 2025. Top rate fell to 4.55% for 2026 (3.99% by 2027).' },
+  NV: { name:'Nevada', type:'none' },
+  NH: { name:'New Hampshire', type:'none', note:'Interest & dividends tax fully repealed as of 2025.' },
+  NJ: { name:'New Jersey', type:'brackets',
+    b:[[0,.014],[20000,.0175],[35000,.035],[40000,.0553],[75000,.0637],[500000,.0897],[1000000,.1075]],
+    bMfj:[[0,.014],[20000,.0175],[50000,.0245],[70000,.035],[80000,.0553],[150000,.0637],[500000,.0897],[1000000,.1075]],
+    std:[0,0], ex:{s:1000,m:2000,kind:'ded'}, ss:'exempt', note:'Retirement income exclusion up to $75k single / $100k MFJ if total income under $150k (cliff-sensitive; use manual subtraction).' },
+  NM: { name:'New Mexico', type:'brackets',
+    b:[[0,.015],[5500,.032],[16500,.043],[33500,.047],[66500,.049],[210000,.059]], bMfj:[[0,.015],[8000,.032],[25000,.043],[50000,.047],[100000,.049],[315000,.059]],
+    std:[16100,32200], ss:'NM', note:'Social Security exempt when AGI is at or below $100k single / $150k MFJ; fully taxable above (a true cliff, modeled). $8,000 senior deduction for lower-income 65+ not modeled.' },
+  NY: { name:'New York', type:'brackets',
+    b:[[0,.039],[8500,.044],[11700,.0515],[13900,.054],[80650,.059],[215400,.0685],[1077550,.0965],[5000000,.103],[25000000,.109]],
+    bMfj:[[0,.039],[17150,.044],[23600,.0515],[27900,.054],[161550,.059],[323200,.0685],[2155350,.0965],[5000000,.103],[25000000,.109]],
+    std:[8000,16050], ss:'exempt', note:'$20,000 per person pension/IRA exclusion for 59.5+ (use manual subtraction); government pensions fully exempt. Tax benefit recapture for high earners and NYC tax not modeled.' },
+  NC: { name:'North Carolina', type:'flat', rate:.0399, std:[12750,25500], ss:'exempt', note:'Rate fell to 3.99% for 2026. No general retirement exclusion (Bailey-settlement government pensions exempt).' },
+  ND: { name:'North Dakota', type:'brackets', b:[[48475,.0195],[244825,.025]], bMfj:[[80975,.0195],[298075,.025]], std:[16100,32200], ss:'exempt', note:'Zero bracket makes most retirees state-tax-free. 40% long-term gain exclusion not modeled.' },
+  OH: { name:'Ohio', type:'brackets', b:[[26050,.0275]], bMfj:[[26050,.0275]], std:[0,0], ex:{s:2400,m:4800,kind:'ded'}, ss:'exempt', note:'Flat 2.75% above $26,050 as of 2026. Retirement income credit up to $200 and municipal income taxes (avg ~1.2%) not modeled; add city rate as local rate.' },
+  OK: { name:'Oklahoma', type:'brackets', b:[[3750,.025],[4900,.035],[7200,.045]], bMfj:[[7500,.025],[9800,.035],[14400,.045]], std:[6350,12700], ex:{s:1000,m:2000,kind:'ded'}, ss:'exempt', note:'Brackets consolidated to three for 2026, top rate 4.5%. $10,000 per person pension/IRA exclusion (use manual subtraction).' },
+  OR: { name:'Oregon', type:'brackets', b:[[0,.0475],[4550,.0675],[11400,.0875],[125000,.099]], bMfj:[[0,.0475],[9100,.0675],[22800,.0875],[250000,.099]], std:[2910,5820], ex:{s:256,m:512,kind:'credit'}, ss:'exempt', note:'No general retirement exclusion; retirement income credit for low-income 62+ not modeled. Portland-area local taxes excluded.' },
+  PA: { name:'Pennsylvania', type:'flat', rate:.0307, std:[0,0], ss:'exempt', retExempt:true, note:'Retirement income exempt after retirement eligibility: pensions, IRA/401(k) distributions, and conversions auto-excluded here. Local earned income taxes (avg ~1%) apply to wages; add as local rate if wages present.' },
+  RI: { name:'Rhode Island', type:'brackets', b:[[0,.0375],[82050,.0475],[186450,.0599]], bMfj:[[0,.0375],[82050,.0475],[186450,.0599]], std:[11200,22400], ex:{s:5250,m:10500,kind:'ded'}, ss:'RI', note:'Simplified: Social Security exempt at/after full retirement age when AGI is below ~$104k single / ~$130k MFJ; taxable above. Pension exclusion up to $20k at FRA (use manual subtraction).' },
+  SC: { name:'South Carolina', type:'brackets', b:[[0,0],[3640,.03],[18230,.06]], bMfj:[[0,0],[3640,.03],[18230,.06]], std:[8350,16700], ss:'exempt', note:'65+ get a $15,000 per person deduction plus up to $10,000 retirement exclusion (use manual subtraction; the $15k is reduced by the retirement amount). Top rate scheduled to revert to 6.2% July 1, 2026.' },
+  SD: { name:'South Dakota', type:'none' },
+  TN: { name:'Tennessee', type:'none' },
+  TX: { name:'Texas', type:'none' },
+  UT: { name:'Utah', type:'flat', rate:.045, std:[0,0], utStyle:true, ss:'UT', note:'Std/itemized deduction works as a 6% credit that phases out with income (modeled). Social Security credit modeled with simplified $75k/$100k phase-out start; confirm current-year thresholds.' },
+  VT: { name:'Vermont', type:'brackets', b:[[0,.0335],[49400,.066],[119700,.076],[249700,.0875]], bMfj:[[0,.0335],[82500,.066],[199450,.076],[304000,.0875]], std:[7650,15300], ex:{s:5300,m:10600,kind:'ded'}, ss:'VT', note:'Simplified Social Security exemption: full below ~$55k single / ~$70k MFJ AGI, phasing out over the next $10k. 3%-of-AGI minimum tax for AGI > $150k not modeled.' },
+  VA: { name:'Virginia', type:'brackets', b:[[0,.02],[3000,.03],[5000,.05],[17000,.0575]], bMfj:[[0,.02],[3000,.03],[5000,.05],[17000,.0575]], std:[8750,17500], ex:{s:930,m:1860,kind:'ded'}, ss:'exempt', note:'$12,000 per person age deduction for 65+, phased out by income (use manual subtraction).' },
+  WA: { name:'Washington', type:'wa_cg', note:'No income tax. 7% excise on long-term capital gains above the $278,000 deduction, 9% above $1M (modeled on LT gains only; real estate exempt).' },
+  WV: { name:'West Virginia', type:'brackets', b:[[0,.0222],[10000,.0296],[25000,.0333],[40000,.0444],[60000,.0482]], bMfj:[[0,.0222],[10000,.0296],[25000,.0333],[40000,.0444],[60000,.0482]], std:[0,0], ex:{s:2000,m:4000,kind:'ded'}, ss:'exempt', note:'Social Security phase-out complete: fully exempt starting tax year 2026.' },
+  WI: { name:'Wisconsin', type:'brackets', b:[[0,.035],[15110,.044],[51950,.053],[332720,.0765]], bMfj:[[0,.035],[20150,.044],[69260,.053],[443630,.0765]], std:[13960,25840], ex:{s:700,m:1400,kind:'ded'}, ss:'exempt', note:'Std deduction phases out with income (not modeled). 30% long-term gain exclusion not modeled. Retirees 65+ with income under limits get $5k per person retirement exclusion.' },
+  WY: { name:'Wyoming', type:'none' },
+  DC: { name:'Washington DC', type:'brackets', b:[[0,.04],[10000,.06],[40000,.065],[60000,.085],[250000,.0925],[500000,.0975],[1000000,.1075]], bMfj:[[0,.04],[10000,.06],[40000,.065],[60000,.085],[250000,.0925],[500000,.0975],[1000000,.1075]], std:[16100,32200], ss:'exempt', note:'Social Security exempt.' }
+};
+const STATE_ORDER = Object.keys(STATES).sort((a,b)=>STATES[a] && STATES[b] ? (STATES[a].name||a).localeCompare(STATES[b].name||b) : 0);
+
+// ---------- helpers ----------
+function bracketTax(brackets, ti){
+  let tax = 0;
+  for (let i=0;i<brackets.length;i++){
+    const [min, rate] = brackets[i];
+    const next = i+1<brackets.length ? brackets[i+1][0] : Infinity;
+    if (ti > min) tax += (Math.min(ti,next)-min)*rate; else break;
+  }
+  return tax;
+}
+function marginalInfo(brackets, ti){
+  for (let i=brackets.length-1;i>=0;i--){
+    if (ti > brackets[i][0] || (i===0)) {
+      const top = i+1<brackets.length ? brackets[i+1][0] : Infinity;
+      return { rate: brackets[i][1], top, room: top===Infinity?Infinity:Math.max(0,top-ti) };
+    }
+  }
+  return { rate: brackets[0][1], top: brackets.length>1?brackets[1][0]:Infinity, room: Infinity };
+}
+
+// ---------- federal ----------
+function calcFederal(inp){
+  const fs = inp.filingStatus;
+  const n65 = (inp.age65_1?1:0) + (fs==='mfj' && inp.age65_2?1:0);
+  // capital gain netting (simplified)
+  let st = inp.stGains, lt = inp.ltGains;
+  if (st<0 && lt>0){ lt += st; st = 0; if (lt<0){ st = lt; lt = 0; } }
+  else if (lt<0 && st>0){ st += lt; lt = 0; if (st<0){ lt = 0; } }
+  let capOrdinary, capPref;
+  if (st<=0 && lt<=0){ capOrdinary = Math.max(st+lt, -3000); capPref = 0; }
+  else { capOrdinary = Math.max(0,st); capPref = Math.max(0,lt); }
+  const pref = inp.qualDividends + capPref;
+
+  const nonSS = inp.wages + inp.interest + inp.nonQualDividends + inp.qualDividends +
+                inp.iraWithdrawals + inp.rothConversion + inp.pension + capOrdinary + capPref + inp.otherIncome - inp.adjustments;
+
+  // taxable Social Security via provisional income
+  const PI = nonSS + inp.taxExemptInterest + 0.5*inp.ssBenefits;
+  const base = FED.ssBase[fs], upper = FED.ssUpper[fs];
+  let taxSS = 0;
+  if (inp.ssBenefits>0){
+    if (PI <= base) taxSS = 0;
+    else if (PI <= upper) taxSS = Math.min(0.5*inp.ssBenefits, 0.5*(PI-base));
+    else taxSS = Math.min(0.85*inp.ssBenefits, 0.85*(PI-upper) + Math.min(0.5*inp.ssBenefits, 0.5*(upper-base)));
+  }
+  const AGI = nonSS + taxSS;
+  const MAGI = AGI + inp.taxExemptInterest; // IRMAA definition; ≈ AGI for senior ded/NIIT
+
+  // deductions
+  const std = FED.std[fs] + n65*FED.addl65[fs];
+  const baseDed = Math.max(std, inp.itemized||0);
+  const sd = FED.seniorDed;
+  const perSenior = Math.max(0, sd.amt - sd.rate*Math.max(0, AGI - sd.thresh[fs]));
+  const seniorDed = perSenior * n65;
+  const taxable = Math.max(0, AGI - baseDed - seniorDed);
+
+  const ordTaxable = Math.max(0, taxable - pref);
+  const prefTaxable = taxable - ordTaxable;
+
+  const ordTax = bracketTax(FED.brackets[fs], ordTaxable);
+  // preferential stacking
+  const [b0,b1] = FED.ltcg[fs];
+  const z = Math.max(0, Math.min(ordTaxable+prefTaxable, b0) - ordTaxable);
+  const fifteen = Math.max(0, Math.min(ordTaxable+prefTaxable, b1) - Math.max(ordTaxable, b0));
+  const twenty = Math.max(0, prefTaxable - z - fifteen);
+  const prefTax = fifteen*0.15 + twenty*0.20;
+
+  const NII = Math.max(0, inp.interest + inp.nonQualDividends + inp.qualDividends + Math.max(0, capOrdinary+capPref));
+  const niit = 0.038 * Math.min(NII, Math.max(0, MAGI - FED.niitThresh[fs]));
+  const addlMedicare = 0.009 * Math.max(0, inp.wages - FED.addlMedicareThresh[fs]);
+
+  const totalFed = ordTax + prefTax + niit + addlMedicare;
+  const mi = marginalInfo(FED.brackets[fs], ordTaxable);
+  const prefRate = twenty>0 ? .20 : (fifteen>0 ? .15 : 0);
+
+  // IRMAA tier from this year's MAGI (sets premiums two years out)
+  const th = IRMAA.thresh[fs==='mfj'?'mfj':'single'];
+  let tier = 0; for (const t of th){ if (MAGI > t) tier++; }
+  const nextTh = tier < th.length ? th[tier] : null;
+
+  const totalIncome = inp.wages+inp.interest+inp.nonQualDividends+inp.qualDividends+inp.iraWithdrawals+inp.rothConversion+inp.pension+Math.max(0,capOrdinary)+capPref+inp.otherIncome+inp.ssBenefits;
+
+  return { fs, n65, taxSS, ssPct: inp.ssBenefits>0? taxSS/inp.ssBenefits : 0, PI, AGI, MAGI,
+    std, baseDed, seniorDed, perSenior, taxable, ordTaxable, prefTaxable, pref,
+    ordTax, prefTax, zeroPct:z, fifteen, twenty, niit, addlMedicare, totalFed, NII,
+    marginalOrd: mi.rate, bracketTop: mi.top, bracketRoom: mi.room, prefRate,
+    irmaaTier: tier, irmaaNext: nextTh, irmaaRoom: nextTh!==null? nextTh-MAGI : null,
+    partB: IRMAA.partB[tier], partD: IRMAA.partD[tier],
+    totalIncome, effAGI: AGI>0? totalFed/AGI : 0,
+    capOrdinary, capPref, seniorThresh: sd.thresh[fs] };
+}
+
+// ---------- state ----------
+function calcState(inp, fed){
+  const code = inp.state, S = STATES[code];
+  const out = { code, name: S? S.name : code, tax:0, taxable:0, ssExcluded:0, retExcluded:0, note: S && S.note || '', local:0, detail:'' };
+  if (!S || S.type==='none'){ out.detail='No state income tax.'; return out; }
+  const fs = inp.filingStatus, isMfj = fs==='mfj';
+
+  if (S.type==='wa_cg'){
+    const ltIncluded = Math.max(0, fed.capPref);
+    const base = Math.max(0, ltIncluded - 278000);
+    // 7% up to $1M of gains, 9% above $1M (simplified on post-deduction base)
+    const t1 = Math.min(base, Math.max(0, 1000000-278000));
+    const t2 = Math.max(0, base - t1);
+    out.tax = t1*0.07 + t2*0.09;
+    out.taxable = base;
+    out.detail = base>0? 'WA capital gains excise on long-term gains above $278,000 deduction.' : 'Below the WA capital gains deduction; no tax.';
+    return out;
+  }
+
+  // Social Security exclusion
+  let ssExcl = 0; const tSS = fed.taxSS;
+  switch (S.ss){
+    case 'federal': ssExcl = 0; break;
+    case 'CO': ssExcl = (inp.age65_1||inp.age65_2) ? tSS : Math.min(tSS, 20000*(isMfj?2:1)); break;
+    case 'CT': { const th = isMfj?100000:75000; ssExcl = fed.AGI < th ? tSS : 0.75*tSS; break; }
+    case 'MN': { const th = isMfj?113000:88000; const over = Math.max(0, fed.AGI-th); const pct = Math.max(0, 1 - over/40000); ssExcl = tSS*pct; break; }
+    case 'NM': { const th = isMfj?150000:100000; ssExcl = fed.AGI <= th ? tSS : 0; break; }
+    case 'RI': { const th = isMfj?130000:104000; ssExcl = fed.AGI < th ? tSS : 0; break; }
+    case 'VT': { const full = isMfj?70000:55000; const over = Math.max(0, fed.AGI-full); const pct = Math.max(0, 1-over/10000); ssExcl = tSS*pct; break; }
+    case 'UT': ssExcl = 0; break; // handled via credit below
+    default: ssExcl = tSS; // exempt
+  }
+
+  // retirement income exclusion (IL, PA, MS, IA)
+  let retExcl = 0;
+  if (S.retExempt) retExcl = inp.pension + inp.iraWithdrawals + inp.rothConversion;
+
+  // MO capital gains deduction
+  let cgExcl = 0;
+  if (S.moCapGains) cgExcl = Math.max(0, fed.capOrdinary) + fed.capPref;
+
+  let stateAGI = fed.AGI - ssExcl - retExcl - cgExcl - (inp.stateSubtractions||0);
+  stateAGI = Math.max(0, stateAGI);
+
+  const std = S.std ? (isMfj? S.std[1] : S.std[0]) : 0;
+  let exDed = 0, exCredit = 0;
+  if (S.ex){ if (S.ex.kind==='ded') exDed = isMfj? S.ex.m : S.ex.s; else exCredit = isMfj? S.ex.m : S.ex.s; }
+
+  let taxable = Math.max(0, stateAGI - std - exDed);
+  let tax = 0;
+
+  if (S.utStyle){
+    taxable = stateAGI; // UT taxes income ≈ AGI, then applies credits
+    tax = taxable * S.rate;
+    const fedDedUsed = Math.max(fed.std, inp.itemized||0);
+    let tpCredit = 0.06 * fedDedUsed;
+    const thr = isMfj? 36426 : 18213;
+    tpCredit = Math.max(0, tpCredit - 0.013*Math.max(0, stateAGI - thr));
+    tax = Math.max(0, tax - tpCredit);
+    // SS credit (simplified)
+    if (fed.taxSS>0){
+      let ssCredit = S.rate * fed.taxSS;
+      const sth = isMfj? 100000 : 75000;
+      ssCredit = Math.max(0, ssCredit - 0.025*Math.max(0, fed.MAGI - sth));
+      tax = Math.max(0, tax - ssCredit);
+    }
+  } else if (S.type==='flat'){
+    tax = taxable * S.rate;
+  } else {
+    let brk = isMfj && S.bMfj ? S.bMfj : S.b;
+    if (S.mtLtcg){
+      // Montana: LT gains at 3.0%/4.1%, ordinary at regular rates, stacked
+      const ltPortion = Math.min(taxable, fed.capPref);
+      const ordPortion = taxable - ltPortion;
+      tax = bracketTax(brk, ordPortion);
+      const th = brk[1][0];
+      const ltLow = Math.max(0, Math.min(ordPortion+ltPortion, th) - ordPortion);
+      tax += ltLow*0.03 + (ltPortion-ltLow)*0.041;
+    } else {
+      tax = bracketTax(brk, taxable);
+    }
+  }
+
+  // Maryland capital gains surtax
+  if (S.mdSurtax && fed.AGI > 350000){
+    tax += 0.02 * (Math.max(0, fed.capOrdinary) + fed.capPref);
+  }
+
+  tax = Math.max(0, tax - exCredit);
+  const local = (inp.localRate||0)/100 * taxable;
+
+  out.tax = tax; out.local = local; out.taxable = taxable; out.ssExcluded = ssExcl; out.retExcluded = retExcl + cgExcl;
+  return out;
+}
+
+function calcAll(inp){
+  const fed = calcFederal(inp);
+  const state = calcState(inp, fed);
+  const combined = fed.totalFed + state.tax + state.local;
+  return { fed, state, combined };
+}
+
+if (typeof module !== 'undefined') module.exports = { FED, STATES, STATE_ORDER, IRMAA, calcFederal, calcState, calcAll, bracketTax, marginalInfo };
+/* ================= UI ================= */
+const $ = id => document.getElementById(id);
+const TIER_NAMES = ['Standard','Tier 1','Tier 2','Tier 3','Tier 4','Tier 5'];
+
+const fmt = n => '$' + Math.round(n).toLocaleString('en-US');
+const fmt2 = n => '$' + n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const pct = (n,d=1) => (n*100).toFixed(d) + '%';
+const parseMoney = el => { const v = parseFloat(String(el.value).replace(/[^0-9.\-]/g,'')); return isFinite(v)? v : 0; };
+const fmtField = el => { el.value = Math.round(parseMoney(el)).toLocaleString('en-US'); };
+function dSpan(delta, invert=false){
+  if (Math.abs(delta) < 0.5) return '<span class="d">&ndash;</span>';
+  const up = delta > 0;
+  const bad = invert ? !up : up; // for tax rows, up = bad (red)
+  const cls = bad ? 'delta-up' : 'delta-down';
+  return `<span class="d ${cls}">${up?'+':'&minus;'}${fmt(Math.abs(delta))}</span>`;
+}
+const dPlain = delta => Math.abs(delta) < 0.5 ? '<span class="d">&ndash;</span>' : `<span class="d">${delta>0?'+':'&minus;'}${fmt(Math.abs(delta))}</span>`;
+
+let filingStatus = 'mfj';
+
+/* ---- populate state select ---- */
+(function(){
+  const sel = $('state');
+  STATE_ORDER.forEach(code => {
+    const o = document.createElement('option');
+    o.value = code; o.textContent = STATES[code].name;
+    sel.appendChild(o);
+  });
+  sel.value = 'ID';
+})();
+
+/* ---- filing status segmented control ---- */
+$('fsSeg').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  filingStatus = b.dataset.fs;
+  document.querySelectorAll('#fsSeg button').forEach(x => x.classList.toggle('on', x===b));
+  $('a65bWrap').style.display = filingStatus==='mfj' ? 'flex' : 'none';
+  recompute();
+});
+
+/* ---- input events ---- */
+document.querySelectorAll('input.money').forEach(el => {
+  el.addEventListener('input', recompute);
+  el.addEventListener('blur', () => { fmtField(el); recompute(); });
+});
+['a65a','a65b','localRate'].forEach(id => $(id).addEventListener('input', recompute));
+$('state').addEventListener('change', recompute);
+$('sConvSlider').addEventListener('input', () => { $('sConv').value = (+$('sConvSlider').value).toLocaleString('en-US'); recompute(); });
+$('sConv').addEventListener('input', () => { $('sConvSlider').value = Math.min(200000, Math.max(0, parseMoney($('sConv')))); });
+$('resetStrat').addEventListener('click', () => {
+  ['sConv','sLtg','sOther'].forEach(id => $(id).value = '0');
+  $('sConvSlider').value = 0; recompute();
+});
+
+/* ---- read inputs ---- */
+function readBaseline(){
+  return {
+    filingStatus, age65_1: $('a65a').checked, age65_2: filingStatus==='mfj' && $('a65b').checked,
+    state: $('state').value, localRate: parseFloat($('localRate').value)||0, stateSubtractions: parseMoney($('stateSub')),
+    wages: parseMoney($('wages')), interest: parseMoney($('interest')), taxExemptInterest: parseMoney($('tei')),
+    nonQualDividends: parseMoney($('nqd')), qualDividends: parseMoney($('qd')),
+    iraWithdrawals: parseMoney($('ira')), rothConversion: parseMoney($('conv')), pension: parseMoney($('pension')),
+    ssBenefits: parseMoney($('ss')), stGains: parseMoney($('stg')), ltGains: parseMoney($('ltg')),
+    otherIncome: parseMoney($('other')), adjustments: parseMoney($('adj')), itemized: parseMoney($('itemized'))
+  };
+}
+function readStrategyAdds(){
+  return { conv: parseMoney($('sConv')), ltg: parseMoney($('sLtg')), other: parseMoney($('sOther')) };
+}
+
+let cur = null; // {B, S, adds, inpB, inpS}
+
+function recompute(){
+  const inpB = readBaseline();
+  const adds = readStrategyAdds();
+  const inpS = Object.assign({}, inpB, {
+    rothConversion: inpB.rothConversion + adds.conv,
+    ltGains: inpB.ltGains + adds.ltg,
+    otherIncome: inpB.otherIncome + adds.other
+  });
+  const B = calcAll(inpB), S = calcAll(inpS);
+  cur = { B, S, adds, inpB, inpS };
+  renderScenarioLine(); renderMetrics(); renderTable(); renderMaps(); renderMath(); renderIrmaaCard(); renderStateCard();
+}
+
+/* ---- scenario line ---- */
+function renderScenarioLine(){
+  const { adds, inpB } = cur;
+  const parts = [];
+  if (adds.conv) parts.push(fmt(adds.conv) + ' additional Roth conversion');
+  if (adds.ltg) parts.push(fmt(adds.ltg) + ' LT gains realized');
+  if (adds.other) parts.push(fmt(adds.other) + ' other income');
+  const fsLbl = {mfj:'Married filing jointly', single:'Single', hoh:'Head of household'}[inpB.filingStatus];
+  const n65 = cur.B.fed.n65;
+  const ageLbl = n65===2 ? 'both 65+' : n65===1 ? 'one 65+' : 'under 65';
+  const strat = parts.length ? 'Strategy adds ' + parts.join(', ') + '.' : 'No strategy overlay applied yet.';
+  $('scenarioLine').textContent = `${fsLbl}, ${ageLbl} \u00B7 ${STATES[inpB.state].name} \u00B7 ${strat}`;
+}
+
+/* ---- metrics ---- */
+function renderMetrics(){
+  const { B, S } = cur;
+  const rows = [
+    { lab:'Combined tax (Strategy)', val:S.combined, base:B.combined, hero:true },
+    { lab:'Federal tax (Strategy)', val:S.fed.totalFed, base:B.fed.totalFed },
+    { lab:'State + local (Strategy)', val:S.state.tax + S.state.local, base:B.state.tax + B.state.local }
+  ];
+  $('metrics').innerHTML = rows.map(r => {
+    const d = r.val - r.base;
+    const cls = Math.abs(d)<0.5 ? '' : d>0 ? 'delta-up' : 'delta-down';
+    const sign = d>0?'+':'\u2212';
+    const dTxt = Math.abs(d)<0.5 ? 'No change vs baseline' : `<span class="${cls}">${sign}${fmt(Math.abs(d))}</span> vs baseline ${fmt(r.base)}`;
+    return `<div class="metric ${r.hero?'hero':''}"><div class="lab">${r.lab}</div><div class="val num">${fmt(r.val)}</div><div class="sub num">${dTxt}</div></div>`;
+  }).join('');
+}
+
+/* ---- comparison table ---- */
+function renderTable(){
+  const { B, S } = cur;
+  const fB = B.fed, fS = S.fed;
+  const row = (k, b, s, opts={}) => {
+    const d = s - b;
+    const dCell = opts.rate ? '<span class="d"></span>' : (opts.tax ? dSpan(d) : dPlain(d));
+    const f = opts.rate ? (x=>pct(x)) : fmt;
+    return `<tr class="${opts.cls||''}"><td>${k}</td><td class="num">${f(b)}</td><td class="num">${f(s)}</td><td class="num">${dCell}</td></tr>`;
+  };
+  const sect = t => `<tr class="sect"><td colspan="4">${t}</td></tr>`;
+  let h = '';
+  h += sect('Income');
+  h += row('Total income (incl. full Social Security)', fB.totalIncome, fS.totalIncome);
+  h += row(`Taxable Social Security (${pct(fB.ssPct,0)} \u2192 ${pct(fS.ssPct,0)})`, fB.taxSS, fS.taxSS);
+  h += row('Adjusted gross income', fB.AGI, fS.AGI);
+  h += row('MAGI (IRMAA definition)', fB.MAGI, fS.MAGI);
+  h += sect('Deductions');
+  h += row('Standard or itemized used', -fB.baseDed, -fS.baseDed);
+  h += row('Senior deduction (65+)', -fB.seniorDed, -fS.seniorDed);
+  h += row('Federal taxable income', fB.taxable, fS.taxable);
+  h += sect('Federal tax');
+  h += row('Ordinary income tax', fB.ordTax, fS.ordTax, {tax:1});
+  h += row('Capital gains &amp; qualified dividend tax', fB.prefTax, fS.prefTax, {tax:1});
+  if (fB.niit || fS.niit) h += row('Net investment income tax (3.8%)', fB.niit, fS.niit, {tax:1});
+  if (fB.addlMedicare || fS.addlMedicare) h += row('Additional Medicare tax (0.9%)', fB.addlMedicare, fS.addlMedicare, {tax:1});
+  h += row('Total federal tax', fB.totalFed, fS.totalFed, {tax:1});
+  h += sect('State');
+  h += row(`${S.state.name} income tax`, B.state.tax, S.state.tax, {tax:1});
+  if (B.state.local || S.state.local) h += row('Local income tax', B.state.local, S.state.local, {tax:1});
+  h += `<tr class="total"><td>Combined tax</td><td class="num">${fmt(B.combined)}</td><td class="num">${fmt(S.combined)}</td><td class="num">${dSpan(S.combined-B.combined)}</td></tr>`;
+  h += row('Effective rate on AGI', fB.effAGI, fS.effAGI, {rate:1});
+  h += row('Marginal ordinary bracket', fB.marginalOrd, fS.marginalOrd, {rate:1});
+  h += row('Capital gains rate at margin', fB.prefRate, fS.prefRate, {rate:1});
+  $('cmpBody').innerHTML = h;
+}
+
+/* ---- bracket + IRMAA maps ---- */
+function buildRail(barEl, axisEl, bounds, labels, top, valA, valB, sdTick){
+  // bounds: ascending start values incl. 0; each segment runs to next bound or top
+  let segs = '';
+  const segsArr = [];
+  for (let i=0;i<bounds.length;i++){
+    if (bounds[i] >= top) break;
+    const end = (i+1<bounds.length && bounds[i+1]<top) ? bounds[i+1] : top;
+    segsArr.push({start:bounds[i], end, label:labels[i]});
+  }
+  segsArr.forEach(s => {
+    const w = (s.end - s.start)/top*100;
+    segs += `<div class="segm" style="width:${w}%"><span class="sl">${s.label}</span></div>`;
+  });
+  const aW = Math.min(valA, top)/top*100;
+  const bW = Math.max(0, Math.min(valB, top) - Math.min(valA, top))/top*100;
+  let fills = `<div class="fillA" style="width:${aW}%"></div>`;
+  if (bW > 0.05) fills += `<div class="fillB" style="left:${aW}%;width:${bW}%"></div>`;
+  if (sdTick !== null && sdTick > 0 && sdTick < top) fills += `<div class="tick-sd" style="left:${sdTick/top*100}%"></div>`;
+  barEl.innerHTML = segs + fills;
+  let ax = '';
+  segsArr.forEach(s => {
+    const w = (s.end - s.start)/top*100;
+    ax += `<span class="num" style="width:${w}%;text-align:right">${fmt(s.end)}</span>`;
+  });
+  axisEl.innerHTML = ax;
+}
+function renderMaps(){
+  const { B, S } = cur;
+  const fs = cur.inpB.filingStatus;
+  // ordinary rail
+  const brk = FED.brackets[fs];
+  const bounds = brk.map(b => b[0]);
+  const rateLbls = brk.map(b => pct(b[1],0));
+  const maxOrd = Math.max(B.fed.ordTaxable, S.fed.ordTaxable);
+  let top = null;
+  for (let i=1;i<bounds.length;i++){ if (bounds[i] > Math.max(maxOrd*1.15, bounds[2])) { top = bounds[i]; break; } }
+  if (!top) top = Math.max(maxOrd*1.25, bounds[bounds.length-1]*1.1);
+  buildRail($('ordBar'), $('ordAxis'), bounds, rateLbls, top, B.fed.ordTaxable, S.fed.ordTaxable, null);
+  const mi = S.fed;
+  $('ordRoom').innerHTML = mi.bracketRoom === Infinity
+    ? `Top bracket (${pct(mi.marginalOrd,0)})`
+    : `Room to top of ${pct(mi.marginalOrd,0)} bracket: <b class="num">${fmt(mi.bracketRoom)}</b>`;
+  // IRMAA rail
+  const th = IRMAA.thresh[fs==='mfj'?'mfj':'single'];
+  const iBounds = [0].concat(th);
+  const iLbls = IRMAA.partB.map((p,i)=> (i===0?'Std ':'') + '$' + p.toFixed(2));
+  const maxMagi = Math.max(B.fed.MAGI, S.fed.MAGI);
+  let iTop = null;
+  for (const t of th){ if (t > maxMagi*1.1) { iTop = t; break; } }
+  if (!iTop) iTop = Math.max(maxMagi*1.15, th[th.length-1]*1.05);
+  iTop = Math.max(iTop, th[1]);
+  const sdThresh = S.fed.n65 > 0 ? S.fed.seniorThresh : null;
+  buildRail($('irmaaBar'), $('irmaaAxis'), iBounds, iLbls, iTop, B.fed.MAGI, S.fed.MAGI, sdThresh);
+  $('sdLegend').style.display = (sdThresh && sdThresh < iTop) ? 'inline' : 'none';
+  $('irmaaRoomLbl').innerHTML = S.fed.irmaaRoom === null
+    ? 'Top IRMAA tier'
+    : `Room to next tier: <b class="num">${fmt(S.fed.irmaaRoom)}</b>`;
+}
+
+/* ---- math panels ---- */
+function renderMath(){
+  const { B, S, inpB } = cur;
+  const fB = B.fed, fS = S.fed;
+  const line = (k, b, s, strong=false) => `<div class="mline ${strong?'strong':''}"><span class="k">${k}</span><span class="v num">${b} \u2192 ${s}</span></div>`;
+  const nonSSB = fB.AGI - fB.taxSS, nonSSS = fS.AGI - fS.taxSS;
+  $('ssMath').innerHTML =
+    line('Income other than Social Security', fmt(nonSSB), fmt(nonSSS)) +
+    line('+ Tax-exempt interest', fmt(inpB.taxExemptInterest), fmt(inpB.taxExemptInterest)) +
+    line('+ 50% of Social Security benefit', fmt(inpB.ssBenefits*0.5), fmt(inpB.ssBenefits*0.5)) +
+    line('= Provisional income', fmt(fB.PI), fmt(fS.PI), true) +
+    line('Thresholds (50% / 85% tiers)', fmt(FED.ssBase[inpB.filingStatus]), fmt(FED.ssUpper[inpB.filingStatus])) +
+    line(`Taxable Social Security`, `${fmt(fB.taxSS)} (${pct(fB.ssPct,0)})`, `${fmt(fS.taxSS)} (${pct(fS.ssPct,0)})`, true);
+  const n65 = fB.n65;
+  $('dedMath').innerHTML =
+    line('Standard deduction (base)', fmt(FED.std[inpB.filingStatus]), fmt(FED.std[inpB.filingStatus])) +
+    line(`Age 65+ additional (${n65} \u00D7 ${fmt(FED.addl65[inpB.filingStatus])})`, fmt(n65*FED.addl65[inpB.filingStatus]), fmt(n65*FED.addl65[inpB.filingStatus])) +
+    line('Itemized entered', fmt(inpB.itemized), fmt(inpB.itemized)) +
+    line('Deduction used (larger of the two)', fmt(fB.baseDed), fmt(fS.baseDed), true) +
+    line(`Senior deduction per person ($6,000 \u2212 6% of MAGI over ${fmt(fB.seniorThresh)})`, fmt(fB.perSenior), fmt(fS.perSenior)) +
+    line(`Senior deduction total (\u00D7 ${n65})`, fmt(fB.seniorDed), fmt(fS.seniorDed), true) +
+    line('Federal taxable income', fmt(fB.taxable), fmt(fS.taxable), true);
+}
+
+/* ---- IRMAA card ---- */
+function renderIrmaaCard(){
+  const { B, S } = cur;
+  const fB = B.fed, fS = S.fed;
+  const kv = (k,v) => `<div class="kv"><span class="k">${k}</span><span class="v num">${v}</span></div>`;
+  const surchB = (fS.partB - IRMAA.partB[0]);
+  const surchD = fS.partD;
+  const annual = (surchB + surchD) * 12;
+  let h = '';
+  h += kv('Tier from this year\u2019s MAGI', `${TIER_NAMES[fB.irmaaTier]} \u2192 ${TIER_NAMES[fS.irmaaTier]}`);
+  h += kv('Part B premium per person / mo', `${fmt2(fB.partB)} \u2192 ${fmt2(fS.partB)}`);
+  h += kv('Part D add-on per person / mo (approx.)', `${fmt2(fB.partD)} \u2192 ${fmt2(fS.partD)}`);
+  if (fS.irmaaTier > 0) h += kv('Surcharge vs standard, per person', `${fmt2(surchB + surchD)}/mo \u00B7 ${fmt(annual)}/yr`);
+  if (fS.irmaaTier > fB.irmaaTier){
+    h += `<div class="flag warn"><b>Strategy crosses into ${TIER_NAMES[fS.irmaaTier]}.</b> IRMAA is a cliff: one dollar over the line triggers the full tier. This year\u2019s MAGI sets premiums two years out, so 2026 income drives 2028 Medicare premiums.</div>`;
+  } else if (fS.irmaaTier === 0){
+    h += `<div class="flag ok">Below the first IRMAA threshold with <b class="num">${fmt(fS.irmaaRoom)}</b> of MAGI headroom. 2026 MAGI sets 2028 premiums.</div>`;
+  } else {
+    h += `<div class="flag warn">Already in ${TIER_NAMES[fS.irmaaTier]} before the strategy overlay. This year\u2019s MAGI sets premiums two years out (2026 \u2192 2028).</div>`;
+  }
+  $('irmaaCard').innerHTML = h;
+}
+
+/* ---- state card + note ---- */
+function renderStateCard(){
+  const { B, S, inpB } = cur;
+  const st = STATES[inpB.state];
+  $('stateNote').innerHTML = `<b>${st.name}:</b> ` + (st.type==='none' ? 'No state income tax.' : (st.note || ''));
+  const kv = (k,v) => `<div class="kv"><span class="k">${k}</span><span class="v num">${v}</span></div>`;
+  const simplified = ['CO','CT','MN','NM','RI','VT','UT','MT'].includes(inpB.state) || (st.note||'').toLowerCase().includes('simplified');
+  let h = '';
+  if (st.type === 'none'){
+    h += `<div class="flag ok"><b>${st.name}</b> has no state income tax.</div>`;
+  } else {
+    if (simplified) h += `<div style="margin-bottom:8px"><span class="simp">SIMPLIFIED MODEL</span></div>`;
+    if (S.state.ssExcluded || B.state.ssExcluded) h += kv('Social Security excluded by state', `${fmt(B.state.ssExcluded)} \u2192 ${fmt(S.state.ssExcluded)}`);
+    if (S.state.retExcluded) h += kv('Retirement / cap gains auto-excluded', `${fmt(B.state.retExcluded)} \u2192 ${fmt(S.state.retExcluded)}`);
+    if (inpB.stateSubtractions) h += kv('Manual state subtractions', fmt(inpB.stateSubtractions));
+    h += kv('State taxable income', `${fmt(B.state.taxable)} \u2192 ${fmt(S.state.taxable)}`);
+    h += kv(`${st.name} tax`, `${fmt(B.state.tax)} \u2192 ${fmt(S.state.tax)}`);
+    if (S.state.local || B.state.local) h += kv('Local tax', `${fmt(B.state.local)} \u2192 ${fmt(S.state.local)}`);
+    if (st.note) h += `<div class="flag" style="background:var(--note);border:1px solid #C9E0F2;color:#204A66;margin-top:12px">${st.note}</div>`;
+  }
+  $('stateCard').innerHTML = h;
+}
+
+/* ---- copy meeting summary ---- */
+$('copyBtn').addEventListener('click', () => {
+  const { B, S, adds, inpB } = cur;
+  const fB = B.fed, fS = S.fed;
+  const fsLbl = {mfj:'Married filing jointly', single:'Single', hoh:'Head of household'}[inpB.filingStatus];
+  const n65 = fB.n65;
+  const stratBits = [];
+  if (adds.conv) stratBits.push(`${fmt(adds.conv)} additional Roth conversion`);
+  if (adds.ltg) stratBits.push(`${fmt(adds.ltg)} LT gains realized`);
+  if (adds.other) stratBits.push(`${fmt(adds.other)} other income`);
+  const L = [];
+  L.push('JWS TAX SCENARIO SUMMARY, TAX YEAR 2026');
+  L.push(`Prepared ${new Date().toLocaleDateString('en-US')}. ${fsLbl}, ${n65===2?'both 65+':n65===1?'one 65+':'under 65'}. State: ${STATES[inpB.state].name}.`);
+  L.push(stratBits.length ? `Strategy overlay: ${stratBits.join(', ')}.` : 'No strategy overlay.');
+  L.push('');
+  L.push('BASELINE -> STRATEGY');
+  L.push(`AGI: ${fmt(fB.AGI)} -> ${fmt(fS.AGI)}`);
+  L.push(`Taxable Social Security: ${fmt(fB.taxSS)} (${pct(fB.ssPct,0)}) -> ${fmt(fS.taxSS)} (${pct(fS.ssPct,0)})`);
+  L.push(`Deductions incl. senior deduction: ${fmt(fB.baseDed+fB.seniorDed)} -> ${fmt(fS.baseDed+fS.seniorDed)}`);
+  L.push(`Federal taxable income: ${fmt(fB.taxable)} -> ${fmt(fS.taxable)}`);
+  L.push(`Federal tax: ${fmt(fB.totalFed)} -> ${fmt(fS.totalFed)} (${fS.totalFed-fB.totalFed>=0?'+':''}${fmt(fS.totalFed-fB.totalFed)})`);
+  L.push(`${S.state.name} tax${S.state.local?' + local':''}: ${fmt(B.state.tax+B.state.local)} -> ${fmt(S.state.tax+S.state.local)}`);
+  L.push(`Combined tax: ${fmt(B.combined)} -> ${fmt(S.combined)} (${S.combined-B.combined>=0?'+':''}${fmt(S.combined-B.combined)})`);
+  L.push(`Effective rate on AGI: ${pct(fB.effAGI)} -> ${pct(fS.effAGI)}`);
+  L.push('');
+  L.push(`Marginal ordinary bracket (strategy): ${pct(fS.marginalOrd,0)}${fS.bracketRoom!==Infinity?`, ${fmt(fS.bracketRoom)} of room to the top of the bracket`:''}`);
+  L.push(`IRMAA: ${TIER_NAMES[fB.irmaaTier]} -> ${TIER_NAMES[fS.irmaaTier]}${fS.irmaaRoom!==null?`, ${fmt(fS.irmaaRoom)} of MAGI room to the next tier`:''}. 2026 MAGI sets 2028 Medicare premiums.`);
+  if (fS.niit) L.push(`NIIT applies: ${fmt(fS.niit)}.`);
+  if (n65) L.push(`Senior deduction claimed: ${fmt(fS.seniorDed)}${fS.perSenior<6000?' (partially phased out)':''}.`);
+  L.push('');
+  L.push('Simplified planning estimates for discussion only. Not tax, legal, or accounting advice. Verify with a qualified tax professional.');
+  navigator.clipboard.writeText(L.join('\n')).then(() => {
+    const b = $('copyBtn'); b.classList.add('copied'); b.textContent = 'Copied';
+    setTimeout(() => { b.classList.remove('copied'); b.textContent = 'Copy Meeting Summary'; }, 1600);
+  });
+});
+
+/* ---- boot ---- */
+recompute();
+
+</script>
+</body>
+</html>
