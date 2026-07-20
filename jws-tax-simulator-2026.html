@@ -946,6 +946,14 @@ $('copyBtn').addEventListener('click', () => {
   });
 });
 
+/* ---- Duda iframe auto-resize ---- */
+if (window.parent !== window){
+  const post = () => parent.postMessage({ jwsWidget:'tax-simulator-2026', height: document.documentElement.scrollHeight }, '*');
+  try { new ResizeObserver(post).observe(document.body); } catch(e){}
+  window.addEventListener('load', post);
+  setTimeout(post, 400);
+}
+
 /* ---- boot ---- */
 recompute();
 
