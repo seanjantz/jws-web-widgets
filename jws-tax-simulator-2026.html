@@ -480,8 +480,11 @@ function calcFederal(inp){
   const MAGI = AGI + inp.taxExemptInterest; // IRMAA definition; ≈ AGI for senior ded/NIIT
 
   // deductions
-  const std = FED.std[fs] + n65*FED.addl65[fs];
+  const stdBase = FED.std[fs];
+  const addlAmt = n65*FED.addl65[fs];
+  const std = stdBase + addlAmt;
   const baseDed = Math.max(std, inp.itemized||0);
+  const usedItemized = (inp.itemized||0) > std;
   const sd = FED.seniorDed;
   const perSenior = Math.max(0, sd.amt - sd.rate*Math.max(0, AGI - sd.thresh[fs]));
   const seniorDed = perSenior * n65;
@@ -514,7 +517,7 @@ function calcFederal(inp){
   const totalIncome = inp.wages+inp.interest+inp.nonQualDividends+inp.qualDividends+inp.iraWithdrawals+inp.rothConversion+inp.pension+Math.max(0,capOrdinary)+capPref+inp.otherIncome+inp.ssBenefits;
 
   return { fs, n65, taxSS, ssPct: inp.ssBenefits>0? taxSS/inp.ssBenefits : 0, PI, AGI, MAGI,
-    std, baseDed, seniorDed, perSenior, taxable, ordTaxable, prefTaxable, pref,
+    std, stdBase, addlAmt, usedItemized, baseDed, seniorDed, perSenior, taxable, ordTaxable, prefTaxable, pref,
     ordTax, prefTax, zeroPct:z, fifteen, twenty, niit, addlMedicare, totalFed, NII,
     marginalOrd: mi.rate, bracketTop: mi.top, bracketRoom: mi.room, prefRate,
     irmaaTier: tier, irmaaNext: nextTh, irmaaRoom: nextTh!==null? nextTh-MAGI : null,
@@ -630,7 +633,7 @@ if (typeof module !== 'undefined') module.exports = { FED, STATES, STATE_ORDER, 
 const $ = id => document.getElementById(id);
 const TIER_NAMES = ['Standard','Tier 1','Tier 2','Tier 3','Tier 4','Tier 5'];
 
-const fmt = n => '$' + Math.round(n).toLocaleString('en-US');
+const fmt = n => (n < 0 ? '\u2212$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-US');
 const fmt2 = n => '$' + n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 const pct = (n,d=1) => (n*100).toFixed(d) + '%';
 const parseMoney = el => { const v = parseFloat(String(el.value).replace(/[^0-9.\-]/g,'')); return isFinite(v)? v : 0; };
@@ -760,8 +763,13 @@ function renderTable(){
   h += row('Adjusted gross income', fB.AGI, fS.AGI);
   h += row('MAGI (IRMAA definition)', fB.MAGI, fS.MAGI);
   h += sect('Deductions');
-  h += row('Standard or itemized used', -fB.baseDed, -fS.baseDed);
-  h += row('Senior deduction (65+)', -fB.seniorDed, -fS.seniorDed);
+  if (fB.usedItemized){
+    h += row('Itemized deductions', -fB.baseDed, -fS.baseDed);
+  } else {
+    h += row('Standard deduction', -fB.stdBase, -fS.stdBase);
+    h += row('Additional standard deduction (age 65+)', -fB.addlAmt, -fS.addlAmt);
+  }
+  h += row('Enhanced senior deduction (OBBBA)', -fB.seniorDed, -fS.seniorDed);
   h += row('Federal taxable income', fB.taxable, fS.taxable);
   h += sect('Federal tax');
   h += row('Ordinary income tax', fB.ordTax, fS.ordTax, {tax:1});
@@ -858,8 +866,8 @@ function renderMath(){
     line(`Age 65+ additional (${n65} \u00D7 ${fmt(FED.addl65[inpB.filingStatus])})`, fmt(n65*FED.addl65[inpB.filingStatus]), fmt(n65*FED.addl65[inpB.filingStatus])) +
     line('Itemized entered', fmt(inpB.itemized), fmt(inpB.itemized)) +
     line('Deduction used (larger of the two)', fmt(fB.baseDed), fmt(fS.baseDed), true) +
-    line(`Senior deduction per person ($6,000 \u2212 6% of MAGI over ${fmt(fB.seniorThresh)})`, fmt(fB.perSenior), fmt(fS.perSenior)) +
-    line(`Senior deduction total (\u00D7 ${n65})`, fmt(fB.seniorDed), fmt(fS.seniorDed), true) +
+    line(`Enhanced senior deduction per person, OBBBA ($6,000 \u2212 6% of MAGI over ${fmt(fB.seniorThresh)})`, fmt(fB.perSenior), fmt(fS.perSenior)) +
+    line(`Enhanced senior deduction total (\u00D7 ${n65})`, fmt(fB.seniorDed), fmt(fS.seniorDed), true) +
     line('Federal taxable income', fmt(fB.taxable), fmt(fS.taxable), true);
 }
 
@@ -948,10 +956,13 @@ $('copyBtn').addEventListener('click', () => {
 
 /* ---- Duda iframe auto-resize ---- */
 if (window.parent !== window){
-  const post = () => parent.postMessage({ jwsWidget:'tax-simulator-2026', height: document.documentElement.scrollHeight }, '*');
+  const measure = () => Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, document.documentElement.offsetHeight);
+  const post = () => parent.postMessage({ jwsWidget:'tax-simulator-2026', height: measure() }, '*');
   try { new ResizeObserver(post).observe(document.body); } catch(e){}
   window.addEventListener('load', post);
-  setTimeout(post, 400);
+  window.addEventListener('resize', post);
+  window.addEventListener('message', e => { const d = e.data || {}; if (d.jwsWidget === 'tax-simulator-2026' && d.ping) post(); });
+  let n = 0; const iv = setInterval(() => { post(); if (++n > 12) clearInterval(iv); }, 500);
 }
 
 /* ---- boot ---- */
