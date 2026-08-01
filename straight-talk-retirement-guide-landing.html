@@ -393,9 +393,23 @@
 </footer>
 
 <script>
-  /* ---- BUY LINK: replace with your direct Amazon product URL ---- */
-  var AMAZON_URL = "https://amzn.to/4vuCZI5"; // direct Amazon product link
+  /* ---- buy links ---- */
+  var AMAZON_URL = "https://amzn.to/4vuCZI5";
   document.querySelectorAll('[data-buy]').forEach(function(a){ a.href = AMAZON_URL; });
+
+  /* ---- in-page anchors: scroll the parent page when embedded ---- */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      if (window.self !== window.top) {
+        window.top.postMessage({ type:'jws-widget-scrollto', offset: target.getBoundingClientRect().top + window.pageYOffset }, '*');
+      } else {
+        target.scrollIntoView({ behavior:'smooth' });
+      }
+    });
+  });
 
   /* ---- scroll reveal ---- */
   var io = new IntersectionObserver(function(entries){
@@ -403,10 +417,10 @@
   }, {threshold:0.12});
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 
-  /* ---- Duda iframe auto-resize (postMessage), matches existing JWS widget pattern ---- */
+  /* ---- iframe auto-resize ---- */
   function postHeight(){
-    var h = document.documentElement.scrollHeight;
-    parent.postMessage({ type:'jws-widget-resize', height:h }, '*');
+    window.top.postMessage({ type:'jws-widget-resize', height: document.documentElement.scrollHeight }, '*');
+    parent.postMessage({ type:'jws-widget-resize', height: document.documentElement.scrollHeight }, '*');
   }
   window.addEventListener('load', postHeight);
   window.addEventListener('resize', postHeight);
