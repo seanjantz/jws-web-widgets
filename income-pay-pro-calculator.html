@@ -1031,12 +1031,22 @@
     });
   });
 
-  // Duda iframe auto-resize (standard JWS postMessage pattern)
+  // Duda iframe auto-resize (hardened JWS pattern: post to parent and top, retry pings on load)
   function sendHeight() {
     if (window.parent === window) return;
-    window.parent.postMessage({ jwsWidgetHeight: document.body.scrollHeight, id: 'income-pay-pro-calculator' }, '*');
+    var h = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+    var msg = { type: 'jws-widget-resize', id: 'income-pay-pro-calculator', height: h };
+    try { window.parent.postMessage(msg, '*'); } catch (e) {}
+    try { if (window.top && window.top !== window.parent) window.top.postMessage(msg, '*'); } catch (e) {}
   }
-  window.addEventListener('load', sendHeight);
+  window.addEventListener('load', function () {
+    sendHeight();
+    var pings = 0;
+    var t = setInterval(function () {
+      sendHeight();
+      if (++pings >= 10) clearInterval(t);
+    }, 500);
+  });
   window.addEventListener('resize', sendHeight);
 
   calc();
