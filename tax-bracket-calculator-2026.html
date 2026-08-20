@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Federal Tax Bracket Calculator | Jantz Wealth Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #00446A;
+    --blue: #0084D3;
+    --charcoal: #353E44;
+    --bg: #F7F9FB;
+    --card: #FFFFFF;
+    --line: #E1E7EC;
+    --muted: #5F6B73;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: transparent;
+    color: var(--charcoal);
+  }
+  .jws-tax-widget {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 8px 16px 24px;
+  }
+  .widget-header { margin-bottom: 20px; }
+  .eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 6px;
+  }
+  h2.widget-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(26px, 4.5vw, 38px);
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1.15;
+  }
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .inputs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 640px) {
+    .inputs-grid { grid-template-columns: 1fr; }
+  }
+  label.field-label {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  select, input[type="text"] {
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--charcoal);
+    background: #fff;
+    border: 1px solid #C6D0D8;
+    border-radius: 8px;
+    padding: 13px 14px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2300446A' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+  select:focus, input[type="text"]:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(0, 132, 211, 0.15);
+  }
+  .input-prefix { position: relative; }
+  .input-prefix span {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--muted);
+    pointer-events: none;
+  }
+  .input-prefix input { padding-left: 30px; }
+
+  .results-panel {
+    border-left: 4px solid var(--blue);
+  }
+  .results-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 18px;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 720px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); row-gap: 22px; }
+  }
+  .stat .stat-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    margin-bottom: 5px;
+  }
+  .stat .stat-value {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(21px, 3vw, 27px);
+    font-weight: 700;
+    color: var(--navy);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat .stat-value.accent { color: var(--blue); }
+
+  .table-wrap {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+  }
+  thead th {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--navy);
+    text-align: left;
+    padding: 13px 20px;
+  }
+  thead th:nth-child(3), thead th:nth-child(4),
+  tbody td:nth-child(3), tbody td:nth-child(4) { text-align: right; }
+  tbody td {
+    padding: 15px 20px;
+    font-size: 15px;
+    border-top: 1px solid var(--line);
+  }
+  tbody td.rate { font-weight: 700; color: var(--navy); }
+  tbody td.range { color: var(--muted); }
+  tbody td.tax-amt { font-weight: 700; color: var(--charcoal); }
+  tbody tr.marginal-row td { background: rgba(0, 132, 211, 0.07); }
+  tbody tr.marginal-row td.rate { color: var(--blue); }
+  .marginal-tag {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--blue);
+    border-radius: 4px;
+    padding: 3px 7px;
+    margin-left: 8px;
+    vertical-align: 1px;
+  }
+  @media (max-width: 560px) {
+    thead th, tbody td { padding: 11px 12px; font-size: 13.5px; }
+    thead th { font-size: 10.5px; }
+    .marginal-tag { display: none; }
+  }
+  .disclaimer {
+    margin-top: 16px;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+<div class="jws-tax-widget">
+
+  <div class="widget-header">
+    <div class="eyebrow">2026 Federal Tax Brackets</div>
+    <h2 class="widget-title">What you actually pay.</h2>
+  </div>
+
+  <div class="panel">
+    <div class="inputs-grid">
+      <div>
+        <label class="field-label" for="filingStatus">Filing Status</label>
+        <select id="filingStatus">
+          <option value="mfj" selected>Married Filing Jointly</option>
+          <option value="single">Single</option>
+          <option value="hoh">Head of Household</option>
+          <option value="mfs">Married Filing Separately</option>
+        </select>
+      </div>
+      <div>
+        <label class="field-label" for="taxableIncome">Taxable Income</label>
+        <div class="input-prefix">
+          <span>$</span>
+          <input type="text" id="taxableIncome" inputmode="numeric" value="0" autocomplete="off">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel results-panel">
+    <div class="results-label">Your 2026 Federal Tax</div>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-label">Total tax</div>
+        <div class="stat-value" id="totalTax">$0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Marginal rate</div>
+        <div class="stat-value accent" id="marginalRate">0%</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Effective rate</div>
+        <div class="stat-value" id="effectiveRate">0%</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">After-tax income</div>
+        <div class="stat-value" id="afterTax">$0</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Rate</th>
+          <th>Bracket</th>
+          <th>Your Income in This Bracket</th>
+          <th>Tax</th>
+        </tr>
+      </thead>
+      <tbody id="bracketRows"></tbody>
+    </table>
+  </div>
+
+  <p class="disclaimer">
+    Based on 2026 federal income tax brackets (IRS Rev. Proc. 2025-32) applied to taxable
+    income, after deductions. Figures are rounded, exclude credits, capital gains rates,
+    AMT, and state taxes, and are for educational purposes only. This is not tax advice.
+    Consult a qualified tax professional about your specific situation.
+  </p>
+
+</div>
+
+<script>
+(function () {
+  // 2026 federal brackets per IRS Rev. Proc. 2025-32.
+  // Each entry: [rate, upper bound of bracket]. Infinity = top bracket.
+  var BRACKETS = {
+    single: [
+      [0.10, 12400], [0.12, 50400], [0.22, 105700], [0.24, 201775],
+      [0.32, 256225], [0.35, 640600], [0.37, Infinity]
+    ],
+    mfj: [
+      [0.10, 24800], [0.12, 100800], [0.22, 211400], [0.24, 403550],
+      [0.32, 512450], [0.35, 768700], [0.37, Infinity]
+    ],
+    mfs: [
+      [0.10, 12400], [0.12, 50400], [0.22, 105700], [0.24, 201775],
+      [0.32, 256225], [0.35, 384350], [0.37, Infinity]
+    ],
+    hoh: [
+      [0.10, 17700], [0.12, 67450], [0.22, 105700], [0.24, 201775],
+      [0.32, 256200], [0.35, 640600], [0.37, Infinity]
+    ]
+  };
+
+  var statusEl = document.getElementById('filingStatus');
+  var incomeEl = document.getElementById('taxableIncome');
+  var rowsEl = document.getElementById('bracketRows');
+
+  function fmtMoney(n) {
+    return '$' + Math.round(n).toLocaleString('en-US');
+  }
+  function fmtPct(n) {
+    return (Math.round(n * 1000) / 10).toLocaleString('en-US', { maximumFractionDigits: 1 }) + '%';
+  }
+  function parseIncome() {
+    var raw = incomeEl.value.replace(/[^0-9.]/g, '');
+    var n = parseFloat(raw);
+    return isNaN(n) || n < 0 ? 0 : Math.min(n, 99999999);
+  }
+
+  function calculate() {
+    var income = parseIncome();
+    var brackets = BRACKETS[statusEl.value];
+    var totalTax = 0;
+    var marginalRate = 0;
+    var lower = 0;
+    var rowsHtml = '';
+
+    for (var i = 0; i < brackets.length; i++) {
+      var rate = brackets[i][0];
+      var upper = brackets[i][1];
+
+      var inBracket = Math.max(0, Math.min(income, upper) - lower);
+      var tax = inBracket * rate;
+      totalTax += tax;
+
+      var isMarginal = income > 0 && income > lower && income <= upper;
+      if (income > lower) marginalRate = rate;
+
+      var rangeLabel = upper === Infinity
+        ? 'Over ' + fmtMoney(lower)
+        : fmtMoney(lower) + ' to ' + fmtMoney(upper);
+
+      rowsHtml += '<tr class="' + (isMarginal ? 'marginal-row' : '') + '">'
+        + '<td class="rate">' + Math.round(rate * 100) + '%'
+        + (isMarginal ? '<span class="marginal-tag">Your bracket</span>' : '') + '</td>'
+        + '<td class="range">' + rangeLabel + '</td>'
+        + '<td>' + fmtMoney(inBracket) + '</td>'
+        + '<td class="tax-amt">' + fmtMoney(tax) + '</td>'
+        + '</tr>';
+
+      lower = upper;
+    }
+
+    rowsEl.innerHTML = rowsHtml;
+    document.getElementById('totalTax').textContent = fmtMoney(totalTax);
+    document.getElementById('marginalRate').textContent = income === 0 ? '0%' : Math.round(marginalRate * 100) + '%';
+    document.getElementById('effectiveRate').textContent = income === 0 ? '0%' : fmtPct(totalTax / income);
+    document.getElementById('afterTax').textContent = fmtMoney(income - totalTax);
+
+    requestAnimationFrame(postHeight);
+  }
+
+  // Format the income field with commas, without fighting the caret while typing.
+  incomeEl.addEventListener('input', function () {
+    calculate();
+  });
+  incomeEl.addEventListener('blur', function () {
+    var n = parseIncome();
+    incomeEl.value = Math.round(n).toLocaleString('en-US');
+    calculate();
+  });
+  statusEl.addEventListener('change', calculate);
+
+  // Hardened jws-widget-resize: post height to parent and window.top with retry pings,
+  // so the Duda wrapper iframe sizes correctly on the live page.
+  function postHeight() {
+    var h = document.documentElement.scrollHeight;
+    var msg = { type: 'jws-widget-resize', height: h };
+    try { if (window.parent !== window) window.parent.postMessage(msg, '*'); } catch (e) {}
+    try { if (window.top && window.top !== window.parent) window.top.postMessage(msg, '*'); } catch (e) {}
+  }
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(postHeight).observe(document.body);
+  }
+  window.addEventListener('load', postHeight);
+  var pings = 0;
+  var pinger = setInterval(function () {
+    postHeight();
+    if (++pings >= 10) clearInterval(pinger);
+  }, 500);
+
+  calculate();
+})();
+</script>
+</body>
+</html>
